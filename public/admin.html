@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atualizar base - Produtividade</title>
+  <link href="/styles.css" rel="stylesheet">
+</head>
+<body>
+  <main class="dashboard admin-page">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Administração</p>
+        <h1>Atualizar base</h1>
+      </div>
+      <a class="admin-link" href="/">Ver dashboard</a>
+    </header>
+
+    <form class="upload-panel" id="uploadForm">
+      <label>
+        <span>Senha</span>
+        <input name="password" type="password" autocomplete="current-password" required>
+      </label>
+      <label>
+        <span>Repasse atualizado</span>
+        <input name="repasse" type="file" accept=".xlsx" required>
+      </label>
+      <label>
+        <span>Reserva atualizada</span>
+        <input name="reserva" type="file" accept=".xlsx" required>
+      </label>
+      <button type="submit">Processar e atualizar</button>
+      <p id="uploadStatus" class="upload-status"></p>
+    </form>
+
+    <section class="realty-section">
+      <header class="realty-header compact-header">
+        <div>
+          <p class="eyebrow">Base ativa</p>
+          <h2>Status dos arquivos</h2>
+        </div>
+      </header>
+      <div class="sheet-table-wrap" id="fileStatus"></div>
+    </section>
+  </main>
+  <script src="/admin.js"></script>
+</body>
+</html>

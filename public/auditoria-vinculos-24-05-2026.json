@@ -1,0 +1,14 @@
+[
+  {
+    "tipo": "corretor_sem_base_meta",
+    "time": "EQUIPE PRÓPRIA | FSA",
+    "corretor": "Ana Clara Correa Rosa",
+    "repasses_mes": 0,
+    "reservas_mes": 1,
+    "acao": "Cadastrar ou vincular na base de metas"
+  },
+  {
+    "tipo": "observacao",
+    "texto": "Imobiliarias/parceiros sem cadastro individual foram mantidos no bloco de imobiliarias, nao como corretores."
+  }
+]

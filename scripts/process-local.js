@@ -1,0 +1,36 @@
+const path = require("path");
+const fs = require("fs");
+const { processExcelFiles } = require("../lib/excelProcessor");
+const { saveDashboard } = require("../lib/storage");
+
+function latestFile(root, prefix) {
+  const candidates = fs.readdirSync(root)
+    .filter((name) => name.toLowerCase().startsWith(prefix.toLowerCase()) && name.toLowerCase().endsWith(".xlsx"))
+    .map((name) => ({ name, time: fs.statSync(path.join(root, name)).mtimeMs }))
+    .sort((a, b) => b.time - a.time);
+  if (!candidates.length) throw new Error(`Arquivo não encontrado: ${prefix}*.xlsx`);
+  return path.join(root, candidates[0].name);
+}
+
+async function main() {
+  const root = process.cwd();
+  const files = {
+    meta: path.join(root, "Meta.IPC.repasses.v2.xlsx"),
+    structure: path.join(root, "Estrutura_Time_Com_CPFs_CAT.xlsx"),
+    repasse: latestFile(root, "Repasse."),
+    reserva: latestFile(root, "reserva.")
+  };
+  const dashboard = await processExcelFiles(files, [
+    { kind: "meta", originalName: path.basename(files.meta), storagePath: files.meta },
+    { kind: "structure", originalName: path.basename(files.structure), storagePath: files.structure },
+    { kind: "repasse", originalName: path.basename(files.repasse), storagePath: files.repasse },
+    { kind: "reserva", originalName: path.basename(files.reserva), storagePath: files.reserva }
+  ]);
+  await saveDashboard(dashboard);
+  console.log(`Dashboard gerado: ${dashboard.metrics.total}/${dashboard.metrics.goal} (${dashboard.periodLabel})`);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

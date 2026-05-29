@@ -1,0 +1,7 @@
+﻿node_modules/
+uploads/
+.env
+*.log
+.npm-cache/
+tmp-test/
+.DS_Store

@@ -1,2519 +1,790 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Dashboard de Produtividade</title><link href="dashboard-produtividade-atualizado.css" rel="stylesheet"></head><body><main class="dashboard"><header class="topbar"><div><p class="eyebrow">Análise de produtividade</p><h1>Modelo por imobiliária e corretores</h1></div><div class="topbar-actions"><div class="period-card"><span>Base</span><strong>Maio/2026</strong><small>Atualizado em 29/05/2026, 10:27:04</small></div><a class="admin-link" href="http://localhost:3000/admin">Atualizar Excel</a></div></header><section aria-label="Indicadores principais" class="metric-grid"><article class="metric-card ">
-    <span>Total realizado</span>
-    <strong>71</strong>
-    <small>FSA 42 (Imob FSA 12) + AGL 29 (Imob AGL 5)</small>
-  </article><article class="metric-card ">
-    <span>Meta geral</span>
-    <strong>82</strong>
-    <small>FSA 35 / Imob FSA 10 + AGL 32 / Imob AGL 5</small>
-  </article><article class="metric-card ">
-    <span>Atingimento</span>
-    <strong>87%</strong>
-    <div class="progress"><span style="width:87%"></span></div>
-  </article><article class="metric-card ">
-    <span>IPC 2026</span>
-    <strong>1,22</strong>
-    <small>Média do IPC 2026 dos corretores ativos</small>
-  </article><article class="metric-card ">
-    <span>IPC do mês</span>
-    <strong>1,42</strong>
-    <small>54 repasses do time / 38 corretores ativos</small>
-  </article><article class="metric-card ">
-    <span>Imobiliárias</span>
-    <strong>15</strong>
-    <small>Times encontrados na planilha</small>
-  </article><article class="metric-card warning">
-    <span>Para analisar</span>
-    <strong>23</strong>
-    <small>Abaixo da meta ou sem tração</small>
-  </article></section><section aria-label="Racional de meta" class="sheet-toolbar"><div><span class="filter-label">Regra de leitura</span><strong>IPC anual ajustado pelos meses trabalhados no ano</strong></div><div class="toolbar-pills"><span class="rule-pill">Repasses do mês atual: data de assinatura no mês da base, sem distrato ou cancelado</span><span class="rule-pill">Reservas do mês atual: reservas ativas, sem cancelada/distrato e sem código já convertido em repasse</span><span class="rule-pill">IPC = repasses / meses ativos</span><span class="rule-pill">Afastado: sem meta</span><span class="rule-pill">0-3m: 0,66</span><span class="rule-pill">3-6m: 1,33</span><span class="rule-pill">6-9m: 1,66</span><span class="rule-pill">9m+: 2,00</span></div></section><section class="summary-grid"><article class="summary-card">
-    <span>FSA</span><strong>42 / 45</strong>
-    <div class="bar"><span class="ok" style="width:93%"></span></div>
-    <small>93% de atingimento; Imob FSA: 12/10</small>
-  </article><article class="summary-card">
-    <span>AGL</span><strong>29 / 37</strong>
-    <div class="bar"><span class="attention" style="width:78%"></span></div>
-    <small>78% de atingimento; Imob AGL: 5/5</small>
-  </article></section><section class="realty-section">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Produtividade</title>
+  <style>
+:root {
+  --bg: #f3f6f4;
+  --surface: #ffffff;
+  --surface-soft: #f7faf8;
+  --ink: #17211d;
+  --muted: #65746e;
+  --line: #dce5e0;
+  --line-strong: #c5d3cc;
+  --header: #e8f0ec;
+  --ok: #1f8a5b;
+  --ok-soft: #e1f5eb;
+  --attention: #bc7a12;
+  --attention-soft: #fff0cf;
+  --danger: #c83f36;
+  --danger-soft: #fde5e2;
+  --blue: #246b84;
+  --shadow: 0 16px 38px rgba(28, 47, 39, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dashboard {
+  width: min(1540px, 100%);
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.eyebrow {
+  margin: 0 0 7px;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.05;
+}
+
+h2 {
+  margin-bottom: 0;
+  font-size: 22px;
+}
+
+.period-card,
+.metric-card,
+.summary-card,
+.realty-section,
+.insight-card,
+.sheet-toolbar {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.period-card {
+  min-width: 160px;
+  padding: 15px;
+}
+
+.admin-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+  color: #ffffff;
+  background: var(--blue);
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.topbar-actions .admin-link {
+  align-self: stretch;
+}
+
+
+.period-card span,
+.metric-card span,
+.summary-card span,
+.insight-card span,
+.filter-label {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.period-card strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 22px;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.metric-card {
+  min-height: 122px;
+  padding: 16px;
+}
+
+.metric-card strong {
+  display: block;
+  margin: 9px 0 7px;
+  font-size: clamp(28px, 4vw, 38px);
+  line-height: 1;
+}
+
+.metric-card small,
+.summary-card small {
+  color: var(--muted);
+}
+
+.metric-card.warning {
+  border-color: #efcc84;
+  background: linear-gradient(180deg, #fffaf0 0%, #ffffff 100%);
+}
+
+.progress,
+.bar {
+  overflow: hidden;
+  height: 10px;
+  background: #edf3f0;
+  border-radius: 999px;
+}
+
+.progress span,
+.bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.progress span,
+.bar span.ok {
+  background: var(--ok);
+}
+
+.bar span.attention {
+  background: var(--attention);
+}
+
+.bar span.danger {
+  background: var(--danger);
+}
+
+.sheet-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.toolbar-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.summary-card {
+  padding: 16px;
+}
+
+.summary-card strong {
+  display: block;
+  margin: 8px 0 12px;
+  font-size: 28px;
+}
+
+.realty-section {
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.realty-header {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.6fr) 1.4fr;
+  gap: 18px;
+  padding: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbf9 100%);
+  border-bottom: 1px solid var(--line);
+}
+
+.realty-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(130px, 1fr));
+  gap: 10px;
+  align-items: stretch;
+}
+
+.realty-kpis span {
+  min-height: 54px;
+  padding: 10px 12px;
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.realty-kpis b {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.sheet-table-wrap {
+  overflow-x: auto;
+  background:
+    linear-gradient(90deg, #fff 30%, rgba(255, 255, 255, 0)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0), #fff 70%) 100% 0,
+    linear-gradient(90deg, rgba(23, 33, 29, 0.12), rgba(23, 33, 29, 0)),
+    linear-gradient(90deg, rgba(23, 33, 29, 0), rgba(23, 33, 29, 0.12)) 100% 0;
+  background-attachment: local, local, scroll, scroll;
+  background-repeat: no-repeat;
+  background-size: 34px 100%, 34px 100%, 12px 100%, 12px 100%;
+}
+
+.sheet-table {
+  width: 100%;
+  min-width: 1280px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.sheet-table th,
+.sheet-table td {
+  padding: 10px 11px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: middle;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.sheet-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: #35433d;
+  background: var(--header);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.broker-table th:first-child,
+.broker-table td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  width: 52px;
+  min-width: 52px;
+  max-width: 52px;
+  text-align: center;
+  color: var(--muted);
+  background: #f6faf8;
+}
+
+.broker-table th:first-child {
+  z-index: 4;
+}
+
+.broker-table th:nth-child(2),
+.broker-table td:nth-child(2) {
+  position: sticky;
+  left: 52px;
+  z-index: 2;
+  width: 360px;
+  min-width: 360px;
+  max-width: 360px;
+  background: #ffffff;
+  white-space: normal;
+  box-shadow: 8px 0 14px rgba(28, 47, 39, 0.08);
+}
+
+.broker-table th:nth-child(2) {
+  z-index: 4;
+  background: var(--header);
+}
+
+.sheet-table tbody tr:hover td {
+  background: #f9fcfa;
+}
+
+.broker-table tbody tr:hover td:first-child,
+.broker-table tbody tr:hover td:nth-child(2) {
+  background: #f9fcfa;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-pill.ok {
+  color: var(--ok);
+  background: var(--ok-soft);
+}
+
+.status-pill.attention {
+  color: var(--attention);
+  background: var(--attention-soft);
+}
+
+.status-pill.danger {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.status-pill.neutral {
+  color: var(--muted);
+  background: #edf3f0;
+}
+
+.profile-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  color: #26342f;
+  background: #edf3f0;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.num-focus {
+  color: var(--blue);
+  font-weight: 800;
+  text-align: center;
+}
+
+.front-strong {
+  color: var(--attention);
+  background: #fff8e8;
+}
+
+.muted-num {
+  color: var(--muted);
+  background: #f7faf8;
+}
+
+.rule-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 5px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: #35433d;
+  background: #f8fbf9;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.good {
+  color: var(--ok);
+  font-weight: 700;
+}
+
+.bad {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.neutral-text {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.ok {
+  background: var(--ok);
+}
+
+.attention {
+  background: var(--attention);
+}
+
+.danger {
+  background: var(--danger);
+}
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.manager-summary {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.compact-header {
+  grid-template-columns: minmax(220px, 0.8fr) 1.2fr;
+}
+
+.summary-table,
+.priority-table {
+  min-width: 980px;
+}
+
+.priority-table td:nth-child(2) {
+  min-width: 320px;
+}
+
+.priority-table td:nth-child(2) span {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.insight-card {
+  padding: 16px;
+}
+
+.insight-card strong {
+  display: block;
+  margin: 7px 0 8px;
+  font-size: 18px;
+}
+
+.insight-card p {
+  margin-bottom: 0;
+  color: #384640;
+  line-height: 1.45;
+}
+
+.danger-border {
+  border-left: 5px solid var(--danger);
+}
+
+.attention-border {
+  border-left: 5px solid var(--attention);
+}
+
+.ok-border {
+  border-left: 5px solid var(--ok);
+}
+
+@media (max-width: 1180px) {
+  .metric-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .realty-header {
+    grid-template-columns: 1fr;
+  }
+
+  .realty-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .dashboard {
+    padding: 16px;
+  }
+
+  .topbar,
+  .sheet-toolbar {
+    display: grid;
+  }
+
+  .topbar-actions {
+    display: grid;
+  }
+
+  .period-card {
+    width: 100%;
+  }
+
+  .metric-grid,
+  .summary-grid,
+  .insight-grid,
+  .realty-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .sheet-table {
+    min-width: 1120px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <main class="dashboard">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Analise de produtividade</p>
+        <h1>Modelo por imobiliaria e corretores</h1>
+      </div>
+      <div class="topbar-actions">
+        <div class="period-card">
+          <span>Base</span>
+          <strong id="periodLabel">Carregando...</strong>
+          <small id="updatedAt">Buscando dados</small>
+        </div>
+      </div>
+    </header>
+
+    <section aria-label="Indicadores principais" class="metric-grid" id="metricGrid"></section>
+
+    <section aria-label="Racional de meta" class="sheet-toolbar">
+      <div>
+        <span class="filter-label">Regra de leitura</span>
+        <strong>IPC anual ajustado pelos meses trabalhados no ano</strong>
+      </div>
+      <div class="toolbar-pills">
+        <span class="rule-pill">Repasses do mes atual: data de assinatura no mes da base, sem distrato ou cancelado</span>
+        <span class="rule-pill">Reservas do mes atual: reservas ativas, sem cancelada/distrato/venda finalizada</span>
+        <span class="rule-pill">IPC = repasses / meses ativos</span>
+        <span class="rule-pill">Afastado: sem meta</span>
+        <span class="rule-pill">0-3m: 0,33</span>
+        <span class="rule-pill">3-6m: 1,33</span>
+        <span class="rule-pill">6-9m: 1,66</span>
+        <span class="rule-pill">9m+: 2,00</span>
+      </div>
+    </section>
+
+    <section class="summary-grid" id="areaGrid"></section>
+    <div id="teams"></div>
+
+    <section aria-label="Resumo por gerente" class="manager-summary">
+      <article class="realty-section">
+        <header class="realty-header compact-header">
+          <div>
+            <p class="eyebrow">Resumo gerencial</p>
+            <h2>Produtividade por gerente</h2>
+          </div>
+          <div class="realty-kpis"><span><b>Leitura</b> acima x abaixo</span><span><b>Foco</b> reservas do mes</span></div>
+        </header>
+        <div class="sheet-table-wrap" id="managerSummary"></div>
+      </article>
+
+      <article class="realty-section">
+        <header class="realty-header compact-header">
+          <div>
+            <p class="eyebrow">Prioridade de acao</p>
+            <h2>Corretores abaixo da meta com carteira</h2>
+          </div>
+          <div class="realty-kpis"><span><b>Regra</b> maior reserva do mes primeiro</span><span><b>Objetivo</b> converter reservas do mes</span></div>
+        </header>
+        <div class="sheet-table-wrap" id="priorityList"></div>
+      </article>
+    </section>
+
+    <section class="insight-grid" id="insights"></section>
+  </main>
+  <script>
+window.STATIC_DASHBOARD_DATA = {"periodLabel":"Junho/2026","updatedAt":"2026-06-01T22:01:24.617Z","files":[{"kind":"meta","originalName":"Meta.IPC.repasses.v2.xlsx","storagePath":"C:\\Users\\gestaocomercial\\OneDrive - Grupo Imerge\\Área de Trabalho\\Produtividade-Junho\\Meta.IPC.repasses.v2.xlsx"},{"kind":"structure","originalName":"QLP - Taveira.xlsx","storagePath":"C:\\Users\\gestaocomercial\\OneDrive - Grupo Imerge\\Área de Trabalho\\Produtividade-Junho\\QLP - Taveira.xlsx"},{"kind":"collaborators","originalName":"Colaboradores.cooretores.data entrada.xlsx","storagePath":"C:\\Users\\gestaocomercial\\OneDrive - Grupo Imerge\\Área de Trabalho\\Produtividade-Junho\\Colaboradores.cooretores.data entrada.xlsx"},{"kind":"repasse","originalName":"Repasse.31.5.2026.xlsx","storagePath":"C:\\Users\\gestaocomercial\\OneDrive - Grupo Imerge\\Área de Trabalho\\Produtividade-Junho\\Repasse.31.5.2026.xlsx"},{"kind":"reserva","originalName":"reserva.31.5.26.xlsx","storagePath":"C:\\Users\\gestaocomercial\\OneDrive - Grupo Imerge\\Área de Trabalho\\Produtividade-Junho\\reserva.31.5.26.xlsx"}],"metrics":{"total":0,"goal":132,"achievement":0,"ipcYear":0.9404761904761905,"ipcMonth":0,"teamRepasses":0,"activePeople":45,"realtyCount":13,"toAnalyze":33},"areas":[{"area":"FSA","repasses":0,"goal":45,"baseGoal":35,"realtyGoal":10,"realtyRepasses":0,"percent":0},{"area":"AGL","repasses":0,"goal":37,"baseGoal":32,"realtyGoal":5,"realtyRepasses":0,"percent":0},{"area":"CAT","repasses":0,"goal":50,"baseGoal":25,"realtyGoal":25,"realtyRepasses":0,"percent":0}],"teams":[{"name":"EQUIPE PRÓPRIA | FSA","area":"FSA","manager":"Vivian","people":[{"name":"Ingrid Alves D'Aparecida","key":"INGRID ALVES DAPARECIDA","team":"EQUIPE PRÓPRIA | FSA","area":"FSA","start":"07/12/2023","months":31,"y2024":21,"y2025":27,"y2026":5,"ipc2024":1.75,"ipc2025":2.25,"ipc2026":0.8333333333333334,"currentGoal":2,"suggestedGoal":2,"diff":-1.1666666666666665,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":2,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""},{"name":"Nauane Martins da Silva Oliveira","key":"NAUANE MARTINS DA SILVA OLIVEIRA","team":"EQUIPE PRÓPRIA | FSA","area":"FSA","start":"23/08/2023","months":35,"y2024":16,"y2025":26,"y2026":5,"ipc2024":1.3333333333333333,"ipc2025":2.1666666666666665,"ipc2026":0.8333333333333334,"currentGoal":2,"suggestedGoal":2,"diff":-1.1666666666666665,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":3,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""},{"name":"Ryan Gomes Calazans","key":"RYAN GOMES CALAZANS","team":"EQUIPE PRÓPRIA | FSA","area":"FSA","start":"01/11/2023","months":32,"y2024":23,"y2025":21,"y2026":7,"ipc2024":1.9166666666666667,"ipc2025":1.75,"ipc2026":1.1666666666666667,"currentGoal":2,"suggestedGoal":2,"diff":-0.8333333333333333,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Maria Daiana da Silva Brandão","key":"MARIA DAIANA DA SILVA BRANDAO","team":"EQUIPE PRÓPRIA | FSA","area":"FSA","start":"02/09/2025","months":10,"y2024":0,"y2025":4,"y2026":5,"ipc2024":0,"ipc2025":0.3333333333333333,"ipc2026":0.8333333333333334,"currentGoal":1.66,"suggestedGoal":2,"diff":-0.8266666666666665,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Valmir Santana dos Santos","key":"VALMIR SANTANA DOS SANTOS","team":"EQUIPE PRÓPRIA | FSA","area":"FSA","start":"18/03/2026","months":4,"y2024":0,"y2025":0,"y2026":1,"ipc2024":null,"ipc2025":null,"ipc2026":0.16666666666666666,"currentGoal":1.33,"suggestedGoal":1.33,"diff":-1.1633333333333333,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""}],"above":0,"below":5,"critical":3,"teamGoal":8.99,"repasses":0,"reservas":6,"cancelados":0,"distratos":0,"ipcYear":0.7666666666666667,"ipcMonth":0,"activePeople":5},{"name":"EQUIPE PRÓPRIA 2 | FSA","area":"FSA","manager":"Lucas","people":[{"name":"Gabriel do Nascimento Dias","key":"GABRIEL DO NASCIMENTO DIAS","team":"EQUIPE PRÓPRIA 2 | FSA","area":"FSA","start":"01/11/2023","months":32,"y2024":27,"y2025":27,"y2026":10,"ipc2024":2.25,"ipc2025":2.25,"ipc2026":1.6666666666666667,"currentGoal":2,"suggestedGoal":2,"diff":-0.33333333333333326,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":2,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Maria Eugenia Martins Alves","key":"MARIA EUGENIA MARTINS ALVES","team":"EQUIPE PRÓPRIA 2 | FSA","area":"FSA","start":"02/09/2025","months":10,"y2024":0,"y2025":8,"y2026":7,"ipc2024":0,"ipc2025":0.6666666666666666,"ipc2026":1.1666666666666667,"currentGoal":1.66,"suggestedGoal":2,"diff":-0.4933333333333332,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Murielly de Sousa Santos","key":"MURIELLY DE SOUSA SANTOS","team":"EQUIPE PRÓPRIA 2 | FSA","area":"FSA","start":"18/03/2026","months":4,"y2024":0,"y2025":0,"y2026":1,"ipc2024":null,"ipc2025":null,"ipc2026":0.16666666666666666,"currentGoal":1.33,"suggestedGoal":1.33,"diff":-1.1633333333333333,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":2,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""},{"name":"Nathália Nogueira Aguiar","key":"NATHALIA NOGUEIRA AGUIAR","team":"EQUIPE PRÓPRIA 2 | FSA","area":"FSA","cpf":"","role":"","start":"novato","months":1,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":0.33,"suggestedGoal":0.33,"diff":null,"repassesMonth":0,"repassesPreviousMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Natália Cristina Neris dos Santos","key":"NATALIA CRISTINA NERES DOS SANTOS","team":"EQUIPE PRÓPRIA 2 | FSA","area":"FSA","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"}],"above":0,"below":3,"critical":1,"teamGoal":5.32,"repasses":0,"reservas":6,"cancelados":0,"distratos":0,"ipcYear":1,"ipcMonth":0,"activePeople":4},{"name":"AUTÔNOMOS | FSA","area":"FSA","manager":"Alana","people":[{"name":"Cleide de Oliveira Alves","key":"CLEIDE DE OLIVEIRA ALVES","team":"AUTÔNOMOS | FSA","area":"FSA","start":"22/04/2025","months":15,"y2024":0,"y2025":8,"y2026":8,"ipc2024":0,"ipc2025":0.6666666666666666,"ipc2026":1.3333333333333333,"currentGoal":2,"suggestedGoal":2,"diff":-0.6666666666666667,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Isabella Pereira Feliciano","key":"ISABELLA PEREIRA FELICIANO","team":"AUTÔNOMOS | FSA","area":"FSA","start":"18/08/2023","months":35,"y2024":15,"y2025":34,"y2026":12,"ipc2024":1.25,"ipc2025":2.8333333333333335,"ipc2026":2,"currentGoal":2,"suggestedGoal":2,"diff":0,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"OK","statusClass":"ok","profile":"Estável","action":"Manter cadência e gerar novas reservas","cpf":"","role":""},{"name":"Anna Luiza Pereira de Sousa","key":"ANNA LUIZA PEREIRA DE SOUSA","team":"AUTÔNOMOS | FSA","area":"FSA","start":"14/05/2025","months":14,"y2024":0,"y2025":20,"y2026":12,"ipc2024":0,"ipc2025":1.6666666666666667,"ipc2026":2,"currentGoal":2,"suggestedGoal":2,"diff":0,"repassesPreviousMonth":4,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"OK","statusClass":"ok","profile":"Estável","action":"Manter cadência e gerar novas reservas","cpf":"","role":""},{"name":"Steffany Silva Pinto","key":"STEFFANY SILVA PINTO","team":"AUTÔNOMOS | FSA","area":"FSA","start":"01/10/2025","months":9,"y2024":0,"y2025":2,"y2026":6,"ipc2024":0,"ipc2025":0.16666666666666666,"ipc2026":1,"currentGoal":1.66,"suggestedGoal":1.66,"diff":-0.6599999999999999,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Camila Fernandes da Silva","key":"CAMILA FERNANDES DA SILVA","team":"AUTÔNOMOS | FSA","area":"FSA","start":"01/12/2023","months":31,"y2024":15,"y2025":19,"y2026":6,"ipc2024":1.25,"ipc2025":1.5833333333333333,"ipc2026":1,"currentGoal":2,"suggestedGoal":2,"diff":-1,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""},{"name":"Thâmara Rafaella de Melo Santos","key":"THAMARA RAFAELLA DE MELO SANTOS","team":"AUTÔNOMOS | FSA","area":"FSA","start":"24/03/2026","months":4,"y2024":0,"y2025":0,"y2026":1,"ipc2024":null,"ipc2025":null,"ipc2026":0.16666666666666666,"currentGoal":1.33,"suggestedGoal":1.33,"diff":-1.1633333333333333,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""},{"name":"Anibal Hamu Neto","key":"ANIBAL HAMU NETO","team":"AUTÔNOMOS | FSA","area":"FSA","start":"01/10/2025","months":9,"y2024":0,"y2025":0,"y2026":2,"ipc2024":null,"ipc2025":null,"ipc2026":0.3333333333333333,"currentGoal":1.66,"suggestedGoal":1.66,"diff":-1.3266666666666667,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual"}],"above":2,"below":5,"critical":3,"teamGoal":12.65,"repasses":0,"reservas":1,"cancelados":0,"distratos":0,"ipcYear":1.119047619047619,"ipcMonth":0,"activePeople":7},{"name":"AUTÔNOMOS 2 | FSA","area":"FSA","manager":"Daiana","people":[{"name":"Keully de Sousa Braga","key":"KEULLY DE SOUSA BRAGA","team":"AUTÔNOMOS 2 | FSA","area":"FSA","start":"28/01/2026","months":6,"y2024":0,"y2025":0,"y2026":8,"ipc2024":0,"ipc2025":0,"ipc2026":1.3333333333333333,"currentGoal":0.66,"suggestedGoal":1.33,"diff":0.6733333333333332,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"OK","statusClass":"ok","profile":"Alta performance","action":"Replicar rotina e usar como referência","cpf":"","role":""},{"name":"Gyovana Fernandes Almeida Castro","key":"GYOVANA FERNANDES ALMEIDA CASTRO","team":"AUTÔNOMOS 2 | FSA","area":"FSA","start":"30/07/2025","months":12,"y2024":0,"y2025":4,"y2026":10,"ipc2024":0,"ipc2025":0.3333333333333333,"ipc2026":1.6666666666666667,"currentGoal":1.66,"suggestedGoal":2,"diff":0.006666666666666821,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":2,"canceladosMonth":0,"distratosMonth":0,"status":"OK","statusClass":"ok","profile":"Estável","action":"Manter cadência e gerar novas reservas","cpf":"","role":""},{"name":"Thairine Stefanni Rodrigues da Silva","key":"THAIRINE STEFANNI RODRIGUES DA SILVA","team":"AUTÔNOMOS 2 | FSA","area":"FSA","start":"30/07/2025","months":12,"y2024":0,"y2025":4,"y2026":6,"ipc2024":0,"ipc2025":0.3333333333333333,"ipc2026":1,"currentGoal":1.66,"suggestedGoal":2,"diff":-0.6599999999999999,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Marcilene dos Reis Carvalho","key":"MARCILENE DOS REIS CARVALHO","team":"AUTÔNOMOS 2 | FSA","area":"FSA","start":"27/08/2024","months":23,"y2024":1,"y2025":9,"y2026":5,"ipc2024":0.08333333333333333,"ipc2025":0.75,"ipc2026":0.8333333333333334,"currentGoal":2,"suggestedGoal":2,"diff":-1.1666666666666665,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""},{"name":"Letícia Lorranny Santos Dourado","key":"LETICIA LORRANNY SANTOS DOURADO","team":"AUTÔNOMOS 2 | FSA","area":"FSA","start":"30/07/2025","months":12,"y2024":0,"y2025":2,"y2026":3,"ipc2024":0,"ipc2025":0.16666666666666666,"ipc2026":0.5,"currentGoal":1.66,"suggestedGoal":2,"diff":-1.16,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""},{"name":"Erika Alves Gomes","key":"ERIKA ALVES GOMES","team":"AUTÔNOMOS 2 | FSA","area":"FSA","start":"18/03/2026","months":4,"y2024":0,"y2025":0,"y2026":1,"ipc2024":null,"ipc2025":null,"ipc2026":0.16666666666666666,"currentGoal":1.33,"suggestedGoal":1.33,"diff":-1.1633333333333333,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""},{"name":"Pabline Micheli Oliveira da Silva","key":"PABLINE MICHELI OLIVEIRA DA SILVA","team":"AUTÔNOMOS 2 | FSA","area":"FSA","start":"18/03/2026","months":4,"y2024":0,"y2025":0,"y2026":1,"ipc2024":null,"ipc2025":null,"ipc2026":0.16666666666666666,"currentGoal":1.33,"suggestedGoal":1.33,"diff":-1.1633333333333333,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""}],"above":2,"below":5,"critical":4,"teamGoal":10.3,"repasses":0,"reservas":4,"cancelados":0,"distratos":0,"ipcYear":0.8095238095238095,"ipcMonth":0,"activePeople":7},{"name":"IMOBILIÁRIAS | FSA","area":"FSA","manager":"Rafael","people":[{"name":"Thamires Santos de Araujo","key":"THAMIRES SANTOS DE ARAUJO__IMOBILIARIAS | FSA","team":"IMOBILIÁRIAS | FSA","area":"FSA","start":"-","months":null,"y2024":0,"y2025":0,"y2026":6,"ipc2024":null,"ipc2025":null,"ipc2026":1,"currentGoal":null,"suggestedGoal":null,"diff":1,"repassesPreviousMonth":3,"repassesMonth":0,"reservasMonth":3,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Arthur Parriao Negocios Imobiliarios","key":"ARTHUR PARRIAO NEGOCIOS IMOBILIARIOS__IMOBILIARIAS | FSA","team":"IMOBILIÁRIAS | FSA","area":"FSA","start":"-","months":null,"y2024":0,"y2025":0,"y2026":16,"ipc2024":null,"ipc2025":null,"ipc2026":2.6666666666666665,"currentGoal":null,"suggestedGoal":null,"diff":2.6666666666666665,"repassesPreviousMonth":3,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Job Imobiliaria","key":"JOB IMOBILIARIA__IMOBILIARIAS | FSA","team":"IMOBILIÁRIAS | FSA","area":"FSA","start":"-","months":null,"y2024":0,"y2025":0,"y2026":3,"ipc2024":null,"ipc2025":null,"ipc2026":0.5,"currentGoal":null,"suggestedGoal":null,"diff":0.5,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Portela Imobiliaria","key":"PORTELA IMOBILIARIA__IMOBILIARIAS | FSA","team":"IMOBILIÁRIAS | FSA","area":"FSA","start":"-","months":null,"y2024":0,"y2025":0,"y2026":5,"ipc2024":null,"ipc2025":null,"ipc2026":0.8333333333333334,"currentGoal":null,"suggestedGoal":null,"diff":0.8333333333333334,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Romário Augusto Negócios Imobiliários Ltda.","key":"ROMARIO AUGUSTO NEGOCIOS IMOBILIARIOS LTDA.__IMOBILIARIAS | FSA","team":"IMOBILIÁRIAS | FSA","area":"FSA","start":"-","months":null,"y2024":0,"y2025":0,"y2026":3,"ipc2024":null,"ipc2025":null,"ipc2026":0.5,"currentGoal":null,"suggestedGoal":null,"diff":0.5,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Wiris Fernandes Negocios Imobiliarios","key":"WIRIS FERNANDES NEGOCIOS IMOBILIARIOS__IMOBILIARIAS | FSA","team":"IMOBILIÁRIAS | FSA","area":"FSA","start":"-","months":null,"y2024":0,"y2025":0,"y2026":2,"ipc2024":null,"ipc2025":null,"ipc2026":0.3333333333333333,"currentGoal":null,"suggestedGoal":null,"diff":0.3333333333333333,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Luciano de Oliveira Nascimento Fsa","key":"LUCIANO DE OLIVEIRA NASCIMENTO FSA__IMOBILIARIAS | FSA","team":"IMOBILIÁRIAS | FSA","area":"FSA","start":"-","months":null,"y2024":0,"y2025":0,"y2026":1,"ipc2024":null,"ipc2025":null,"ipc2026":0.16666666666666666,"currentGoal":null,"suggestedGoal":null,"diff":0.16666666666666666,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Vitória Imóveis Imob","key":"VITORIA IMOVEIS__IMOBILIARIAS | FSA","team":"IMOBILIÁRIAS | FSA","area":"FSA","start":"-","months":null,"y2024":0,"y2025":0,"y2026":6,"ipc2024":null,"ipc2025":null,"ipc2026":1,"currentGoal":null,"suggestedGoal":null,"diff":1,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Itiquira Imoveis e Assessoria","key":"ITIQUIRA IMOVEIS E ASSESSORIA__IMOBILIARIAS | FSA","team":"IMOBILIÁRIAS | FSA","area":"FSA","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":3,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"}],"above":8,"below":0,"critical":0,"teamGoal":0,"repasses":0,"reservas":7,"cancelados":0,"distratos":0,"ipcYear":null,"ipcMonth":0,"activePeople":1},{"name":"EQUIPE PRÓPRIA | AGL","area":"AGL","manager":"Ana","people":[{"name":"Maysa Gabriela Goncalves Oliveira","key":"MAYSA GABRIELA GONCALVES OLIVEIRA","team":"EQUIPE PRÓPRIA | AGL","area":"AGL","start":"09/12/2022","months":43,"y2024":13,"y2025":9,"y2026":6,"ipc2024":1.0833333333333333,"ipc2025":0.75,"ipc2026":1,"currentGoal":2,"suggestedGoal":2,"diff":-1,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""},{"name":"Jonatas Castro da Silva","key":"JONATAN CASTRO DA SILVA","team":"EQUIPE PRÓPRIA | AGL","area":"AGL","start":"07/01/2024","months":30,"y2024":8,"y2025":16,"y2026":8,"ipc2024":0.6666666666666666,"ipc2025":1.3333333333333333,"ipc2026":1.3333333333333333,"currentGoal":2,"suggestedGoal":2,"diff":-0.6666666666666667,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Natasha Lucilía Barbosa","key":"NATASHA LUCILIA BARBOSA","team":"EQUIPE PRÓPRIA | AGL","area":"AGL","start":"03/12/2025","months":7,"y2024":0,"y2025":1,"y2026":5,"ipc2024":0,"ipc2025":0.08333333333333333,"ipc2026":0.8333333333333334,"currentGoal":1.33,"suggestedGoal":1.66,"diff":-0.4966666666666667,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Ariani Morais de Sousa Pereira","key":"ARIANI MORAIS DE SOUSA PEREIRA","team":"EQUIPE PRÓPRIA | AGL","area":"AGL","start":"21/07/2025","months":12,"y2024":0,"y2025":10,"y2026":6,"ipc2024":0,"ipc2025":0.8333333333333334,"ipc2026":1,"currentGoal":1.66,"suggestedGoal":2,"diff":-0.6599999999999999,"repassesPreviousMonth":3,"repassesMonth":0,"reservasMonth":2,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Milene de Almeida Lima","key":"MILENE DE ALMEIDA LIMA","team":"EQUIPE PRÓPRIA | AGL","area":"AGL","start":"21/07/2025","months":12,"y2024":0,"y2025":3,"y2026":5,"ipc2024":0,"ipc2025":0.25,"ipc2026":0.8333333333333334,"currentGoal":1.66,"suggestedGoal":2,"diff":-0.8266666666666665,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Áquila da Silva Fernandes","key":"AQUILA DA SILVA FERNANDES","team":"EQUIPE PRÓPRIA | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"}],"above":0,"below":5,"critical":1,"teamGoal":8.65,"repasses":0,"reservas":4,"cancelados":0,"distratos":0,"ipcYear":0.9999999999999998,"ipcMonth":0,"activePeople":6},{"name":"EQUIPE PRÓPRIA 2 | AGL","area":"AGL","manager":"Josué","people":[{"name":"Fabiane Bezerra de Momeira dos Santos","key":"FABIANE BEZERRA DE MOMEIRA DOS SANTOS","team":"EQUIPE PRÓPRIA 2 | AGL","area":"AGL","start":"07/10/2025","months":9,"y2024":0,"y2025":1,"y2026":7,"ipc2024":0,"ipc2025":0.08333333333333333,"ipc2026":1.1666666666666667,"currentGoal":1.33,"suggestedGoal":1.66,"diff":-0.16333333333333333,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"João Vitor Brito","key":"JOAO VITOR BRITO","team":"EQUIPE PRÓPRIA 2 | AGL","area":"AGL","start":"07/10/2025","months":9,"y2024":0,"y2025":2,"y2026":4,"ipc2024":0,"ipc2025":0.16666666666666666,"ipc2026":0.6666666666666666,"currentGoal":1.33,"suggestedGoal":1.66,"diff":-0.6633333333333334,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Wanderson Romero Coelho da Silva","key":"WANDERSON ROMERO COELHO DA SILVA","team":"EQUIPE PRÓPRIA 2 | AGL","area":"AGL","start":"03/02/2026","months":5,"y2024":0,"y2025":8,"y2026":4,"ipc2024":0,"ipc2025":0.6666666666666666,"ipc2026":0.6666666666666666,"currentGoal":2,"suggestedGoal":1.33,"diff":-1.3333333333333335,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""},{"name":"Juliana Maria de Souza","key":"JULIANA MARIA DE SOUZA","team":"EQUIPE PRÓPRIA 2 | AGL","area":"AGL","start":"04/11/2025","months":8,"y2024":0,"y2025":0,"y2026":6,"ipc2024":0,"ipc2025":0,"ipc2026":1,"currentGoal":1.33,"suggestedGoal":1.66,"diff":-0.33000000000000007,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente","cpf":"","role":""},{"name":"Luis Alves dos Santos da Silva Rocha","key":"LUIS ALVES DOS SANTOS DA SILVA ROCHA","team":"EQUIPE PRÓPRIA 2 | AGL","area":"AGL","start":"23/08/2023","months":35,"y2024":13,"y2025":14,"y2026":5,"ipc2024":1.0833333333333333,"ipc2025":1.1666666666666667,"ipc2026":0.8333333333333334,"currentGoal":2,"suggestedGoal":2,"diff":-1.1666666666666665,"repassesPreviousMonth":3,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual","cpf":"","role":""},{"name":"Ana Luiza Entrepontes da Costa","key":"ANA LUIZA ENTREPONTES DA COSTA","team":"EQUIPE PRÓPRIA 2 | AGL","area":"AGL","start":"novato","months":1,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":0.33,"suggestedGoal":0.33,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"}],"above":0,"below":5,"critical":2,"teamGoal":8.32,"repasses":0,"reservas":3,"cancelados":0,"distratos":0,"ipcYear":0.8666666666666666,"ipcMonth":0,"activePeople":5},{"name":"IMOBILIÁRIAS | AGL","area":"AGL","manager":"Francisco","people":[{"name":"Mora Imoveis Ltda","key":"MORA IMOVEIS LTDA__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":1,"ipc2024":null,"ipc2025":null,"ipc2026":0.16666666666666666,"currentGoal":null,"suggestedGoal":null,"diff":0.16666666666666666,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"S Pestana Negocios Imobiliarios Ltda","key":"S PESTANA NEGOCIOS IMOBILIARIOS LTDA__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":2,"ipc2024":null,"ipc2025":null,"ipc2026":0.3333333333333333,"currentGoal":null,"suggestedGoal":null,"diff":0.3333333333333333,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Maria Ferreira","key":"MARIA FERREIRA__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":2,"ipc2024":null,"ipc2025":null,"ipc2026":0.3333333333333333,"currentGoal":null,"suggestedGoal":null,"diff":0.3333333333333333,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Lk Imóveis - Leonardo Aparecido","key":"LK IMOVEIS__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":3,"ipc2024":null,"ipc2025":null,"ipc2026":0.5,"currentGoal":null,"suggestedGoal":null,"diff":0.5,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Outcom Imob","key":"OUTCOM__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":1,"ipc2024":null,"ipc2025":null,"ipc2026":0.16666666666666666,"currentGoal":null,"suggestedGoal":null,"diff":0.16666666666666666,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Mymob","key":"MYMOB__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":1,"ipc2024":null,"ipc2025":null,"ipc2026":0.16666666666666666,"currentGoal":null,"suggestedGoal":null,"diff":0.16666666666666666,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Ramos Imobiliaria Ltda","key":"RAMOS IMOBILIARIA LTDA__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Ycc Imob","key":"YCC__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Gustavo Alves Gomes Imob","key":"GUSTAVO ALVES GOMES__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Clenia Duarte Costa Gestão Imobiliaria","key":"CLENIA DUARTE COSTA GESTAO IMOBILIARIA__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Pascoal Imobiliaria","key":"PASCOAL IMOBILIARIA__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":6,"ipc2024":null,"ipc2025":null,"ipc2026":1,"currentGoal":null,"suggestedGoal":null,"diff":1,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Inova Imobiliaria","key":"INOVA IMOBILIARIA__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Gracionete de Jesus Silva Andrade","key":"GRACIONETE DE JESUS SILVA ANDRADE__IMOBILIARIAS | AGL","team":"IMOBILIÁRIAS | AGL","area":"AGL","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"}],"above":7,"below":0,"critical":0,"teamGoal":0,"repasses":0,"reservas":8,"cancelados":0,"distratos":0,"ipcYear":null,"ipcMonth":0,"activePeople":6},{"name":"CANAL 1","area":"FSA","manager":"Micael","people":[{"name":"Maria Eduarda Damasceno","key":"MARIA EDUARDA DAMASCENO","team":"CANAL 1","area":"FSA","start":"02/04/2024","months":27,"y2024":0,"y2025":15,"y2026":12,"ipc2024":0,"ipc2025":1.25,"ipc2026":2,"currentGoal":2,"suggestedGoal":2,"diff":0,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"OK","statusClass":"ok","profile":"Estável","action":"Manter cadência e gerar novas reservas","cpf":"","role":""},{"name":"Daniel Andrade dos Santos","key":"DANIEL ANDRADE DOS SANTOS","team":"CANAL 1","area":"FSA","start":"01/10/2024","months":21,"y2024":2,"y2025":28,"y2026":9,"ipc2024":0.16666666666666666,"ipc2025":2.3333333333333335,"ipc2026":1.5,"currentGoal":2,"suggestedGoal":2,"diff":-0.5,"repassesPreviousMonth":5,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente"},{"name":"Lucas de Souza Rodrigues","key":"LUCAS DE SOUZA RODRIGUES","team":"CANAL 1","area":"FSA","start":"06/01/2026","months":6,"y2024":0,"y2025":0,"y2026":5,"ipc2024":0,"ipc2025":0,"ipc2026":0.8333333333333334,"currentGoal":0.66,"suggestedGoal":1.33,"diff":0.17333333333333334,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"OK","statusClass":"ok","profile":"Estável","action":"Manter cadência e gerar novas reservas"},{"name":"Caio Brendon Lopes Martins","key":"CAIO BRENDON LOPES MARTINS","team":"CANAL 1","area":"FSA","start":"21/07/2025","months":12,"y2024":0,"y2025":2,"y2026":4,"ipc2024":0,"ipc2025":0.16666666666666666,"ipc2026":0.6666666666666666,"currentGoal":1.66,"suggestedGoal":2,"diff":-0.9933333333333333,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente"},{"name":"Lucas Ramos de Victória","key":"LUCAS RAMOS DE VICTORIA","team":"CANAL 1","area":"FSA","start":"06/04/2026","months":3,"y2024":0,"y2025":0,"y2026":4,"ipc2024":null,"ipc2025":null,"ipc2026":0.6666666666666666,"currentGoal":0.33,"suggestedGoal":0.33,"diff":0.3366666666666666,"repassesPreviousMonth":2,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"OK","statusClass":"ok","profile":"Alta performance","action":"Replicar rotina e usar como referência"}],"above":3,"below":2,"critical":0,"teamGoal":6.65,"repasses":0,"reservas":2,"cancelados":0,"distratos":0,"ipcYear":1.1333333333333333,"ipcMonth":0,"activePeople":5},{"name":"CANAL 2","area":"FSA","manager":"Alba","people":[{"name":"Leticia Santos da Silva Brito","key":"LETICIA SANTOS DA SILVA","team":"CANAL 2","area":"FSA","start":"18/11/2025","months":8,"y2024":0,"y2025":0,"y2026":10,"ipc2024":0,"ipc2025":0,"ipc2026":1.6666666666666667,"currentGoal":1.33,"suggestedGoal":1.66,"diff":0.33666666666666667,"repassesPreviousMonth":4,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"OK","statusClass":"ok","profile":"Alta performance","action":"Replicar rotina e usar como referência"},{"name":"Sandra Santana dos Santos","key":"SANDRA SANTANA DOS SANTOS","team":"CANAL 2","area":"FSA","start":"03/08/2023","months":35,"y2024":1,"y2025":16,"y2026":5,"ipc2024":0.08333333333333333,"ipc2025":1.3333333333333333,"ipc2026":0.8333333333333334,"currentGoal":2,"suggestedGoal":2,"diff":-1.1666666666666665,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual"},{"name":"Lucas Braga de Souza Oliveira","key":"LUCAS BRAGA DE SOUZA OLIVEIRA","team":"CANAL 2","area":"FSA","start":"23/02/2026","months":5,"y2024":0,"y2025":0,"y2026":3,"ipc2024":0,"ipc2025":0,"ipc2026":0.5,"currentGoal":0.66,"suggestedGoal":1.33,"diff":-0.16000000000000003,"repassesPreviousMonth":1,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Analisar","statusClass":"attention","profile":"Em recuperação","action":"Plano semanal com o gerente"},{"name":"Luana Santana dos Santos","key":"LUANA SANTANA DOS SANTOS","team":"CANAL 2","area":"FSA","start":"03/01/2024","months":30,"y2024":0,"y2025":0,"y2026":4,"ipc2024":null,"ipc2025":null,"ipc2026":0.6666666666666666,"currentGoal":0.66,"suggestedGoal":2,"diff":0.006666666666666599,"repassesPreviousMonth":3,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"OK","statusClass":"ok","profile":"Estável","action":"Manter cadência e gerar novas reservas"}],"above":2,"below":2,"critical":1,"teamGoal":4.65,"repasses":0,"reservas":3,"cancelados":0,"distratos":0,"ipcYear":0.9166666666666666,"ipcMonth":0,"activePeople":4},{"name":"CANAL 3","area":"FSA","manager":"Pâmela","people":[{"name":"Marta Anastácio Neres","key":"MARTA ANASTACIO NERES","team":"CANAL 3","area":"FSA","start":"21/12/2023","months":31,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":0.66,"suggestedGoal":2,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Sem dados","statusClass":"neutral","profile":"Sem dados","action":"Definir próxima ação"},{"name":"José Ribamar","key":"JOSE RIBAMAR","team":"CANAL 3","area":"FSA","cpf":"","role":"","start":"01/10/2024","months":21,"y2024":0,"y2025":0,"y2026":3,"ipc2024":null,"ipc2025":null,"ipc2026":0.5,"currentGoal":2,"suggestedGoal":2,"diff":-1.5,"repassesMonth":0,"repassesPreviousMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"Crítico","statusClass":"danger","profile":"Crítico","action":"Plano de recuperação individual"},{"name":"Joelma Freire","key":"JOELMA FREIRE","team":"CANAL 3","area":"FSA","start":"novato","months":1,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":0.33,"suggestedGoal":0.33,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"}],"above":0,"below":1,"critical":1,"teamGoal":2.99,"repasses":0,"reservas":0,"cancelados":0,"distratos":0,"ipcYear":0.5,"ipcMonth":0,"activePeople":1},{"name":"EQUIPE PRÓPRIA | CAT","area":"CAT","manager":"Hawila","people":[{"name":"Emannuelly do Bom Parto Souza Carvalho","key":"EMANNUELLY DO BOM PARTO SOUZA CARVALHO","team":"EQUIPE PRÓPRIA | CAT","area":"CAT","cpf":"","role":"","start":"novato","months":1,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":0.33,"suggestedGoal":0.33,"diff":null,"repassesMonth":0,"repassesPreviousMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Leticia Aparecida de Melo Godinho","key":"LETICIA APARECIDA DE MELO GODINHO","team":"EQUIPE PRÓPRIA | CAT","area":"CAT","cpf":"","role":"","start":"05/03/2026","months":4,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":1.33,"suggestedGoal":1.33,"diff":null,"repassesMonth":0,"repassesPreviousMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem dados","statusClass":"neutral","profile":"Sem dados","action":"Definir próxima ação"},{"name":"Viviane Machado Gomes de Pereira Araujo","key":"VIVIANE MACHADO GOMES DE PEREIRA ARAUJO","team":"EQUIPE PRÓPRIA | CAT","area":"CAT","cpf":"","role":"","start":"novato","months":1,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":0.33,"suggestedGoal":0.33,"diff":null,"repassesMonth":0,"repassesPreviousMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"},{"name":"Samara de Melo Cruz (em contratação)","key":"SAMARA DE MELO CRUZ","team":"EQUIPE PRÓPRIA | CAT","area":"CAT","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Sara Cristina Medeiros da Costa","key":"SARA CRISTINA MEDEIROS DA COSTA","team":"EQUIPE PRÓPRIA | CAT","area":"CAT","start":"06/04/2026","months":3,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":0.33,"suggestedGoal":0.33,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem dados","statusClass":"neutral","profile":"Sem dados","action":"Definir próxima ação"},{"name":"Tamires Paola Murer","key":"TAMIRES PAOLA MURER","team":"EQUIPE PRÓPRIA | CAT","area":"CAT","start":"novato","months":1,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":0.33,"suggestedGoal":0.33,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":0,"canceladosMonth":0,"distratosMonth":0,"status":"admissão","statusClass":"neutral","profile":"admissão","action":"Acompanhar integração"}],"above":0,"below":0,"critical":0,"teamGoal":2.65,"repasses":0,"reservas":4,"cancelados":0,"distratos":0,"ipcYear":null,"ipcMonth":0,"activePeople":1},{"name":"IMOBILIÁRIAS | CAT","area":"CAT","manager":"Leonardo","people":[{"name":"Kelly Negocios Imobiliarios","key":"KELLY NEGOCIOS IMOBILIARIOS__IMOBILIARIAS | CAT","team":"IMOBILIÁRIAS | CAT","area":"CAT","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":4,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Rotina Imóveis","key":"ROTINA IMOVEIS__IMOBILIARIAS | CAT","team":"IMOBILIÁRIAS | CAT","area":"CAT","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":11,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Green House Imóveis","key":"GREEN HOUSE IMOVEIS__IMOBILIARIAS | CAT","team":"IMOBILIÁRIAS | CAT","area":"CAT","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":2,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Realiza Imóveis","key":"REALIZA IMOVEIS__IMOBILIARIAS | CAT","team":"IMOBILIÁRIAS | CAT","area":"CAT","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":8,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Als Imoveis Ltda","key":"ALS IMOVEIS LTDA__IMOBILIARIAS | CAT","team":"IMOBILIÁRIAS | CAT","area":"CAT","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":2,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Vitrine Imobiliaria","key":"VITRINE IMOBILIARIA__IMOBILIARIAS | CAT","team":"IMOBILIÁRIAS | CAT","area":"CAT","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":2,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Pedro Henrique Campos Nogueira Ltda","key":"PEDRO HENRIQUE CAMPOS NOGUEIRA LTDA__IMOBILIARIAS | CAT","team":"IMOBILIÁRIAS | CAT","area":"CAT","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Emilly Moura Negocios Imobiliarios Ltda","key":"EMILLY MOURA NEGOCIOS IMOBILIARIOS LTDA__IMOBILIARIAS | CAT","team":"IMOBILIÁRIAS | CAT","area":"CAT","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":2,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Attitude Imoveis","key":"ATTITUDE IMOVEIS__IMOBILIARIAS | CAT","team":"IMOBILIÁRIAS | CAT","area":"CAT","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":2,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"},{"name":"Atha Negocios Imobiliarios","key":"ATHA NEGOCIOS IMOBILIARIOS__IMOBILIARIAS | CAT","team":"IMOBILIÁRIAS | CAT","area":"CAT","start":"-","months":null,"y2024":0,"y2025":0,"y2026":0,"ipc2024":null,"ipc2025":null,"ipc2026":null,"currentGoal":null,"suggestedGoal":null,"diff":null,"repassesPreviousMonth":0,"repassesMonth":0,"reservasMonth":1,"canceladosMonth":0,"distratosMonth":0,"status":"Sem base","statusClass":"neutral","profile":"Sem base","action":"Cadastrar ou vincular na base de metas"}],"above":0,"below":0,"critical":0,"teamGoal":0,"repasses":0,"reservas":35,"cancelados":0,"distratos":0,"ipcYear":null,"ipcMonth":0,"activePeople":10}],"managers":[{"manager":"Vivian","team":"EQUIPE PRÓPRIA | FSA","area":"FSA","type":"Time","people":5,"above":0,"below":5,"critical":3,"goal":8.99,"repasses":0,"reservas":6,"ipcYear":0.7666666666666667,"ipcMonth":0,"cancelados":0,"distratos":0},{"manager":"Lucas","team":"EQUIPE PRÓPRIA 2 | FSA","area":"FSA","type":"Time","people":5,"above":0,"below":3,"critical":1,"goal":5.32,"repasses":0,"reservas":6,"ipcYear":1,"ipcMonth":0,"cancelados":0,"distratos":0},{"manager":"Alana","team":"AUTÔNOMOS | FSA","area":"FSA","type":"Time","people":7,"above":2,"below":5,"critical":3,"goal":12.65,"repasses":0,"reservas":1,"ipcYear":1.119047619047619,"ipcMonth":0,"cancelados":0,"distratos":0},{"manager":"Daiana","team":"AUTÔNOMOS 2 | FSA","area":"FSA","type":"Time","people":7,"above":2,"below":5,"critical":4,"goal":10.3,"repasses":0,"reservas":4,"ipcYear":0.8095238095238095,"ipcMonth":0,"cancelados":0,"distratos":0},{"manager":"Rafael","team":"IMOBILIÁRIAS | FSA","area":"FSA","type":"Imobiliária","people":9,"above":8,"below":0,"critical":0,"goal":"-","repasses":0,"reservas":7,"ipcYear":null,"ipcMonth":0,"cancelados":0,"distratos":0},{"manager":"Ana","team":"EQUIPE PRÓPRIA | AGL","area":"AGL","type":"Time","people":6,"above":0,"below":5,"critical":1,"goal":8.65,"repasses":0,"reservas":4,"ipcYear":0.9999999999999998,"ipcMonth":0,"cancelados":0,"distratos":0},{"manager":"Josué","team":"EQUIPE PRÓPRIA 2 | AGL","area":"AGL","type":"Time","people":6,"above":0,"below":5,"critical":2,"goal":8.32,"repasses":0,"reservas":3,"ipcYear":0.8666666666666666,"ipcMonth":0,"cancelados":0,"distratos":0},{"manager":"Francisco","team":"IMOBILIÁRIAS | AGL","area":"AGL","type":"Imobiliária","people":13,"above":7,"below":0,"critical":0,"goal":"-","repasses":0,"reservas":8,"ipcYear":null,"ipcMonth":0,"cancelados":0,"distratos":0},{"manager":"Micael","team":"CANAL 1","area":"FSA","type":"Time","people":5,"above":3,"below":2,"critical":0,"goal":6.65,"repasses":0,"reservas":2,"ipcYear":1.1333333333333333,"ipcMonth":0,"cancelados":0,"distratos":0},{"manager":"Alba","team":"CANAL 2","area":"FSA","type":"Time","people":4,"above":2,"below":2,"critical":1,"goal":4.65,"repasses":0,"reservas":3,"ipcYear":0.9166666666666666,"ipcMonth":0,"cancelados":0,"distratos":0},{"manager":"Pâmela","team":"CANAL 3","area":"FSA","type":"Time","people":3,"above":0,"below":1,"critical":1,"goal":2.99,"repasses":0,"reservas":0,"ipcYear":0.5,"ipcMonth":0,"cancelados":0,"distratos":0},{"manager":"Hawila","team":"EQUIPE PRÓPRIA | CAT","area":"CAT","type":"Time","people":6,"above":0,"below":0,"critical":0,"goal":2.65,"repasses":0,"reservas":4,"ipcYear":null,"ipcMonth":0,"cancelados":0,"distratos":0},{"manager":"Leonardo","team":"IMOBILIÁRIAS | CAT","area":"CAT","type":"Imobiliária","people":10,"above":0,"below":0,"critical":0,"goal":"-","repasses":0,"reservas":35,"ipcYear":null,"ipcMonth":0,"cancelados":0,"distratos":0}],"realtyReservations":[{"area":"AGL","origin":"Outcom Imob","partners":"GRUPO IMERGE","clients":"Mauricio Santos de Carvalho","dates":"08/05/2026","reservas":1},{"area":"AGL","origin":"Gracionete de Jesus Silva Andrade","partners":"Endy Carvalho Consultoria imobiliária","clients":"Francisco Vieira de França","dates":"14/05/2026","reservas":1},{"area":"AGL","origin":"Inova Imobiliaria","partners":"GRUPO IMERGE","clients":"Paulo Henrique Ferreira de Sousa","dates":"16/05/2026","reservas":1},{"area":"AGL","origin":"Pascoal Imobiliaria","partners":"GRUPO IMERGE","clients":"Claudiana Viana Silveira","dates":"26/05/2026","reservas":1},{"area":"AGL","origin":"Clenia Duarte Costa Gestão Imobiliaria","partners":"GRUPO IMERGE","clients":"Isaic Espinel Manrrique","dates":"28/05/2026","reservas":1},{"area":"AGL","origin":"Gustavo Alves Gomes Imob","partners":"Endy Carvalho Consultoria imobiliária","clients":"Debora de Almeida Campos","dates":"28/05/2026","reservas":1},{"area":"AGL","origin":"Ycc Imob","partners":"Endy Carvalho Consultoria imobiliária","clients":"Mateus Gomes de Souza","dates":"28/05/2026","reservas":1},{"area":"AGL","origin":"Ramos Imobiliaria Ltda","partners":"GRUPO IMERGE","clients":"Cleidete Rocha da Silva","dates":"31/05/2026","reservas":1},{"area":"FSA","origin":"Itiquira Imoveis e Assessoria","partners":"CAIXA CREDFÁCIL, Endy Carvalho Consultoria imobiliária","clients":"Ruan Alessandro Mota Ferreira; Sara Ingrid Castro Oliveira; Lucas Otavio Gomes Ferreira","dates":"19/05/2026, 22/05/2026, 27/04/2026","reservas":3},{"area":"FSA","origin":"Luciano de Oliveira Nascimento Fsa","partners":"CAIXA CREDFÁCIL","clients":"Pedro Wilson Fernandes de Campos","dates":"25/05/2026","reservas":1},{"area":"FSA","origin":"Thamires Santos de Araujo","partners":"CAIXA CREDFÁCIL","clients":"Aldeci Goncalves da Silva; Wilma Cristina dos Santos Souza; Aldeci Goncalves da Silva","dates":"28/05/2026, 29/05/2026","reservas":3}],"priorities":[{"index":1,"name":"Nauane Martins da Silva Oliveira","context":"EQUIPE PRÓPRIA | FSA | Vivian","diff":-1.1666666666666665,"repasses":0,"reservas":3,"profile":"Crítico com carteira","action":"Atacar reservas do mês com gerente"},{"index":2,"name":"Ingrid Alves D'Aparecida","context":"EQUIPE PRÓPRIA | FSA | Vivian","diff":-1.1666666666666665,"repasses":0,"reservas":2,"profile":"Crítico com carteira","action":"Atacar reservas do mês com gerente"},{"index":3,"name":"Murielly de Sousa Santos","context":"EQUIPE PRÓPRIA 2 | FSA | Lucas","diff":-1.1633333333333333,"repasses":0,"reservas":2,"profile":"Crítico com carteira","action":"Atacar reservas do mês com gerente"},{"index":4,"name":"Ariani Morais de Sousa Pereira","context":"EQUIPE PRÓPRIA | AGL | Ana","diff":-0.6599999999999999,"repasses":0,"reservas":2,"profile":"Em recuperação com carteira","action":"Atacar reservas do mês com gerente"},{"index":5,"name":"Gabriel do Nascimento Dias","context":"EQUIPE PRÓPRIA 2 | FSA | Lucas","diff":-0.33333333333333326,"repasses":0,"reservas":2,"profile":"Em recuperação com carteira","action":"Atacar reservas do mês com gerente"},{"index":6,"name":"Wanderson Romero Coelho da Silva","context":"EQUIPE PRÓPRIA 2 | AGL | Josué","diff":-1.3333333333333335,"repasses":0,"reservas":1,"profile":"Crítico com carteira","action":"Atacar reservas do mês com gerente"},{"index":7,"name":"Sandra Santana dos Santos","context":"CANAL 2 | Alba","diff":-1.1666666666666665,"repasses":0,"reservas":1,"profile":"Crítico com carteira","action":"Atacar reservas do mês com gerente"},{"index":8,"name":"Luis Alves dos Santos da Silva Rocha","context":"EQUIPE PRÓPRIA 2 | AGL | Josué","diff":-1.1666666666666665,"repasses":0,"reservas":1,"profile":"Crítico com carteira","action":"Atacar reservas do mês com gerente"},{"index":9,"name":"Camila Fernandes da Silva","context":"AUTÔNOMOS | FSA | Alana","diff":-1,"repasses":0,"reservas":1,"profile":"Crítico com carteira","action":"Atacar reservas do mês com gerente"},{"index":10,"name":"Ryan Gomes Calazans","context":"EQUIPE PRÓPRIA | FSA | Vivian","diff":-0.8333333333333333,"repasses":0,"reservas":1,"profile":"Em recuperação com carteira","action":"Atacar reservas do mês com gerente"},{"index":11,"name":"Jonatas Castro da Silva","context":"EQUIPE PRÓPRIA | AGL | Ana","diff":-0.6666666666666667,"repasses":0,"reservas":1,"profile":"Em recuperação com carteira","action":"Atacar reservas do mês com gerente"},{"index":12,"name":"Thairine Stefanni Rodrigues da Silva","context":"AUTÔNOMOS 2 | FSA | Daiana","diff":-0.6599999999999999,"repasses":0,"reservas":1,"profile":"Em recuperação com carteira","action":"Atacar reservas do mês com gerente"},{"index":13,"name":"Maria Eugenia Martins Alves","context":"EQUIPE PRÓPRIA 2 | FSA | Lucas","diff":-0.4933333333333332,"repasses":0,"reservas":1,"profile":"Em recuperação com carteira","action":"Atacar reservas do mês com gerente"},{"index":14,"name":"Fabiane Bezerra de Momeira dos Santos","context":"EQUIPE PRÓPRIA 2 | AGL | Josué","diff":-0.16333333333333333,"repasses":0,"reservas":1,"profile":"Em recuperação com carteira","action":"Atacar reservas do mês com gerente"},{"index":15,"name":"Lucas Braga de Souza Oliveira","context":"CANAL 2 | Alba","diff":-0.16000000000000003,"repasses":0,"reservas":1,"profile":"Em recuperação com carteira","action":"Atacar reservas do mês com gerente"}],"insights":[{"kind":"danger","title":"Gaps críticos","text":"Priorizar corretores com diferença igual ou abaixo de -1,00 e cruzar com reservas do mês."},{"kind":"attention","title":"Meta sugerida","text":"Quando a meta atual estiver acima da sugerida pelo tempo de casa, validar regra comercial ou decisão gerencial."},{"kind":"ok","title":"Frente de conversão","text":"Use reservas do mês para orientar ações rápidas de conversão por gerente."}]};
+  </script>
+  <script>
+const br = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+function text(value) {
+  return value === null || value === undefined || value === "" ? "-" : String(value);
+}
+
+function num(value, decimals = 0) {
+  if (value === null || value === undefined || Number.isNaN(value)) return "-";
+  return Number(value).toLocaleString("pt-BR", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+}
+
+function clsDiff(value) {
+  return value < 0 ? "bad" : "neutral-text";
+}
+
+function metric(title, value, detail, progress, warning = false) {
+  return `<article class="metric-card ${warning ? "warning" : ""}">
+    <span>${title}</span>
+    <strong>${value}</strong>
+    ${progress === undefined ? `<small>${detail || ""}</small>` : `<div class="progress"><span style="width:${Math.min(progress, 100)}%"></span></div>`}
+  </article>`;
+}
+
+function personRow(person, index) {
+  return `<tr>
+    <td>${index + 1}</td>
+    <td><strong>${person.name}</strong></td>
+    <td>${person.start}</td>
+    <td>${num(person.months, 1)}</td>
+    <td>${person.y2024 || "-"}</td>
+    <td>${person.y2025 || "-"}</td>
+    <td>${person.y2026 || "-"}</td>
+    <td>${person.ipc2024 === null ? "-" : num(person.ipc2024, 2)}</td>
+    <td>${person.ipc2025 === null ? "-" : num(person.ipc2025, 2)}</td>
+    <td>${person.ipc2026 === null ? "-" : num(person.ipc2026, 2)}</td>
+    <td class="num-focus ${person.repassesPreviousMonth ? "front-strong" : "muted-num"}">${person.repassesPreviousMonth || 0}</td>
+    <td>${person.currentGoal ? num(person.currentGoal, 2) : "-"}</td>
+    <td>${person.suggestedGoal ? num(person.suggestedGoal, 2) : "-"}</td>
+    <td class="${clsDiff(person.diff)}">${person.diff === null ? "sem IPC" : `${person.diff >= 0 ? "+" : ""}${num(person.diff, 2)}`}</td>
+    <td class="num-focus ${person.repassesMonth ? "front-strong" : "muted-num"}">${person.repassesMonth}</td>
+    <td class="num-focus ${person.reservasMonth ? "front-strong" : "muted-num"}">${person.reservasMonth}</td>
+    <td class="num-focus ${person.canceladosMonth ? "front-strong" : "muted-num"}">${person.canceladosMonth || 0}</td>
+    <td class="num-focus ${person.distratosMonth ? "front-strong" : "muted-num"}">${person.distratosMonth || 0}</td>
+    <td><span class="status-pill ${person.statusClass}">${person.status}</span></td>
+    <td><span class="profile-pill">${person.profile}</span></td>
+    <td>${person.action}</td>
+  </tr>`;
+}
+
+function teamSection(team) {
+  return `<section class="realty-section">
     <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>AUTÔNOMOS | FSA</h2></div>
+      <div><p class="eyebrow">Imobiliária</p><h2>${team.name}</h2></div>
       <div class="realty-kpis">
-        <span><b>Gerente</b> Alana Rabelo da Costa</span>
-        <span><b>Corretores</b> 8</span>
-        <span><b>Acima da meta</b> 3</span>
-        <span><b>Abaixo da meta</b> 3</span>
-        <span><b>Produtividade do time</b> 8</span>
-        <span><b>Meta do mês</b> 12</span>
-        <span><b>Repasses do mês atual</b> 8</span>
-        <span><b>Reservas do mês atual</b> 2</span>
-        <span><b>Cancelados do mês</b> 1</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> 1,78</span>
-        <span><b>IPC do mês</b> 1,33</span>
+        <span><b>Gerente</b> ${team.manager}</span>
+        <span><b>Corretores</b> ${team.people.length}</span>
+        <span><b>Acima da meta</b> ${team.above}</span>
+        <span><b>Abaixo da meta</b> ${team.below}</span>
+        <span><b>Produtividade do time</b> ${team.repasses}</span>
+        <span><b>Meta do mês</b> ${team.teamGoal || "-"}</span>
+        <span><b>Repasses do mês atual</b> ${team.repasses}</span>
+        <span><b>Reservas do mês atual</b> ${team.reservas}</span>
+        <span><b>Cancelados do mês</b> ${team.cancelados || 0}</span>
+        <span><b>Distratos do mês</b> ${team.distratos || 0}</span>
+        <span><b>IPC do ano</b> ${team.ipcYear === null ? "-" : num(team.ipcYear, 2)}</span>
+        <span><b>IPC do mês</b> ${team.ipcMonth === null ? "-" : num(team.ipcMonth, 2)}</span>
       </div>
     </header>
     <div class="sheet-table-wrap">
       <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Cleide Alves de Oliveira</strong></td>
-    <td>22/04/2025</td>
-    <td>11,4</td>
-    <td>-</td>
-    <td>8</td>
-    <td>8</td>
-    <td>0,00</td>
-    <td>0,67</td>
-    <td>2,67</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="neutral-text">+0,67</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Alta performance</span></td>
-    <td>Replicar rotina e usar como referência</td>
-  </tr><tr>
-    <td>2</td>
-    <td><strong>Isabella Pereira Feliciano</strong></td>
-    <td>18/08/2023</td>
-    <td>31,8</td>
-    <td>15</td>
-    <td>34</td>
-    <td>8</td>
-    <td>1,25</td>
-    <td>2,83</td>
-    <td>2,67</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="neutral-text">+0,67</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Alta performance</span></td>
-    <td>Replicar rotina e usar como referência</td>
-  </tr><tr>
-    <td>3</td>
-    <td><strong>Anna Luiza Pereira de Sousa</strong></td>
-    <td>14/05/2025</td>
-    <td>10,7</td>
-    <td>-</td>
-    <td>20</td>
-    <td>7</td>
-    <td>0,00</td>
-    <td>1,67</td>
-    <td>2,33</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="neutral-text">+0,33</td>
-    <td class="num-focus front-strong">3</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Alta performance</span></td>
-    <td>Replicar rotina e usar como referência</td>
-  </tr><tr>
-    <td>4</td>
-    <td><strong>Steffany Silva Pinto</strong></td>
-    <td>01/10/2025</td>
-    <td>6,0</td>
-    <td>-</td>
-    <td>2</td>
-    <td>4</td>
-    <td>0,00</td>
-    <td>0,17</td>
-    <td>1,33</td>
-    <td>1,66</td>
-    <td>1,33</td>
-    <td class="bad">-0,33</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr><tr>
-    <td>5</td>
-    <td><strong>Camila Fernandes da Silva</strong></td>
-    <td>01/12/2023</td>
-    <td>28,3</td>
-    <td>15</td>
-    <td>19</td>
-    <td>4</td>
-    <td>1,25</td>
-    <td>1,58</td>
-    <td>1,33</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="bad">-0,67</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr><tr>
-    <td>6</td>
-    <td><strong>Anibal Hamu Neto</strong></td>
-    <td>01/10/2025</td>
-    <td>6,0</td>
-    <td>-</td>
-    <td>1</td>
-    <td>1</td>
-    <td>0,00</td>
-    <td>0,08</td>
-    <td>0,33</td>
-    <td>1,66</td>
-    <td>1,33</td>
-    <td class="bad">-1,33</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill danger">Crítico</span></td>
-    <td><span class="profile-pill">Crítico</span></td>
-    <td>Plano de recuperação individual</td>
-  </tr><tr>
-    <td>7</td>
-    <td><strong>Thâmara Rafaella de Melo Santos</strong></td>
-    <td>-</td>
-    <td>0,2</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">admissão</span></td>
-    <td><span class="profile-pill">admissão</span></td>
-    <td>Acompanhar integração</td>
-  </tr><tr>
-    <td>8</td>
-    <td><strong>Jhennefe Horrara Silva de Oliveira</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Cadastrar meta e histórico de produtividade</td>
-  </tr></tbody>
+        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Repasses de maio</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
+        <tbody>${team.people.map(personRow).join("")}</tbody>
       </table>
     </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>AUTÔNOMOS 2 | FSA</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> Daiana Soares da Rocha</span>
-        <span><b>Corretores</b> 12</span>
-        <span><b>Acima da meta</b> 2</span>
-        <span><b>Abaixo da meta</b> 3</span>
-        <span><b>Produtividade do time</b> 7</span>
-        <span><b>Meta do mês</b> 11</span>
-        <span><b>Repasses do mês atual</b> 7</span>
-        <span><b>Reservas do mês atual</b> 5</span>
-        <span><b>Cancelados do mês</b> 4</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> 1,13</span>
-        <span><b>IPC do mês</b> 1,40</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Keully de Sousa Braga</strong></td>
-    <td>28/01/2026</td>
-    <td>2,0</td>
-    <td>-</td>
-    <td>-</td>
-    <td>5</td>
-    <td>0,00</td>
-    <td>0,00</td>
-    <td>1,67</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">+1,01</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Alta performance</span></td>
-    <td>Replicar rotina e usar como referência</td>
-  </tr><tr>
-    <td>2</td>
-    <td><strong>Gyovana Fernandes Almeida Castro</strong></td>
-    <td>30/07/2025</td>
-    <td>8,1</td>
-    <td>-</td>
-    <td>4</td>
-    <td>5</td>
-    <td>0,00</td>
-    <td>0,33</td>
-    <td>1,67</td>
-    <td>1,66</td>
-    <td>1,66</td>
-    <td class="neutral-text">+0,01</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Estável</span></td>
-    <td>Manter cadência e gerar novas reservas</td>
-  </tr><tr>
-    <td>3</td>
-    <td><strong>Thairine Stefanni Rodrigues da Silva</strong></td>
-    <td>30/07/2025</td>
-    <td>8,1</td>
-    <td>-</td>
-    <td>4</td>
-    <td>3</td>
-    <td>0,00</td>
-    <td>0,33</td>
-    <td>1,00</td>
-    <td>1,66</td>
-    <td>1,66</td>
-    <td class="bad">-0,66</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr><tr>
-    <td>4</td>
-    <td><strong>Marcilene dos Reis Carvalho</strong></td>
-    <td>27/08/2024</td>
-    <td>19,3</td>
-    <td>1</td>
-    <td>9</td>
-    <td>2</td>
-    <td>0,08</td>
-    <td>0,75</td>
-    <td>0,67</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="bad">-1,33</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill danger">Crítico</span></td>
-    <td><span class="profile-pill">Crítico</span></td>
-    <td>Plano de recuperação individual</td>
-  </tr><tr>
-    <td>5</td>
-    <td><strong>Letícia Lorranny Santos Dourado</strong></td>
-    <td>30/07/2025</td>
-    <td>8,1</td>
-    <td>-</td>
-    <td>2</td>
-    <td>2</td>
-    <td>0,00</td>
-    <td>0,17</td>
-    <td>0,67</td>
-    <td>1,66</td>
-    <td>1,66</td>
-    <td class="bad">-0,99</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr><tr>
-    <td>6</td>
-    <td><strong>Erika Alves Gomes</strong></td>
-    <td>18/03/2026</td>
-    <td>0,4</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">admissão</span></td>
-    <td><span class="profile-pill">admissão</span></td>
-    <td>Acompanhar integração</td>
-  </tr><tr>
-    <td>7</td>
-    <td><strong>Pabline Micheli Oliveira da Silva</strong></td>
-    <td>18/03/2026</td>
-    <td>0,4</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">admissão</span></td>
-    <td><span class="profile-pill">admissão</span></td>
-    <td>Acompanhar integração</td>
-  </tr><tr>
-    <td>8</td>
-    <td><strong>Jocicleide Ferreira da Paixão</strong></td>
-    <td>13/04/2026</td>
-    <td>-0,5</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">admissão</span></td>
-    <td><span class="profile-pill">admissão</span></td>
-    <td>Acompanhar integração</td>
-  </tr><tr>
-    <td>9</td>
-    <td><strong>Daniele Pereira da Rocha (em Admissão)</strong></td>
-    <td>02/05/2026</td>
-    <td>-1,1</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">admissão</span></td>
-    <td><span class="profile-pill">admissão</span></td>
-    <td>Acompanhar integração</td>
-  </tr><tr>
-    <td>10</td>
-    <td><strong>Ana Cristina Ferreira da Cruz (em Admissão)</strong></td>
-    <td>02/05/2026</td>
-    <td>-1,1</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">admissão</span></td>
-    <td><span class="profile-pill">admissão</span></td>
-    <td>Acompanhar integração</td>
-  </tr><tr>
-    <td>11</td>
-    <td><strong>Daniele Pereira da Rocha</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Cadastrar meta e histórico de produtividade</td>
-  </tr><tr>
-    <td>12</td>
-    <td><strong>Ana Cristina Ferreira da Cruz</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Cadastrar meta e histórico de produtividade</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>EQUIPE PRÓPRIA | FSA</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> X</span>
-        <span><b>Corretores</b> 7</span>
-        <span><b>Acima da meta</b> 1</span>
-        <span><b>Abaixo da meta</b> 5</span>
-        <span><b>Produtividade do time</b> 6</span>
-        <span><b>Meta do mês</b> 12</span>
-        <span><b>Repasses do mês atual</b> 6</span>
-        <span><b>Reservas do mês atual</b> 4</span>
-        <span><b>Cancelados do mês</b> 0</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> 1,00</span>
-        <span><b>IPC do mês</b> 1,17</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Ingrid Alves Daparecida</strong></td>
-    <td>07/12/2023</td>
-    <td>28,1</td>
-    <td>21</td>
-    <td>27</td>
-    <td>4</td>
-    <td>1,75</td>
-    <td>2,25</td>
-    <td>1,33</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="bad">-0,67</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr><tr>
-    <td>2</td>
-    <td><strong>Nauane Martins da Silva Oliveira</strong></td>
-    <td>-</td>
-    <td>31,7</td>
-    <td>16</td>
-    <td>26</td>
-    <td>4</td>
-    <td>1,33</td>
-    <td>2,17</td>
-    <td>1,33</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="bad">-0,67</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr><tr>
-    <td>3</td>
-    <td><strong>Ryan Gomes Calazans</strong></td>
-    <td>01/11/2023</td>
-    <td>29,3</td>
-    <td>23</td>
-    <td>21</td>
-    <td>3</td>
-    <td>1,92</td>
-    <td>1,75</td>
-    <td>1,00</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="bad">-1,00</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill danger">Crítico</span></td>
-    <td><span class="profile-pill">Crítico</span></td>
-    <td>Plano de recuperação individual</td>
-  </tr><tr>
-    <td>4</td>
-    <td><strong>Maria Daiana da Silva Brandao</strong></td>
-    <td>02/09/2025</td>
-    <td>7,0</td>
-    <td>-</td>
-    <td>4</td>
-    <td>2</td>
-    <td>0,00</td>
-    <td>0,33</td>
-    <td>0,67</td>
-    <td>1,66</td>
-    <td>1,66</td>
-    <td class="bad">-0,99</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr><tr>
-    <td>5</td>
-    <td><strong>Valmir Santana dos Santos</strong></td>
-    <td>-</td>
-    <td>0,4</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">admissão</span></td>
-    <td><span class="profile-pill">admissão</span></td>
-    <td>Acompanhar integração</td>
-  </tr><tr>
-    <td>6</td>
-    <td><strong>Maria Eugenia Martins Alves</strong></td>
-    <td>02/09/2025</td>
-    <td>7,0</td>
-    <td>-</td>
-    <td>8</td>
-    <td>5</td>
-    <td>0,00</td>
-    <td>0,67</td>
-    <td>1,67</td>
-    <td>1,66</td>
-    <td>1,66</td>
-    <td class="neutral-text">+0,01</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Estável</span></td>
-    <td>Manter cadência e gerar novas reservas</td>
-  </tr><tr>
-    <td>7</td>
-    <td><strong>Samara Feitosa Valadares Generoso</strong></td>
-    <td>-</td>
-    <td>10,4</td>
-    <td>-</td>
-    <td>8</td>
-    <td>-</td>
-    <td>0,00</td>
-    <td>0,67</td>
-    <td>0,00</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="bad">-2,00</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill danger">Crítico</span></td>
-    <td><span class="profile-pill">Crítico</span></td>
-    <td>Plano de recuperação individual</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>EQUIPE PRÓPRIA 2 | FSA</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> Lucas Braga de Souza Oliveira</span>
-        <span><b>Corretores</b> 4</span>
-        <span><b>Acima da meta</b> 1</span>
-        <span><b>Abaixo da meta</b> 0</span>
-        <span><b>Produtividade do time</b> 6</span>
-        <span><b>Meta do mês</b> 3</span>
-        <span><b>Repasses do mês atual</b> 6</span>
-        <span><b>Reservas do mês atual</b> 6</span>
-        <span><b>Cancelados do mês</b> 1</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> 2,33</span>
-        <span><b>IPC do mês</b> 2,50</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Gabriel do Nascimento Dias</strong></td>
-    <td>01/11/2023</td>
-    <td>29,3</td>
-    <td>27</td>
-    <td>27</td>
-    <td>7</td>
-    <td>2,25</td>
-    <td>2,25</td>
-    <td>2,33</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="neutral-text">+0,33</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Alta performance</span></td>
-    <td>Replicar rotina e usar como referência</td>
-  </tr><tr>
-    <td>2</td>
-    <td><strong>Murielly de Sousa Santos</strong></td>
-    <td>-</td>
-    <td>0,4</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus front-strong">3</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">admissão</span></td>
-    <td><span class="profile-pill">admissão</span></td>
-    <td>Acompanhar integração</td>
-  </tr><tr>
-    <td>3</td>
-    <td><strong>Natália Nogueira Aguiar</strong></td>
-    <td>06/04/2026</td>
-    <td>-0,2</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">admissão</span></td>
-    <td><span class="profile-pill">admissão</span></td>
-    <td>Acompanhar integração</td>
-  </tr><tr>
-    <td>4</td>
-    <td><strong>Natália Cristina Neres dos Santos - Clt</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>IMOBILIÁRIAS | FSA</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> Rafael de Lucena Martins</span>
-        <span><b>Corretores</b> 9</span>
-        <span><b>Acima da meta</b> 0</span>
-        <span><b>Abaixo da meta</b> 0</span>
-        <span><b>Produtividade do time</b> 12</span>
-        <span><b>Meta do mês</b> -</span>
-        <span><b>Repasses do mês atual</b> 12</span>
-        <span><b>Reservas do mês atual</b> 7</span>
-        <span><b>Cancelados do mês</b> 0</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> -</span>
-        <span><b>IPC do mês</b> 1,33</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Thamires Santos de Araujo</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">3</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>2</td>
-    <td><strong>Arthur Parriao Negocios Imobiliarios</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">3</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>3</td>
-    <td><strong>Job Imobiliaria</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>4</td>
-    <td><strong>Portela Imobiliaria</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>5</td>
-    <td><strong>Romário Augusto Negócios Imobiliários Ltda.</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>6</td>
-    <td><strong>Wiris Fernandes Negocios Imobiliarios</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>7</td>
-    <td><strong>Vitória Imóveis Imob</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>8</td>
-    <td><strong>Luciano de Oliveira Nascimento Fsa</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>9</td>
-    <td><strong>Itiquira Imoveis e Assessoria</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>CANAL VIRTUAL 1</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> Micael dos Santos Pires</span>
-        <span><b>Corretores</b> 6</span>
-        <span><b>Acima da meta</b> 2</span>
-        <span><b>Abaixo da meta</b> 2</span>
-        <span><b>Produtividade do time</b> 10</span>
-        <span><b>Meta do mês</b> 7</span>
-        <span><b>Repasses do mês atual</b> 10</span>
-        <span><b>Reservas do mês atual</b> 5</span>
-        <span><b>Cancelados do mês</b> 1</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> 1,08</span>
-        <span><b>IPC do mês</b> 2,50</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Maria Eduarda Vieira Damasceno</strong></td>
-    <td>02/04/2024</td>
-    <td>24,2</td>
-    <td>-</td>
-    <td>15</td>
-    <td>7</td>
-    <td>0,00</td>
-    <td>1,25</td>
-    <td>2,33</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="neutral-text">+0,33</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Alta performance</span></td>
-    <td>Replicar rotina e usar como referência</td>
-  </tr><tr>
-    <td>2</td>
-    <td><strong>Daniel Andrade dos Santos</strong></td>
-    <td>01/10/2024</td>
-    <td>18,2</td>
-    <td>2</td>
-    <td>28</td>
-    <td>3</td>
-    <td>0,17</td>
-    <td>2,33</td>
-    <td>1,00</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="bad">-1,00</td>
-    <td class="num-focus front-strong">4</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill danger">Crítico</span></td>
-    <td><span class="profile-pill">Crítico</span></td>
-    <td>Plano de recuperação individual</td>
-  </tr><tr>
-    <td>3</td>
-    <td><strong>Lucas de Souza Rodrigues</strong></td>
-    <td>06/01/2026</td>
-    <td>2,8</td>
-    <td>-</td>
-    <td>-</td>
-    <td>2</td>
-    <td>0,00</td>
-    <td>0,00</td>
-    <td>0,67</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">+0,01</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Estável</span></td>
-    <td>Manter cadência e gerar novas reservas</td>
-  </tr><tr>
-    <td>4</td>
-    <td><strong>Caio Brendon Lopes Martins</strong></td>
-    <td>-</td>
-    <td>8,4</td>
-    <td>-</td>
-    <td>2</td>
-    <td>1</td>
-    <td>0,00</td>
-    <td>0,17</td>
-    <td>0,33</td>
-    <td>1,66</td>
-    <td>1,66</td>
-    <td class="bad">-1,33</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill danger">Crítico</span></td>
-    <td><span class="profile-pill">Crítico</span></td>
-    <td>Plano de recuperação individual</td>
-  </tr><tr>
-    <td>5</td>
-    <td><strong>Lucas Ramos da Victória</strong></td>
-    <td>06/04/2026</td>
-    <td>-0,2</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,70</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">admissão</span></td>
-    <td><span class="profile-pill">admissão</span></td>
-    <td>Acompanhar integração</td>
-  </tr><tr>
-    <td>6</td>
-    <td><strong>Luis Rafael do Rosario</strong></td>
-    <td>-</td>
-    <td>9,3</td>
-    <td>-</td>
-    <td>3</td>
-    <td>-</td>
-    <td>0,00</td>
-    <td>0,25</td>
-    <td>0,00</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="bad">-2,00</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem meta</span></td>
-    <td><span class="profile-pill">Afastado</span></td>
-    <td>Sem meta no período</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>CANAL VIRTUAL 2</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> Alba Vieira da Silva Lopes</span>
-        <span><b>Corretores</b> 4</span>
-        <span><b>Acima da meta</b> 1</span>
-        <span><b>Abaixo da meta</b> 2</span>
-        <span><b>Produtividade do time</b> 4</span>
-        <span><b>Meta do mês</b> 5</span>
-        <span><b>Repasses do mês atual</b> 4</span>
-        <span><b>Reservas do mês atual</b> 6</span>
-        <span><b>Cancelados do mês</b> 1</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> 0,78</span>
-        <span><b>IPC do mês</b> 1,33</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Leticia Santos da Silva</strong></td>
-    <td>-</td>
-    <td>4,4</td>
-    <td>-</td>
-    <td>-</td>
-    <td>4</td>
-    <td>0,00</td>
-    <td>0,00</td>
-    <td>1,33</td>
-    <td>1,33</td>
-    <td>1,33</td>
-    <td class="neutral-text">+0,00</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus front-strong">3</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Estável</span></td>
-    <td>Manter cadência e gerar novas reservas</td>
-  </tr><tr>
-    <td>2</td>
-    <td><strong>Sandra Santana dos Santos</strong></td>
-    <td>03/08/2023</td>
-    <td>32,3</td>
-    <td>1</td>
-    <td>16</td>
-    <td>2</td>
-    <td>0,08</td>
-    <td>1,33</td>
-    <td>0,67</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="bad">-1,33</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill danger">Crítico</span></td>
-    <td><span class="profile-pill">Crítico</span></td>
-    <td>Plano de recuperação individual</td>
-  </tr><tr>
-    <td>3</td>
-    <td><strong>Lucas Braga de Souza Oliveira</strong></td>
-    <td>23/02/2026</td>
-    <td>1,2</td>
-    <td>-</td>
-    <td>-</td>
-    <td>1</td>
-    <td>0,00</td>
-    <td>0,00</td>
-    <td>0,33</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="bad">-0,33</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr><tr>
-    <td>4</td>
-    <td><strong>Luana Santana dos Santos</strong></td>
-    <td>03/01/2024</td>
-    <td>27,2</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>2,00</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Definir próxima ação</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>CANAL VIRTUAL 3</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> Pamela Aline Ferreira Barcelos</span>
-        <span><b>Corretores</b> 1</span>
-        <span><b>Acima da meta</b> 0</span>
-        <span><b>Abaixo da meta</b> 0</span>
-        <span><b>Produtividade do time</b> 0</span>
-        <span><b>Meta do mês</b> 1</span>
-        <span><b>Repasses do mês atual</b> 0</span>
-        <span><b>Reservas do mês atual</b> 0</span>
-        <span><b>Cancelados do mês</b> 0</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> -</span>
-        <span><b>IPC do mês</b> -</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Marta Anastacio Neres</strong></td>
-    <td>-</td>
-    <td>27,7</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>2,00</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Definir próxima ação</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>EQUIPE PRÓPRIA | AGL</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> Ana Cleia Paiva Nonato</span>
-        <span><b>Corretores</b> 8</span>
-        <span><b>Acima da meta</b> 1</span>
-        <span><b>Abaixo da meta</b> 3</span>
-        <span><b>Produtividade do time</b> 6</span>
-        <span><b>Meta do mês</b> 9</span>
-        <span><b>Repasses do mês atual</b> 6</span>
-        <span><b>Reservas do mês atual</b> 0</span>
-        <span><b>Cancelados do mês</b> 1</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> 1,25</span>
-        <span><b>IPC do mês</b> 1,50</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Maysa Gabriela Goncalves Oliveira</strong></td>
-    <td>09/12/2022</td>
-    <td>40,2</td>
-    <td>13</td>
-    <td>9</td>
-    <td>4</td>
-    <td>1,08</td>
-    <td>0,75</td>
-    <td>1,33</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="bad">-0,67</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr><tr>
-    <td>2</td>
-    <td><strong>Jonatan Castro da Silva</strong></td>
-    <td>07/01/2024</td>
-    <td>27,1</td>
-    <td>8</td>
-    <td>16</td>
-    <td>3</td>
-    <td>0,67</td>
-    <td>1,33</td>
-    <td>1,00</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="bad">-1,00</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill danger">Crítico</span></td>
-    <td><span class="profile-pill">Crítico</span></td>
-    <td>Plano de recuperação individual</td>
-  </tr><tr>
-    <td>3</td>
-    <td><strong>Natasha Lucilia Barbosa</strong></td>
-    <td>03/12/2025</td>
-    <td>3,9</td>
-    <td>-</td>
-    <td>1</td>
-    <td>4</td>
-    <td>0,00</td>
-    <td>0,08</td>
-    <td>1,33</td>
-    <td>1,33</td>
-    <td>1,33</td>
-    <td class="neutral-text">+0,00</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Estável</span></td>
-    <td>Manter cadência e gerar novas reservas</td>
-  </tr><tr>
-    <td>4</td>
-    <td><strong>Áquila da Silva Fernandes (em Contratação)</strong></td>
-    <td>-</td>
-    <td>0,0</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">admissão</span></td>
-    <td><span class="profile-pill">admissão</span></td>
-    <td>Acompanhar integração</td>
-  </tr><tr>
-    <td>5</td>
-    <td><strong>Yvelise Ferreira Pinheiro</strong></td>
-    <td>03/02/2026</td>
-    <td>1,8</td>
-    <td>-</td>
-    <td>3</td>
-    <td>1</td>
-    <td>0,00</td>
-    <td>0,25</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Definir próxima ação</td>
-  </tr><tr>
-    <td>6</td>
-    <td><strong>Rebeca do Espirito Santo Souza Carvalho</strong></td>
-    <td>03/02/2026</td>
-    <td>1,8</td>
-    <td>-</td>
-    <td>7</td>
-    <td>-</td>
-    <td>0,00</td>
-    <td>0,58</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Definir próxima ação</td>
-  </tr><tr>
-    <td>7</td>
-    <td><strong>Milene de Almeida Lima</strong></td>
-    <td>-</td>
-    <td>8,4</td>
-    <td>-</td>
-    <td>3</td>
-    <td>4</td>
-    <td>0,00</td>
-    <td>0,25</td>
-    <td>1,33</td>
-    <td>1,66</td>
-    <td>1,66</td>
-    <td class="bad">-0,33</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr><tr>
-    <td>8</td>
-    <td><strong>Aquila da Silva Fernandes</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Cadastrar meta e histórico de produtividade</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>EQUIPE PRÓPRIA 2 | AGL</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> Josue Gomes de Souza</span>
-        <span><b>Corretores</b> 6</span>
-        <span><b>Acima da meta</b> 3</span>
-        <span><b>Abaixo da meta</b> 2</span>
-        <span><b>Produtividade do time</b> 4</span>
-        <span><b>Meta do mês</b> 9</span>
-        <span><b>Repasses do mês atual</b> 4</span>
-        <span><b>Reservas do mês atual</b> 5</span>
-        <span><b>Cancelados do mês</b> 0</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> 1,20</span>
-        <span><b>IPC do mês</b> 0,80</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Fabiane Bezerra Moreira dos Santos</strong></td>
-    <td>07/10/2025</td>
-    <td>5,8</td>
-    <td>-</td>
-    <td>1</td>
-    <td>5</td>
-    <td>0,00</td>
-    <td>0,08</td>
-    <td>1,67</td>
-    <td>1,33</td>
-    <td>1,33</td>
-    <td class="neutral-text">+0,34</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Alta performance</span></td>
-    <td>Replicar rotina e usar como referência</td>
-  </tr><tr>
-    <td>2</td>
-    <td><strong>Joao Vitor Brito de Andrade</strong></td>
-    <td>07/10/2025</td>
-    <td>5,8</td>
-    <td>-</td>
-    <td>2</td>
-    <td>4</td>
-    <td>0,00</td>
-    <td>0,17</td>
-    <td>1,33</td>
-    <td>1,33</td>
-    <td>1,33</td>
-    <td class="neutral-text">+0,00</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Estável</span></td>
-    <td>Manter cadência e gerar novas reservas</td>
-  </tr><tr>
-    <td>3</td>
-    <td><strong>Wanderson Romero Coelho da Silva</strong></td>
-    <td>03/02/2026</td>
-    <td>1,8</td>
-    <td>-</td>
-    <td>8</td>
-    <td>4</td>
-    <td>0,00</td>
-    <td>0,67</td>
-    <td>1,33</td>
-    <td>2,00</td>
-    <td>0,66</td>
-    <td class="bad">-0,67</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr><tr>
-    <td>4</td>
-    <td><strong>Juliana Maria de Souza</strong></td>
-    <td>04/11/2025</td>
-    <td>4,9</td>
-    <td>-</td>
-    <td>-</td>
-    <td>4</td>
-    <td>0,00</td>
-    <td>0,00</td>
-    <td>1,33</td>
-    <td>1,33</td>
-    <td>1,33</td>
-    <td class="neutral-text">+0,00</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill ok">OK</span></td>
-    <td><span class="profile-pill">Estável</span></td>
-    <td>Manter cadência e gerar novas reservas</td>
-  </tr><tr>
-    <td>5</td>
-    <td><strong>Ana Luiza Entreportes da Costa</strong></td>
-    <td>18/03/2026</td>
-    <td>0,4</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>0,66</td>
-    <td>0,66</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">admissão</span></td>
-    <td><span class="profile-pill">admissão</span></td>
-    <td>Acompanhar integração</td>
-  </tr><tr>
-    <td>6</td>
-    <td><strong>Luis Alves dos Santos da Silva Rocha</strong></td>
-    <td>-</td>
-    <td>31,7</td>
-    <td>13</td>
-    <td>14</td>
-    <td>1</td>
-    <td>1,08</td>
-    <td>1,17</td>
-    <td>0,33</td>
-    <td>2,00</td>
-    <td>2,00</td>
-    <td class="bad">-1,67</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill danger">Crítico</span></td>
-    <td><span class="profile-pill">Crítico</span></td>
-    <td>Plano de recuperação individual</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>EQUIPE PRÓPRIA 3 | AGL</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> X</span>
-        <span><b>Corretores</b> 2</span>
-        <span><b>Acima da meta</b> 0</span>
-        <span><b>Abaixo da meta</b> 2</span>
-        <span><b>Produtividade do time</b> 3</span>
-        <span><b>Meta do mês</b> 3</span>
-        <span><b>Repasses do mês atual</b> 3</span>
-        <span><b>Reservas do mês atual</b> 2</span>
-        <span><b>Cancelados do mês</b> 0</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> 0,83</span>
-        <span><b>IPC do mês</b> 1,50</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Ariani Morais de Sousa Pereira</strong></td>
-    <td>-</td>
-    <td>8,4</td>
-    <td>-</td>
-    <td>10</td>
-    <td>3</td>
-    <td>0,00</td>
-    <td>0,83</td>
-    <td>1,00</td>
-    <td>1,66</td>
-    <td>1,66</td>
-    <td class="bad">-0,66</td>
-    <td class="num-focus front-strong">3</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr><tr>
-    <td>2</td>
-    <td><strong>Rebeca Cristhina Pires Dias</strong></td>
-    <td>04/11/2025</td>
-    <td>4,9</td>
-    <td>-</td>
-    <td>-</td>
-    <td>2</td>
-    <td>0,00</td>
-    <td>0,00</td>
-    <td>0,67</td>
-    <td>1,33</td>
-    <td>1,33</td>
-    <td class="bad">-0,66</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill attention">Analisar</span></td>
-    <td><span class="profile-pill">Em recuperação</span></td>
-    <td>Plano semanal com o gerente</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>IMOBILIÁRIAS | AGL</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> Francisco Lucielio de Queiroz</span>
-        <span><b>Corretores</b> 12</span>
-        <span><b>Acima da meta</b> 0</span>
-        <span><b>Abaixo da meta</b> 0</span>
-        <span><b>Produtividade do time</b> 5</span>
-        <span><b>Meta do mês</b> -</span>
-        <span><b>Repasses do mês atual</b> 5</span>
-        <span><b>Reservas do mês atual</b> 10</span>
-        <span><b>Cancelados do mês</b> 1</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> -</span>
-        <span><b>IPC do mês</b> 0,42</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Mora Imoveis Ltda</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>2</td>
-    <td><strong>S Pestana Negocios Imobiliarios Ltda</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>3</td>
-    <td><strong>Maria Ferreira</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>4</td>
-    <td><strong>Lk Imóveis - Leonardo Aparecido</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>5</td>
-    <td><strong>Ycc Imob</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>6</td>
-    <td><strong>Gustavo Alves Gomes Imob</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>7</td>
-    <td><strong>Clenia Duarte Costa Gestão Imobiliaria</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>8</td>
-    <td><strong>Pascoal Imobiliaria</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>9</td>
-    <td><strong>Inova Imobiliaria</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>10</td>
-    <td><strong>Gracionete de Jesus Silva Andrade</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>11</td>
-    <td><strong>Outcom Imob</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr><tr>
-    <td>12</td>
-    <td><strong>Mymob</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">2</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>CAT 1</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> Hawila Souza Costa</span>
-        <span><b>Corretores</b> 8</span>
-        <span><b>Acima da meta</b> 0</span>
-        <span><b>Abaixo da meta</b> 0</span>
-        <span><b>Produtividade do time</b> 0</span>
-        <span><b>Meta do mês</b> -</span>
-        <span><b>Repasses do mês atual</b> 0</span>
-        <span><b>Reservas do mês atual</b> 0</span>
-        <span><b>Cancelados do mês</b> 0</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> -</span>
-        <span><b>IPC do mês</b> -</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Emannuelly do Bom Parto Sousa Carvalho</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Cadastrar meta e histórico de produtividade</td>
-  </tr><tr>
-    <td>2</td>
-    <td><strong>Jose Ribamar da Silva Freitas Filho</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Cadastrar meta e histórico de produtividade</td>
-  </tr><tr>
-    <td>3</td>
-    <td><strong>Lais Camacho Sanches</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Cadastrar meta e histórico de produtividade</td>
-  </tr><tr>
-    <td>4</td>
-    <td><strong>Leticia Aparecida de Melo Godinho</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Cadastrar meta e histórico de produtividade</td>
-  </tr><tr>
-    <td>5</td>
-    <td><strong>Samara de Melo Cruz</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Cadastrar meta e histórico de produtividade</td>
-  </tr><tr>
-    <td>6</td>
-    <td><strong>Sara Cristina Medeiros da Costa</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Cadastrar meta e histórico de produtividade</td>
-  </tr><tr>
-    <td>7</td>
-    <td><strong>Tamiris Paola Murer</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Cadastrar meta e histórico de produtividade</td>
-  </tr><tr>
-    <td>8</td>
-    <td><strong>Viviane Machado Gomes Pereira de Araujo</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem dados</span></td>
-    <td><span class="profile-pill">Sem dados</span></td>
-    <td>Cadastrar meta e histórico de produtividade</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>IMOBILIÁRIAS | CAT</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> Leonardo de Azevedo Mariano Silva</span>
-        <span><b>Corretores</b> 0</span>
-        <span><b>Acima da meta</b> 0</span>
-        <span><b>Abaixo da meta</b> 0</span>
-        <span><b>Produtividade do time</b> 0</span>
-        <span><b>Meta do mês</b> -</span>
-        <span><b>Repasses do mês atual</b> 0</span>
-        <span><b>Reservas do mês atual</b> 0</span>
-        <span><b>Cancelados do mês</b> 0</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> -</span>
-        <span><b>IPC do mês</b> -</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </section><section class="realty-section">
-    <header class="realty-header">
-      <div><p class="eyebrow">Imobiliária</p><h2>EQUIPE PRÓPRIA | CAT</h2></div>
-      <div class="realty-kpis">
-        <span><b>Gerente</b> Hawila</span>
-        <span><b>Corretores</b> 1</span>
-        <span><b>Acima da meta</b> 0</span>
-        <span><b>Abaixo da meta</b> 0</span>
-        <span><b>Produtividade do time</b> 0</span>
-        <span><b>Meta do mês</b> -</span>
-        <span><b>Repasses do mês atual</b> 0</span>
-        <span><b>Reservas do mês atual</b> 0</span>
-        <span><b>Cancelados do mês</b> 1</span>
-        <span><b>Distratos do mês</b> 0</span>
-        <span><b>IPC do ano</b> -</span>
-        <span><b>IPC do mês</b> 0,00</span>
-      </div>
-    </header>
-    <div class="sheet-table-wrap">
-      <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
-        <tbody><tr>
-    <td>1</td>
-    <td><strong>Ana Clara Correa Rosa - Clt</strong></td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td class="neutral-text">sem IPC</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus muted-num">0</td>
-    <td class="num-focus front-strong">1</td>
-    <td class="num-focus muted-num">0</td>
-    <td><span class="status-pill neutral">Sem base</span></td>
-    <td><span class="profile-pill">Sem base</span></td>
-    <td>Cadastrar ou vincular na base de metas</td>
-  </tr></tbody>
-      </table>
-    </div>
-  </section><section aria-label="Resumo gerencial" class="manager-summary"><article class="realty-section"><header class="realty-header compact-header"><div><p class="eyebrow">Resumo gerencial</p><h2>Produtividade por gerente</h2></div><div class="realty-kpis"><span><b>Leitura</b> acima x abaixo</span><span><b>Foco</b> reservas do mês</span></div></header><div class="sheet-table-wrap"><table class="sheet-table summary-table">
+  </section>`;
+}
+
+function managerTable(rows) {
+  return `<table class="sheet-table summary-table">
     <thead><tr><th>Gerente</th><th>Time / Imobiliária</th><th>Área</th><th>Tipo</th><th>Corretores</th><th>Acima</th><th>Abaixo</th><th>Críticos</th><th>Meta</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>IPC do ano</th><th>IPC do mês</th><th>Cancelados do mês</th><th>Distratos do mês</th></tr></thead>
-    <tbody><tr>
-      <td><strong>Alana Rabelo da Costa</strong></td><td>AUTÔNOMOS | FSA</td><td>FSA</td><td>Time</td><td>8</td>
-      <td class="good">3</td><td class="bad">3</td><td>1</td><td>12</td>
-      <td class="num-focus front-strong">8</td>
-      <td class="num-focus front-strong">2</td>
-      <td class="num-focus front-strong">1,78</td>
-      <td class="num-focus front-strong">1,33</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>Daiana Soares da Rocha</strong></td><td>AUTÔNOMOS 2 | FSA</td><td>FSA</td><td>Time</td><td>12</td>
-      <td class="good">2</td><td class="bad">3</td><td>1</td><td>11</td>
-      <td class="num-focus front-strong">7</td>
-      <td class="num-focus front-strong">5</td>
-      <td class="num-focus front-strong">1,13</td>
-      <td class="num-focus front-strong">1,40</td>
-      <td class="num-focus front-strong">4</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>X</strong></td><td>EQUIPE PRÓPRIA | FSA</td><td>FSA</td><td>Time</td><td>7</td>
-      <td class="good">1</td><td class="bad">5</td><td>2</td><td>12</td>
-      <td class="num-focus front-strong">6</td>
-      <td class="num-focus front-strong">4</td>
-      <td class="num-focus front-strong">1,00</td>
-      <td class="num-focus front-strong">1,17</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>Lucas Braga de Souza Oliveira</strong></td><td>EQUIPE PRÓPRIA 2 | FSA</td><td>FSA</td><td>Time</td><td>4</td>
-      <td class="good">1</td><td class="bad">0</td><td>0</td><td>3</td>
-      <td class="num-focus front-strong">6</td>
-      <td class="num-focus front-strong">6</td>
-      <td class="num-focus front-strong">2,33</td>
-      <td class="num-focus front-strong">2,50</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>Rafael de Lucena Martins</strong></td><td>IMOBILIÁRIAS | FSA</td><td>FSA</td><td>Imobiliária</td><td>9</td>
-      <td class="good">0</td><td class="bad">0</td><td>0</td><td>-</td>
-      <td class="num-focus front-strong">12</td>
-      <td class="num-focus front-strong">7</td>
-      <td class="num-focus muted-num">-</td>
-      <td class="num-focus front-strong">1,33</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>Micael dos Santos Pires</strong></td><td>CANAL VIRTUAL 1</td><td>AGL</td><td>Time</td><td>6</td>
-      <td class="good">2</td><td class="bad">2</td><td>2</td><td>7</td>
-      <td class="num-focus front-strong">10</td>
-      <td class="num-focus front-strong">5</td>
-      <td class="num-focus front-strong">1,08</td>
-      <td class="num-focus front-strong">2,50</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>Alba Vieira da Silva Lopes</strong></td><td>CANAL VIRTUAL 2</td><td>AGL</td><td>Time</td><td>4</td>
-      <td class="good">1</td><td class="bad">2</td><td>1</td><td>5</td>
-      <td class="num-focus front-strong">4</td>
-      <td class="num-focus front-strong">6</td>
-      <td class="num-focus muted-num">0,78</td>
-      <td class="num-focus front-strong">1,33</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>Pamela Aline Ferreira Barcelos</strong></td><td>CANAL VIRTUAL 3</td><td>AGL</td><td>Time</td><td>1</td>
-      <td class="good">0</td><td class="bad">0</td><td>0</td><td>1</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">-</td>
-      <td class="num-focus muted-num">-</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>Ana Cleia Paiva Nonato</strong></td><td>EQUIPE PRÓPRIA | AGL</td><td>AGL</td><td>Time</td><td>8</td>
-      <td class="good">1</td><td class="bad">3</td><td>1</td><td>9</td>
-      <td class="num-focus front-strong">6</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus front-strong">1,25</td>
-      <td class="num-focus front-strong">1,50</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>Josue Gomes de Souza</strong></td><td>EQUIPE PRÓPRIA 2 | AGL</td><td>AGL</td><td>Time</td><td>6</td>
-      <td class="good">3</td><td class="bad">2</td><td>1</td><td>9</td>
-      <td class="num-focus front-strong">4</td>
-      <td class="num-focus front-strong">5</td>
-      <td class="num-focus front-strong">1,20</td>
-      <td class="num-focus muted-num">0,80</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>X</strong></td><td>EQUIPE PRÓPRIA 3 | AGL</td><td>AGL</td><td>Time</td><td>2</td>
-      <td class="good">0</td><td class="bad">2</td><td>0</td><td>3</td>
-      <td class="num-focus front-strong">3</td>
-      <td class="num-focus front-strong">2</td>
-      <td class="num-focus muted-num">0,83</td>
-      <td class="num-focus front-strong">1,50</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>Francisco Lucielio de Queiroz</strong></td><td>IMOBILIÁRIAS | AGL</td><td>AGL</td><td>Imobiliária</td><td>12</td>
-      <td class="good">0</td><td class="bad">0</td><td>0</td><td>-</td>
-      <td class="num-focus front-strong">5</td>
-      <td class="num-focus front-strong">10</td>
-      <td class="num-focus muted-num">-</td>
-      <td class="num-focus muted-num">0,42</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>Hawila Souza Costa</strong></td><td>CAT 1</td><td>CAT</td><td>Time</td><td>8</td>
-      <td class="good">0</td><td class="bad">0</td><td>0</td><td>-</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">-</td>
-      <td class="num-focus muted-num">-</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>Leonardo de Azevedo Mariano Silva</strong></td><td>IMOBILIÁRIAS | CAT</td><td>CAT</td><td>Imobiliária</td><td>0</td>
-      <td class="good">0</td><td class="bad">0</td><td>0</td><td>-</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">-</td>
-      <td class="num-focus muted-num">-</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-    </tr><tr>
-      <td><strong>Hawila</strong></td><td>EQUIPE PRÓPRIA | CAT</td><td>CAT</td><td>Time</td><td>1</td>
-      <td class="good">0</td><td class="bad">0</td><td>0</td><td>-</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">-</td>
-      <td class="num-focus muted-num">0,00</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus muted-num">0</td>
-    </tr></tbody>
-  </table><h3 class="section-title">Reservas ativas das imobiliárias</h3>
+    <tbody>${rows.map((row) => `<tr>
+      <td><strong>${row.manager}</strong></td><td>${row.team}</td><td>${row.area}</td><td>${row.type}</td><td>${row.people}</td>
+      <td class="good">${row.above}</td><td class="bad">${row.below}</td><td>${row.critical}</td><td>${row.goal}</td>
+      <td class="num-focus ${row.repasses ? "front-strong" : "muted-num"}">${row.repasses}</td>
+      <td class="num-focus ${row.reservas ? "front-strong" : "muted-num"}">${row.reservas}</td>
+      <td class="num-focus ${row.ipcYear >= 1 ? "front-strong" : "muted-num"}">${row.ipcYear === null ? "-" : num(row.ipcYear, 2)}</td>
+      <td class="num-focus ${row.ipcMonth >= 1 ? "front-strong" : "muted-num"}">${row.ipcMonth === null ? "-" : num(row.ipcMonth, 2)}</td>
+      <td class="num-focus ${row.cancelados ? "front-strong" : "muted-num"}">${row.cancelados || 0}</td>
+      <td class="num-focus ${row.distratos ? "front-strong" : "muted-num"}">${row.distratos || 0}</td>
+    </tr>`).join("")}</tbody>
+  </table>`;
+}
+
+function realtyReservationsTable(rows) {
+  if (!rows || !rows.length) return "";
+  return `<h3 class="section-title">Reservas ativas das imobiliárias</h3>
   <table class="sheet-table">
     <thead><tr><th>Data</th><th>Área</th><th>Imobiliária / origem</th><th>Parceiro</th><th>Reservas do mês atual</th><th>Clientes</th></tr></thead>
-    <tbody><tr>
-      <td>01/05/2026, 08/05/2026</td><td>AGL</td><td>Mymob</td><td>Endy Carvalho Consultoria imobiliária, GRUPO IMERGE</td>
-      <td class="num-focus front-strong">2</td><td>Alan Davyd Rocha da Silva; Estefane Pinheiro de Moura</td>
-    </tr><tr>
-      <td>08/05/2026, 14/05/2026</td><td>AGL</td><td>Outcom Imob</td><td>GRUPO IMERGE</td>
-      <td class="num-focus front-strong">2</td><td>Francisco Eronildo da Silva; Mauricio Santos de Carvalho</td>
-    </tr><tr>
-      <td>14/05/2026</td><td>AGL</td><td>Gracionete de Jesus Silva Andrade</td><td>Endy Carvalho Consultoria imobiliária</td>
-      <td class="num-focus front-strong">1</td><td>Francisco Vieira de França</td>
-    </tr><tr>
-      <td>16/05/2026</td><td>AGL</td><td>Inova Imobiliaria</td><td>GRUPO IMERGE</td>
-      <td class="num-focus front-strong">1</td><td>Paulo Henrique Ferreira de Sousa</td>
-    </tr><tr>
-      <td>26/05/2026</td><td>AGL</td><td>Pascoal Imobiliaria</td><td>GRUPO IMERGE</td>
-      <td class="num-focus front-strong">1</td><td>Claudiana Viana Silveira</td>
-    </tr><tr>
-      <td>28/05/2026</td><td>AGL</td><td>Clenia Duarte Costa Gestão Imobiliaria</td><td>GRUPO IMERGE</td>
-      <td class="num-focus front-strong">1</td><td>Isaic Espinel Manrrique</td>
-    </tr><tr>
-      <td>28/05/2026</td><td>AGL</td><td>Gustavo Alves Gomes Imob</td><td>Endy Carvalho Consultoria imobiliária</td>
-      <td class="num-focus front-strong">1</td><td>Debora de Almeida Campos</td>
-    </tr><tr>
-      <td>28/05/2026</td><td>AGL</td><td>Ycc Imob</td><td>Endy Carvalho Consultoria imobiliária</td>
-      <td class="num-focus front-strong">1</td><td>Mateus Gomes de Souza</td>
-    </tr><tr>
-      <td>07/05/2026</td><td>FSA</td><td>Wiris Fernandes Negocios Imobiliarios</td><td>Endy Carvalho Consultoria imobiliária</td>
-      <td class="num-focus front-strong">1</td><td>Ilma Ferreira dos Santos</td>
-    </tr><tr>
-      <td>18/05/2026</td><td>FSA</td><td>Portela Imobiliaria</td><td>CAIXA CREDFÁCIL</td>
-      <td class="num-focus front-strong">1</td><td>Joao Lucas Nunes da Silva</td>
-    </tr><tr>
-      <td>19/05/2026, 22/05/2026</td><td>FSA</td><td>Itiquira Imoveis e Assessoria</td><td>CAIXA CREDFÁCIL</td>
-      <td class="num-focus front-strong">2</td><td>Ruan Alessandro Mota Ferreira; Sara Ingrid Castro Oliveira</td>
-    </tr><tr>
-      <td>20/05/2026, 25/05/2026</td><td>FSA</td><td>Luciano de Oliveira Nascimento Fsa</td><td>CAIXA CREDFÁCIL</td>
-      <td class="num-focus front-strong">2</td><td>Pedro Wilson Fernandes de Campos; Wilson Jose de Campos Filho</td>
-    </tr><tr>
-      <td>28/05/2026</td><td>FSA</td><td>Thamires Santos de Araujo</td><td>CAIXA CREDFÁCIL</td>
-      <td class="num-focus front-strong">1</td><td>Aldeci Goncalves da Silva</td>
-    </tr></tbody>
-  </table></div></article><article class="realty-section"><header class="realty-header compact-header"><div><p class="eyebrow">Prioridade de ação</p><h2>Corretores abaixo da meta com carteira</h2></div><div class="realty-kpis"><span><b>Regra</b> maior reserva do mês primeiro</span><span><b>Objetivo</b> converter reservas do mês</span></div></header><div class="sheet-table-wrap"><table class="sheet-table priority-table">
+    <tbody>${rows.map((row) => `<tr>
+      <td>${row.dates}</td><td>${row.area}</td><td>${row.origin}</td><td>${row.partners}</td>
+      <td class="num-focus ${row.reservas ? "front-strong" : "muted-num"}">${row.reservas}</td><td>${row.clients}</td>
+    </tr>`).join("")}</tbody>
+  </table>`;
+}
+
+function priorityTable(rows) {
+  return `<table class="sheet-table priority-table">
     <thead><tr><th>#</th><th>Corretor</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Perfil</th><th>Ação</th></tr></thead>
-    <tbody><tr>
-      <td>1</td><td><strong>Luis Alves dos Santos da Silva Rocha</strong><span>EQUIPE PRÓPRIA 2 | AGL | Josue Gomes de Souza</span></td>
-      <td class="bad">-1,67</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus front-strong">2</td>
-      <td><span class="profile-pill">Crítico com carteira</span></td><td>Atacar reservas do mês com gerente</td>
-    </tr><tr>
-      <td>2</td><td><strong>Nauane Martins da Silva Oliveira</strong><span>EQUIPE PRÓPRIA | FSA | X</span></td>
-      <td class="bad">-0,67</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus front-strong">2</td>
-      <td><span class="profile-pill">Em recuperação com carteira</span></td><td>Atacar reservas do mês com gerente</td>
-    </tr><tr>
-      <td>3</td><td><strong>Ariani Morais de Sousa Pereira</strong><span>EQUIPE PRÓPRIA 3 | AGL | X</span></td>
-      <td class="bad">-0,66</td>
-      <td class="num-focus front-strong">3</td>
-      <td class="num-focus front-strong">2</td>
-      <td><span class="profile-pill">Em recuperação com carteira</span></td><td>Atacar reservas do mês com gerente</td>
-    </tr><tr>
-      <td>4</td><td><strong>Lucas Braga de Souza Oliveira</strong><span>CANAL VIRTUAL 2 | Alba Vieira da Silva Lopes</span></td>
-      <td class="bad">-0,33</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus front-strong">2</td>
-      <td><span class="profile-pill">Em recuperação com carteira</span></td><td>Atacar reservas do mês com gerente</td>
-    </tr><tr>
-      <td>5</td><td><strong>Marcilene dos Reis Carvalho</strong><span>AUTÔNOMOS 2 | FSA | Daiana Soares da Rocha</span></td>
-      <td class="bad">-1,33</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus front-strong">1</td>
-      <td><span class="profile-pill">Crítico com carteira</span></td><td>Atacar reservas do mês com gerente</td>
-    </tr><tr>
-      <td>6</td><td><strong>Caio Brendon Lopes Martins</strong><span>CANAL VIRTUAL 1 | Micael dos Santos Pires</span></td>
-      <td class="bad">-1,33</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus front-strong">1</td>
-      <td><span class="profile-pill">Crítico com carteira</span></td><td>Atacar reservas do mês com gerente</td>
-    </tr><tr>
-      <td>7</td><td><strong>Daniel Andrade dos Santos</strong><span>CANAL VIRTUAL 1 | Micael dos Santos Pires</span></td>
-      <td class="bad">-1,00</td>
-      <td class="num-focus front-strong">4</td>
-      <td class="num-focus front-strong">1</td>
-      <td><span class="profile-pill">Crítico com carteira</span></td><td>Atacar reservas do mês com gerente</td>
-    </tr><tr>
-      <td>8</td><td><strong>Maria Daiana da Silva Brandao</strong><span>EQUIPE PRÓPRIA | FSA | X</span></td>
-      <td class="bad">-0,99</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus front-strong">1</td>
-      <td><span class="profile-pill">Em recuperação com carteira</span></td><td>Atacar reservas do mês com gerente</td>
-    </tr><tr>
-      <td>9</td><td><strong>Wanderson Romero Coelho da Silva</strong><span>EQUIPE PRÓPRIA 2 | AGL | Josue Gomes de Souza</span></td>
-      <td class="bad">-0,67</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus front-strong">1</td>
-      <td><span class="profile-pill">Em recuperação com carteira</span></td><td>Atacar reservas do mês com gerente</td>
-    </tr><tr>
-      <td>10</td><td><strong>Thairine Stefanni Rodrigues da Silva</strong><span>AUTÔNOMOS 2 | FSA | Daiana Soares da Rocha</span></td>
-      <td class="bad">-0,66</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus front-strong">1</td>
-      <td><span class="profile-pill">Em recuperação com carteira</span></td><td>Atacar reservas do mês com gerente</td>
-    </tr><tr>
-      <td>11</td><td><strong>Steffany Silva Pinto</strong><span>AUTÔNOMOS | FSA | Alana Rabelo da Costa</span></td>
-      <td class="bad">-0,33</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus front-strong">1</td>
-      <td><span class="profile-pill">Em recuperação com carteira</span></td><td>Atacar reservas do mês com gerente</td>
-    </tr><tr>
-      <td>12</td><td><strong>Samara Feitosa Valadares Generoso</strong><span>EQUIPE PRÓPRIA | FSA | X</span></td>
-      <td class="bad">-2,00</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-      <td><span class="profile-pill">Crítico</span></td><td>Plano de recuperação individual</td>
-    </tr><tr>
-      <td>13</td><td><strong>Luis Rafael do Rosario</strong><span>CANAL VIRTUAL 1 | Micael dos Santos Pires</span></td>
-      <td class="bad">-2,00</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-      <td><span class="profile-pill">Afastado</span></td><td>Sem meta no período</td>
-    </tr><tr>
-      <td>14</td><td><strong>Sandra Santana dos Santos</strong><span>CANAL VIRTUAL 2 | Alba Vieira da Silva Lopes</span></td>
-      <td class="bad">-1,33</td>
-      <td class="num-focus front-strong">1</td>
-      <td class="num-focus muted-num">0</td>
-      <td><span class="profile-pill">Crítico</span></td><td>Plano de recuperação individual</td>
-    </tr><tr>
-      <td>15</td><td><strong>Anibal Hamu Neto</strong><span>AUTÔNOMOS | FSA | Alana Rabelo da Costa</span></td>
-      <td class="bad">-1,33</td>
-      <td class="num-focus muted-num">0</td>
-      <td class="num-focus muted-num">0</td>
-      <td><span class="profile-pill">Crítico</span></td><td>Plano de recuperação individual</td>
-    </tr></tbody>
-  </table></div></article></section><section class="insight-grid"><article class="insight-card danger-border"><span>Insight</span><strong>Gaps críticos</strong><p>Priorizar corretores com diferença igual ou abaixo de -1,00 e cruzar com reservas do mês.</p></article><article class="insight-card attention-border"><span>Insight</span><strong>Meta sugerida</strong><p>Quando a meta atual estiver acima da sugerida pelo tempo de casa, validar regra comercial ou decisão gerencial.</p></article><article class="insight-card ok-border"><span>Insight</span><strong>Frente de conversão</strong><p>Use reservas do mês para orientar ações rápidas de conversão por gerente.</p></article></section></main></body></html>
+    <tbody>${rows.map((row) => `<tr>
+      <td>${row.index}</td><td><strong>${row.name}</strong><span>${row.context}</span></td>
+      <td class="bad">${num(row.diff, 2)}</td>
+      <td class="num-focus ${row.repasses ? "front-strong" : "muted-num"}">${row.repasses}</td>
+      <td class="num-focus ${row.reservas ? "front-strong" : "muted-num"}">${row.reservas}</td>
+      <td><span class="profile-pill">${row.profile}</span></td><td>${row.action}</td>
+    </tr>`).join("")}</tbody>
+  </table>`;
+}
+
+async function loadDashboard() {
+  if (window.STATIC_DASHBOARD_DATA) return window.STATIC_DASHBOARD_DATA;
+
+  const response = await fetch("/api/data", { cache: "no-store" });
+  if (!response.ok) throw new Error("Não foi possível carregar os dados.");
+  return response.json();
+}
+
+function render(data) {
+  document.getElementById("periodLabel").textContent = data.periodLabel || "Sem base";
+  document.getElementById("updatedAt").textContent = data.updatedAt
+    ? `Atualizado em ${new Date(data.updatedAt).toLocaleString("pt-BR")}`
+    : "Nenhum upload processado";
+
+  document.getElementById("metricGrid").innerHTML = [
+    metric("Total realizado", data.metrics.total, data.areas.map((a) => `${a.area} ${a.repasses} (Imob ${a.area} ${a.realtyRepasses || 0})`).join(" + ")),
+    metric("Meta geral", data.metrics.goal, data.areas.map((a) => `${a.area} ${a.baseGoal} / Imob ${a.area} ${a.realtyGoal}`).join(" + ")),
+    metric("Atingimento", `${data.metrics.achievement}%`, "", data.metrics.achievement),
+    metric("IPC 2026", num(data.metrics.ipcYear, 2), "Média do IPC 2026 dos corretores ativos"),
+    metric("IPC do mês", num(data.metrics.ipcMonth, 2), `${data.metrics.teamRepasses || 0} repasses do time / ${data.metrics.activePeople || 0} corretores ativos`),
+    metric("Imobiliárias", data.metrics.realtyCount, "Times encontrados na planilha"),
+    metric("Para analisar", data.metrics.toAnalyze, "Abaixo da meta ou sem tração", undefined, true)
+  ].join("");
+
+  document.getElementById("areaGrid").innerHTML = data.areas.map((area) => `<article class="summary-card">
+    <span>${area.area}</span><strong>${area.repasses} / ${area.goal}</strong>
+    <div class="bar"><span class="${area.percent >= 80 ? "ok" : area.percent >= 50 ? "attention" : "danger"}" style="width:${Math.min(area.percent, 100)}%"></span></div>
+    <small>${area.percent}% de atingimento; Imob ${area.area}: ${area.realtyRepasses || 0}/${area.realtyGoal || 0}</small>
+  </article>`).join("");
+
+  document.getElementById("teams").innerHTML = data.teams.map(teamSection).join("");
+  document.getElementById("managerSummary").innerHTML = managerTable(data.managers || []) + realtyReservationsTable(data.realtyReservations || []);
+  document.getElementById("priorityList").innerHTML = priorityTable(data.priorities || []);
+  document.getElementById("insights").innerHTML = (data.insights || []).map((item) => `<article class="insight-card ${item.kind}-border"><span>Insight</span><strong>${item.title}</strong><p>${item.text}</p></article>`).join("");
+}
+
+loadDashboard()
+  .then(render)
+  .catch((error) => {
+    document.getElementById("periodLabel").textContent = "Erro";
+    document.getElementById("updatedAt").textContent = error.message;
+  });
+
+  </script>
+</body>
+</html>

@@ -33,6 +33,7 @@ function personRow(person, index) {
     <td>${person.ipc2024 === null ? "-" : num(person.ipc2024, 2)}</td>
     <td>${person.ipc2025 === null ? "-" : num(person.ipc2025, 2)}</td>
     <td>${person.ipc2026 === null ? "-" : num(person.ipc2026, 2)}</td>
+    <td class="num-focus ${person.repassesPreviousMonth ? "front-strong" : "muted-num"}">${person.repassesPreviousMonth || 0}</td>
     <td>${person.currentGoal ? num(person.currentGoal, 2) : "-"}</td>
     <td>${person.suggestedGoal ? num(person.suggestedGoal, 2) : "-"}</td>
     <td class="${clsDiff(person.diff)}">${person.diff === null ? "sem IPC" : `${person.diff >= 0 ? "+" : ""}${num(person.diff, 2)}`}</td>
@@ -67,7 +68,7 @@ function teamSection(team) {
     </header>
     <div class="sheet-table-wrap">
       <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
+        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Repasses de maio</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
         <tbody>${team.people.map(personRow).join("")}</tbody>
       </table>
     </div>
@@ -116,6 +117,8 @@ function priorityTable(rows) {
 }
 
 async function loadDashboard() {
+  if (window.STATIC_DASHBOARD_DATA) return window.STATIC_DASHBOARD_DATA;
+
   const response = await fetch("/api/data", { cache: "no-store" });
   if (!response.ok) throw new Error("Não foi possível carregar os dados.");
   return response.json();
@@ -148,3 +151,10 @@ function render(data) {
   document.getElementById("priorityList").innerHTML = priorityTable(data.priorities || []);
   document.getElementById("insights").innerHTML = (data.insights || []).map((item) => `<article class="insight-card ${item.kind}-border"><span>Insight</span><strong>${item.title}</strong><p>${item.text}</p></article>`).join("");
 }
+
+loadDashboard()
+  .then(render)
+  .catch((error) => {
+    document.getElementById("periodLabel").textContent = "Erro";
+    document.getElementById("updatedAt").textContent = error.message;
+  });

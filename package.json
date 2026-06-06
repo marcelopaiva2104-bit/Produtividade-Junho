@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js",
+    "export:static": "node scripts/export-static-dashboard.js",
     "process:local": "node scripts/process-local.js",
+    "process:june": "set DASHBOARD_PERIOD=2026-06&& node scripts/process-local.js",
     "test": "node scripts/process-local.js"
   },
   "dependencies": {

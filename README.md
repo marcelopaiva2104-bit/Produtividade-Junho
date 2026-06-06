@@ -11,8 +11,10 @@ Dashboard de produtividade para acompanhamento de gerentes, imobiliárias e corr
 
 1. Coloque os arquivos `Repasse.*.xlsx` e `reserva.*.xlsx` na raiz do projeto.
 2. Rode `npm run process:local`.
-3. O arquivo `data/latest-dashboard.json` será atualizado.
-4. Gere/atualize o HTML estático antes de publicar.
+3. O arquivo `data/latest-dashboard.json` será atualizado e o dashboard estático será exportado automaticamente para a raiz e para `public/`.
+4. Para exportar novamente usando apenas a base JSON atual, rode `npm run export:static`.
+5. Para forçar uma competência, rode no PowerShell: `$env:DASHBOARD_PERIOD='2026-06'; npm.cmd run process:local`.
+6. Para junho/2026, também é possível rodar `npm run process:june`.
 
 ## Arquitetura
 

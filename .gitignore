@@ -5,3 +5,4 @@ uploads/
 .npm-cache/
 tmp-test/
 .DS_Store
+.vercel

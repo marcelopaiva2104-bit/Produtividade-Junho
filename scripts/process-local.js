@@ -4,12 +4,13 @@ const { processExcelFiles } = require("../lib/excelProcessor");
 const { saveDashboard } = require("../lib/storage");
 const { exportStaticDashboard } = require("./export-static-dashboard");
 
-function latestFile(root, prefix) {
+function latestFile(root, prefixes) {
+  const list = Array.isArray(prefixes) ? prefixes : [prefixes];
   const candidates = fs.readdirSync(root)
-    .filter((name) => name.toLowerCase().startsWith(prefix.toLowerCase()) && name.toLowerCase().endsWith(".xlsx"))
+    .filter((name) => list.some((prefix) => name.toLowerCase().startsWith(prefix.toLowerCase())) && name.toLowerCase().endsWith(".xlsx"))
     .map((name) => ({ name, time: fs.statSync(path.join(root, name)).mtimeMs }))
     .sort((a, b) => b.time - a.time);
-  if (!candidates.length) throw new Error(`Arquivo não encontrado: ${prefix}*.xlsx`);
+  if (!candidates.length) throw new Error(`Arquivo não encontrado: ${list.join(" ou ")}*.xlsx`);
   return path.join(root, candidates[0].name);
 }
 
@@ -19,7 +20,7 @@ async function main() {
     meta: path.join(root, "Meta.IPC.repasses.v2.xlsx"),
     structure: path.join(root, "QLP - Taveira.xlsx"),
     collaborators: path.join(root, "Colaboradores.cooretores.data entrada.xlsx"),
-    repasse: latestFile(root, "Repasse."),
+    repasse: latestFile(root, ["Repasse.", "repasses."]),
     reserva: latestFile(root, "reserva.")
   };
   const dashboard = await processExcelFiles(files, [

@@ -1,6 +1,6 @@
 {
   "periodLabel": "Junho/2026",
-  "updatedAt": "2026-06-06T18:14:17.681Z",
+  "updatedAt": "2026-06-09T01:34:15.253Z",
   "files": [
     {
       "kind": "meta",
@@ -32,12 +32,12 @@
     "total": 1,
     "goal": 132,
     "achievement": 1,
-    "ipcYear": 0.9302325581395349,
+    "ipcYear": 0.9128787878787878,
     "ipcMonth": 0,
     "teamRepasses": 0,
-    "activePeople": 46,
+    "activePeople": 47,
     "realtyCount": 13,
-    "toAnalyze": 33
+    "toAnalyze": 34
   },
   "areas": [
     {
@@ -1190,7 +1190,7 @@
           "diff": -0.6666666666666667,
           "repassesPreviousMonth": 2,
           "repassesMonth": 0,
-          "reservasMonth": 1,
+          "reservasMonth": 2,
           "canceladosMonth": 1,
           "distratosMonth": 0,
           "status": "Analisar",
@@ -1246,7 +1246,7 @@
           "diff": -0.6599999999999999,
           "repassesPreviousMonth": 3,
           "repassesMonth": 0,
-          "reservasMonth": 1,
+          "reservasMonth": 3,
           "canceladosMonth": 0,
           "distratosMonth": 0,
           "status": "Analisar",
@@ -1316,7 +1316,7 @@
       "critical": 1,
       "teamGoal": 8.65,
       "repasses": 0,
-      "reservas": 3,
+      "reservas": 6,
       "cancelados": 1,
       "distratos": 0,
       "ipcYear": 0.9999999999999998,
@@ -1402,7 +1402,7 @@
           "diff": -1.3333333333333335,
           "repassesPreviousMonth": 0,
           "repassesMonth": 0,
-          "reservasMonth": 0,
+          "reservasMonth": 1,
           "canceladosMonth": 0,
           "distratosMonth": 0,
           "status": "Crítico",
@@ -1441,6 +1441,34 @@
           "role": ""
         },
         {
+          "name": "Ana Luiza Entreportes da Costa",
+          "key": "ANA LUIZA ENTREPONTES DA COSTA",
+          "team": "EQUIPE PRÓPRIA 2 | AGL",
+          "area": "AGL",
+          "start": "18/03/2026",
+          "months": 4,
+          "y2024": 0,
+          "y2025": 0,
+          "y2026": 1,
+          "ipc2024": null,
+          "ipc2025": null,
+          "ipc2026": 0.16666666666666666,
+          "currentGoal": 1.33,
+          "suggestedGoal": 1.33,
+          "diff": -1.1633333333333333,
+          "repassesPreviousMonth": 1,
+          "repassesMonth": 0,
+          "reservasMonth": 1,
+          "canceladosMonth": 0,
+          "distratosMonth": 0,
+          "status": "Crítico",
+          "statusClass": "danger",
+          "profile": "Crítico",
+          "action": "Plano de recuperação individual",
+          "cpf": "",
+          "role": ""
+        },
+        {
           "name": "Luis Alves dos Santos da Silva Rocha",
           "key": "LUIS ALVES DOS SANTOS DA SILVA ROCHA",
           "team": "EQUIPE PRÓPRIA 2 | AGL",
@@ -1458,7 +1486,7 @@
           "diff": -1.1666666666666665,
           "repassesPreviousMonth": 3,
           "repassesMonth": 0,
-          "reservasMonth": 0,
+          "reservasMonth": 1,
           "canceladosMonth": 0,
           "distratosMonth": 0,
           "status": "Crítico",
@@ -1467,45 +1495,19 @@
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": ""
-        },
-        {
-          "name": "Ana Luiza Entrepontes da Costa",
-          "key": "ANA LUIZA ENTREPONTES DA COSTA",
-          "team": "EQUIPE PRÓPRIA 2 | AGL",
-          "area": "AGL",
-          "start": "novato",
-          "months": 1,
-          "y2024": 0,
-          "y2025": 0,
-          "y2026": 0,
-          "ipc2024": null,
-          "ipc2025": null,
-          "ipc2026": null,
-          "currentGoal": 0.33,
-          "suggestedGoal": 0.33,
-          "diff": null,
-          "repassesPreviousMonth": 0,
-          "repassesMonth": 0,
-          "reservasMonth": 0,
-          "canceladosMonth": 0,
-          "distratosMonth": 0,
-          "status": "admissão",
-          "statusClass": "neutral",
-          "profile": "admissão",
-          "action": "Acompanhar integração"
         }
       ],
       "above": 0,
-      "below": 5,
-      "critical": 2,
-      "teamGoal": 8.32,
+      "below": 6,
+      "critical": 3,
+      "teamGoal": 9.32,
       "repasses": 0,
-      "reservas": 1,
+      "reservas": 4,
       "cancelados": 0,
       "distratos": 0,
-      "ipcYear": 0.8666666666666666,
+      "ipcYear": 0.75,
       "ipcMonth": 0,
-      "activePeople": 5
+      "activePeople": 6
     },
     {
       "name": "IMOBILIÁRIAS | AGL",
@@ -2815,7 +2817,7 @@
       "critical": 1,
       "goal": 8.65,
       "repasses": 0,
-      "reservas": 3,
+      "reservas": 6,
       "ipcYear": 0.9999999999999998,
       "ipcMonth": 0,
       "cancelados": 1,
@@ -2828,12 +2830,12 @@
       "type": "Time",
       "people": 6,
       "above": 0,
-      "below": 5,
-      "critical": 2,
-      "goal": 8.32,
+      "below": 6,
+      "critical": 3,
+      "goal": 9.32,
       "repasses": 0,
-      "reservas": 1,
-      "ipcYear": 0.8666666666666666,
+      "reservas": 4,
+      "ipcYear": 0.75,
       "ipcMonth": 0,
       "cancelados": 0,
       "distratos": 0
@@ -3052,6 +3054,16 @@
     },
     {
       "index": 2,
+      "name": "Ariani Morais de Sousa Pereira",
+      "context": "EQUIPE PRÓPRIA | AGL | Ana",
+      "diff": -0.6599999999999999,
+      "repasses": 0,
+      "reservas": 3,
+      "profile": "Em recuperação com carteira",
+      "action": "Atacar reservas do mês com gerente"
+    },
+    {
+      "index": 3,
       "name": "Ingrid Alves D'Aparecida",
       "context": "EQUIPE PRÓPRIA | FSA | Vivian",
       "diff": -1.1666666666666665,
@@ -3061,7 +3073,7 @@
       "action": "Atacar reservas do mês com gerente"
     },
     {
-      "index": 3,
+      "index": 4,
       "name": "Nauane Martins da Silva Oliveira",
       "context": "EQUIPE PRÓPRIA | FSA | Vivian",
       "diff": -1.1666666666666665,
@@ -3071,7 +3083,17 @@
       "action": "Atacar reservas do mês com gerente"
     },
     {
-      "index": 4,
+      "index": 5,
+      "name": "Jonatas Castro da Silva",
+      "context": "EQUIPE PRÓPRIA | AGL | Ana",
+      "diff": -0.6666666666666667,
+      "repasses": 0,
+      "reservas": 2,
+      "profile": "Em recuperação com carteira",
+      "action": "Atacar reservas do mês com gerente"
+    },
+    {
+      "index": 6,
       "name": "Maria Eugenia Martins Alves",
       "context": "EQUIPE PRÓPRIA 2 | FSA | Lucas",
       "diff": -0.4933333333333332,
@@ -3081,7 +3103,7 @@
       "action": "Atacar reservas do mês com gerente"
     },
     {
-      "index": 5,
+      "index": 7,
       "name": "Gabriel do Nascimento Dias",
       "context": "EQUIPE PRÓPRIA 2 | FSA | Lucas",
       "diff": -0.33333333333333326,
@@ -3091,7 +3113,7 @@
       "action": "Atacar reservas do mês com gerente"
     },
     {
-      "index": 6,
+      "index": 8,
       "name": "José Ribamar",
       "context": "CANAL 3 | Pâmela",
       "diff": -1.5,
@@ -3101,7 +3123,17 @@
       "action": "Atacar reservas do mês com gerente"
     },
     {
-      "index": 7,
+      "index": 9,
+      "name": "Wanderson Romero Coelho da Silva",
+      "context": "EQUIPE PRÓPRIA 2 | AGL | Josué",
+      "diff": -1.3333333333333335,
+      "repasses": 0,
+      "reservas": 1,
+      "profile": "Crítico com carteira",
+      "action": "Atacar reservas do mês com gerente"
+    },
+    {
+      "index": 10,
       "name": "Sandra Santana dos Santos",
       "context": "CANAL 2 | Alba",
       "diff": -1.1666666666666665,
@@ -3111,7 +3143,17 @@
       "action": "Atacar reservas do mês com gerente"
     },
     {
-      "index": 8,
+      "index": 11,
+      "name": "Luis Alves dos Santos da Silva Rocha",
+      "context": "EQUIPE PRÓPRIA 2 | AGL | Josué",
+      "diff": -1.1666666666666665,
+      "repasses": 0,
+      "reservas": 1,
+      "profile": "Crítico com carteira",
+      "action": "Atacar reservas do mês com gerente"
+    },
+    {
+      "index": 12,
       "name": "Pabline Micheli Oliveira da Silva",
       "context": "AUTÔNOMOS 2 | FSA | Daiana",
       "diff": -1.1633333333333333,
@@ -3121,7 +3163,7 @@
       "action": "Atacar reservas do mês com gerente"
     },
     {
-      "index": 9,
+      "index": 13,
       "name": "Valmir Santana dos Santos",
       "context": "EQUIPE PRÓPRIA | FSA | Vivian",
       "diff": -1.1633333333333333,
@@ -3131,63 +3173,23 @@
       "action": "Atacar reservas do mês com gerente"
     },
     {
-      "index": 10,
-      "name": "Camila Fernandes da Silva",
-      "context": "AUTÔNOMOS | FSA | Alana",
-      "diff": -1,
+      "index": 14,
+      "name": "Ana Luiza Entreportes da Costa",
+      "context": "EQUIPE PRÓPRIA 2 | AGL | Josué",
+      "diff": -1.1633333333333333,
       "repasses": 0,
       "reservas": 1,
       "profile": "Crítico com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
-      "index": 11,
-      "name": "Caio Brendon Lopes Martins",
-      "context": "CANAL 1 | Micael",
-      "diff": -0.9933333333333333,
-      "repasses": 0,
-      "reservas": 1,
-      "profile": "Em recuperação com carteira",
-      "action": "Atacar reservas do mês com gerente"
-    },
-    {
-      "index": 12,
-      "name": "Ryan Gomes Calazans",
-      "context": "EQUIPE PRÓPRIA | FSA | Vivian",
-      "diff": -0.8333333333333333,
-      "repasses": 0,
-      "reservas": 1,
-      "profile": "Em recuperação com carteira",
-      "action": "Atacar reservas do mês com gerente"
-    },
-    {
-      "index": 13,
-      "name": "Jonatas Castro da Silva",
-      "context": "EQUIPE PRÓPRIA | AGL | Ana",
-      "diff": -0.6666666666666667,
-      "repasses": 0,
-      "reservas": 1,
-      "profile": "Em recuperação com carteira",
-      "action": "Atacar reservas do mês com gerente"
-    },
-    {
-      "index": 14,
-      "name": "Thairine Stefanni Rodrigues da Silva",
-      "context": "AUTÔNOMOS 2 | FSA | Daiana",
-      "diff": -0.6599999999999999,
-      "repasses": 0,
-      "reservas": 1,
-      "profile": "Em recuperação com carteira",
-      "action": "Atacar reservas do mês com gerente"
-    },
-    {
       "index": 15,
-      "name": "Ariani Morais de Sousa Pereira",
-      "context": "EQUIPE PRÓPRIA | AGL | Ana",
-      "diff": -0.6599999999999999,
+      "name": "Camila Fernandes da Silva",
+      "context": "AUTÔNOMOS | FSA | Alana",
+      "diff": -1,
       "repasses": 0,
       "reservas": 1,
-      "profile": "Em recuperação com carteira",
+      "profile": "Crítico com carteira",
       "action": "Atacar reservas do mês com gerente"
     }
   ],

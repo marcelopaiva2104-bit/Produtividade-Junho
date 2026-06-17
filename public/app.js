@@ -21,6 +21,11 @@ function metric(title, value, detail, progress, warning = false) {
   </article>`;
 }
 
+function profileCell(row, label) {
+  const item = row.profiles && row.profiles[label] ? row.profiles[label] : { count: 0, percent: 0 };
+  return `${item.count} (${item.percent}%)`;
+}
+
 function personRow(person, index) {
   return `<tr>
     <td>${index + 1}</td>
@@ -39,6 +44,7 @@ function personRow(person, index) {
     <td class="${clsDiff(person.diff)}">${person.diff === null ? "sem IPC" : `${person.diff >= 0 ? "+" : ""}${num(person.diff, 2)}`}</td>
     <td class="num-focus ${person.repassesMonth ? "front-strong" : "muted-num"}">${person.repassesMonth}</td>
     <td class="num-focus ${person.reservasMonth ? "front-strong" : "muted-num"}">${person.reservasMonth}</td>
+    <td class="num-focus ${person.pastasMonth ? "front-strong" : "muted-num"}">${person.pastasMonth || 0}</td>
     <td class="num-focus ${person.canceladosMonth ? "front-strong" : "muted-num"}">${person.canceladosMonth || 0}</td>
     <td class="num-focus ${person.distratosMonth ? "front-strong" : "muted-num"}">${person.distratosMonth || 0}</td>
     <td><span class="status-pill ${person.statusClass}">${person.status}</span></td>
@@ -60,6 +66,7 @@ function teamSection(team) {
         <span><b>Meta do mês</b> ${team.teamGoal || "-"}</span>
         <span><b>Repasses do mês atual</b> ${team.repasses}</span>
         <span><b>Reservas do mês atual</b> ${team.reservas}</span>
+        <span><b>Pastas</b> ${team.pastas || 0}</span>
         <span><b>Cancelados do mês</b> ${team.cancelados || 0}</span>
         <span><b>Distratos do mês</b> ${team.distratos || 0}</span>
         <span><b>IPC do ano</b> ${team.ipcYear === null ? "-" : num(team.ipcYear, 2)}</span>
@@ -68,7 +75,7 @@ function teamSection(team) {
     </header>
     <div class="sheet-table-wrap">
       <table class="sheet-table broker-table">
-        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Repasses de maio</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
+        <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Repasses de maio</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Pastas</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>
         <tbody>${team.people.map(personRow).join("")}</tbody>
       </table>
     </div>
@@ -77,12 +84,17 @@ function teamSection(team) {
 
 function managerTable(rows) {
   return `<table class="sheet-table summary-table">
-    <thead><tr><th>Gerente</th><th>Time / Imobiliária</th><th>Área</th><th>Tipo</th><th>Corretores</th><th>Acima</th><th>Abaixo</th><th>Críticos</th><th>Meta</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>IPC do ano</th><th>IPC do mês</th><th>Cancelados do mês</th><th>Distratos do mês</th></tr></thead>
+    <thead><tr><th>Gerente</th><th>Time / Imobiliária</th><th>Área</th><th>Tipo</th><th>Corretores</th><th>Acima</th><th>Abaixo</th><th>Críticos</th><th>Meta</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Pastas</th><th>Elite</th><th>Produtores</th><th>Desenvolvimento</th><th>Recuperação</th><th>IPC do ano</th><th>IPC do mês</th><th>Cancelados do mês</th><th>Distratos do mês</th></tr></thead>
     <tbody>${rows.map((row) => `<tr>
       <td><strong>${row.manager}</strong></td><td>${row.team}</td><td>${row.area}</td><td>${row.type}</td><td>${row.people}</td>
       <td class="good">${row.above}</td><td class="bad">${row.below}</td><td>${row.critical}</td><td>${row.goal}</td>
       <td class="num-focus ${row.repasses ? "front-strong" : "muted-num"}">${row.repasses}</td>
       <td class="num-focus ${row.reservas ? "front-strong" : "muted-num"}">${row.reservas}</td>
+      <td class="num-focus ${row.pastas ? "front-strong" : "muted-num"}">${row.pastas || 0}</td>
+      <td>${profileCell(row, "Corretores Elite")}</td>
+      <td>${profileCell(row, "Corretores Produtores")}</td>
+      <td>${profileCell(row, "Corretores em Desenvolvimento")}</td>
+      <td>${profileCell(row, "Corretores em Recuperação")}</td>
       <td class="num-focus ${row.ipcYear >= 1 ? "front-strong" : "muted-num"}">${row.ipcYear === null ? "-" : num(row.ipcYear, 2)}</td>
       <td class="num-focus ${row.ipcMonth >= 1 ? "front-strong" : "muted-num"}">${row.ipcMonth === null ? "-" : num(row.ipcMonth, 2)}</td>
       <td class="num-focus ${row.cancelados ? "front-strong" : "muted-num"}">${row.cancelados || 0}</td>
@@ -105,12 +117,13 @@ function realtyReservationsTable(rows) {
 
 function priorityTable(rows) {
   return `<table class="sheet-table priority-table">
-    <thead><tr><th>#</th><th>Corretor</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Perfil</th><th>Ação</th></tr></thead>
+    <thead><tr><th>#</th><th>Corretor</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Pastas</th><th>Perfil</th><th>Ação</th></tr></thead>
     <tbody>${rows.map((row) => `<tr>
       <td>${row.index}</td><td><strong>${row.name}</strong><span>${row.context}</span></td>
       <td class="bad">${num(row.diff, 2)}</td>
       <td class="num-focus ${row.repasses ? "front-strong" : "muted-num"}">${row.repasses}</td>
       <td class="num-focus ${row.reservas ? "front-strong" : "muted-num"}">${row.reservas}</td>
+      <td class="num-focus ${row.pastas ? "front-strong" : "muted-num"}">${row.pastas || 0}</td>
       <td><span class="profile-pill">${row.profile}</span></td><td>${row.action}</td>
     </tr>`).join("")}</tbody>
   </table>`;

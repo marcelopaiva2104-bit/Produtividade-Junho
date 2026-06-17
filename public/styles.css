@@ -78,6 +78,7 @@ h2 {
 .period-card,
 .metric-card,
 .summary-card,
+.team-profile-card,
 .realty-section,
 .insight-card,
 .sheet-toolbar {
@@ -115,6 +116,7 @@ h2 {
 .period-card span,
 .metric-card span,
 .summary-card span,
+.team-profile-card span,
 .insight-card span,
 .filter-label {
   display: block;
@@ -260,40 +262,30 @@ h2 {
   display: grid;
   grid-template-columns: repeat(4, minmax(160px, 1fr));
   gap: 12px;
-  padding: 14px 18px;
-  background: #f6faf8;
+  padding: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbf9 100%);
   border-bottom: 1px solid var(--line);
 }
 
 .team-profile-card {
   min-width: 0;
-  padding: 16px 18px;
-  background: #ffffff;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: 0 10px 26px rgba(28, 47, 39, 0.04);
+  min-height: 122px;
+  padding: 16px;
 }
 
-.team-profile-card span,
 .team-profile-card small {
   display: block;
   color: var(--muted);
 }
 
-.team-profile-card span {
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
 .team-profile-card strong {
   display: block;
-  color: var(--ink);
-  font-size: 34px;
-  line-height: 1.1;
+  margin: 9px 0 7px;
+  font-size: clamp(28px, 4vw, 38px);
+  line-height: 1;
 }
 
 .team-profile-card small {
-  margin-top: 8px;
   font-size: 13px;
 }
 

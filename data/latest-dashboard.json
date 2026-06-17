@@ -1,6 +1,6 @@
 {
   "periodLabel": "Junho/2026",
-  "updatedAt": "2026-06-17T17:42:08.317Z",
+  "updatedAt": "2026-06-17T17:47:49.367Z",
   "files": [
     {
       "kind": "meta",
@@ -101,7 +101,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            2,
+            1,
+            1,
+            0,
+            1,
+            0
+          ]
         },
         {
           "name": "Nauane Martins da Silva Oliveira",
@@ -130,7 +138,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            2,
+            1,
+            0,
+            1,
+            0
+          ]
         },
         {
           "name": "Ryan Gomes Calazans",
@@ -159,7 +175,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            2,
+            0,
+            1,
+            2,
+            2,
+            0
+          ]
         },
         {
           "name": "Maria Daiana da Silva Brandão",
@@ -188,7 +212,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            1,
+            0,
+            2,
+            1,
+            0
+          ]
         },
         {
           "name": "Valmir Santana dos Santos",
@@ -217,7 +249,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ]
         }
       ],
       "above": 0,
@@ -249,7 +289,39 @@
           "count": 5,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 6,
+          "ipc": 1.2
+        },
+        {
+          "label": "02/26",
+          "count": 4,
+          "ipc": 0.8
+        },
+        {
+          "label": "03/26",
+          "count": 3,
+          "ipc": 0.6
+        },
+        {
+          "label": "04/26",
+          "count": 4,
+          "ipc": 0.8
+        },
+        {
+          "label": "05/26",
+          "count": 6,
+          "ipc": 1.2
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     },
     {
       "name": "EQUIPE PRÓPRIA 2 | FSA",
@@ -283,7 +355,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            2,
+            2,
+            3,
+            1,
+            2,
+            0
+          ]
         },
         {
           "name": "Maria Eugenia Martins Alves",
@@ -312,7 +392,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            2,
+            0,
+            2,
+            1,
+            2,
+            0
+          ]
         },
         {
           "name": "Murielly de Sousa Santos",
@@ -341,7 +429,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ]
         },
         {
           "name": "Natália Nogueira Aguiar",
@@ -370,7 +466,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Manter cadência e gerar novas reservas",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            3,
+            0
+          ]
         },
         {
           "name": "Natália Cristina Neris dos Santos",
@@ -397,7 +501,15 @@
           "status": "Sem base",
           "statusClass": "neutral",
           "profile": "Corretores em Recuperação",
-          "action": "Cadastrar ou vincular na base de metas"
+          "action": "Cadastrar ou vincular na base de metas",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
         }
       ],
       "above": 1,
@@ -429,7 +541,39 @@
           "count": 5,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 4,
+          "ipc": 0.8
+        },
+        {
+          "label": "02/26",
+          "count": 2,
+          "ipc": 0.4
+        },
+        {
+          "label": "03/26",
+          "count": 5,
+          "ipc": 1
+        },
+        {
+          "label": "04/26",
+          "count": 2,
+          "ipc": 0.4
+        },
+        {
+          "label": "05/26",
+          "count": 8,
+          "ipc": 1.6
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     },
     {
       "name": "AUTÔNOMOS | FSA",
@@ -463,7 +607,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            4,
+            3,
+            0,
+            0,
+            0
+          ]
         },
         {
           "name": "Isabella Pereira Feliciano",
@@ -492,7 +644,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Manter cadência e gerar novas reservas",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            4,
+            3,
+            1,
+            2,
+            2,
+            0
+          ]
         },
         {
           "name": "Anna Luiza Pereira de Sousa",
@@ -521,7 +681,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Manter cadência e gerar novas reservas",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            3,
+            3,
+            1,
+            1,
+            4,
+            0
+          ]
         },
         {
           "name": "Steffany Silva Pinto",
@@ -550,7 +718,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            3,
+            0,
+            1,
+            1,
+            0
+          ]
         },
         {
           "name": "Camila Fernandes da Silva",
@@ -579,7 +755,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            0,
+            2,
+            2,
+            0,
+            2,
+            0
+          ]
         },
         {
           "name": "Thâmara Rafaella de Melo Santos",
@@ -608,7 +792,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ]
         },
         {
           "name": "Anibal Hamu Neto",
@@ -635,7 +827,15 @@
           "status": "Crítico",
           "statusClass": "danger",
           "profile": "Corretores em Recuperação",
-          "action": "Plano de recuperação individual"
+          "action": "Plano de recuperação individual",
+          "monthlyRepasses": [
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+          ]
         }
       ],
       "above": 2,
@@ -667,7 +867,39 @@
           "count": 7,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 9,
+          "ipc": 1.2857142857142858
+        },
+        {
+          "label": "02/26",
+          "count": 16,
+          "ipc": 2.2857142857142856
+        },
+        {
+          "label": "03/26",
+          "count": 7,
+          "ipc": 1
+        },
+        {
+          "label": "04/26",
+          "count": 5,
+          "ipc": 0.7142857142857143
+        },
+        {
+          "label": "05/26",
+          "count": 10,
+          "ipc": 1.4285714285714286
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     },
     {
       "name": "AUTÔNOMOS 2 | FSA",
@@ -701,7 +933,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Replicar rotina e usar como referência",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            0,
+            2,
+            3,
+            1,
+            2,
+            0
+          ]
         },
         {
           "name": "Gyovana Fernandes Almeida Castro",
@@ -730,7 +970,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Manter cadência e gerar novas reservas",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            0,
+            2,
+            3,
+            3,
+            2,
+            0
+          ]
         },
         {
           "name": "Thairine Stefanni Rodrigues da Silva",
@@ -759,7 +1007,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            0,
+            2,
+            1,
+            1,
+            2,
+            0
+          ]
         },
         {
           "name": "Marcilene dos Reis Carvalho",
@@ -788,7 +1044,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            1,
+            0,
+            1,
+            2,
+            0
+          ]
         },
         {
           "name": "Letícia Lorranny Santos Dourado",
@@ -817,7 +1081,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            1,
+            0,
+            1,
+            0,
+            0
+          ]
         },
         {
           "name": "Erika Alves Gomes",
@@ -846,7 +1118,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ]
         },
         {
           "name": "Pabline Micheli Oliveira da Silva",
@@ -875,7 +1155,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ]
         }
       ],
       "above": 2,
@@ -907,7 +1195,39 @@
           "count": 7,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 2,
+          "ipc": 0.2857142857142857
+        },
+        {
+          "label": "02/26",
+          "count": 8,
+          "ipc": 1.1428571428571428
+        },
+        {
+          "label": "03/26",
+          "count": 7,
+          "ipc": 1
+        },
+        {
+          "label": "04/26",
+          "count": 7,
+          "ipc": 1
+        },
+        {
+          "label": "05/26",
+          "count": 10,
+          "ipc": 1.4285714285714286
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     },
     {
       "name": "IMOBILIÁRIAS | FSA",
@@ -1268,7 +1588,39 @@
           "count": 1,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "02/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "03/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "04/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "05/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     },
     {
       "name": "EQUIPE PRÓPRIA | AGL",
@@ -1302,7 +1654,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            2,
+            2,
+            0,
+            1,
+            1,
+            0
+          ]
         },
         {
           "name": "Jonatas Castro da Silva",
@@ -1331,7 +1691,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            0,
+            1,
+            1,
+            4,
+            2,
+            0
+          ]
         },
         {
           "name": "Natasha Lucilía Barbosa",
@@ -1360,7 +1728,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            2,
+            1,
+            0,
+            1,
+            0
+          ]
         },
         {
           "name": "Ariani Morais de Sousa Pereira",
@@ -1389,7 +1765,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            0,
+            2,
+            0,
+            3,
+            0
+          ]
         },
         {
           "name": "Milene de Almeida Lima",
@@ -1418,7 +1802,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            2,
+            1,
+            1,
+            0,
+            1,
+            0
+          ]
         },
         {
           "name": "Áquila da Silva Fernandes",
@@ -1445,7 +1837,15 @@
           "status": "Sem base",
           "statusClass": "neutral",
           "profile": "Corretores em Recuperação",
-          "action": "Cadastrar ou vincular na base de metas"
+          "action": "Cadastrar ou vincular na base de metas",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
         }
       ],
       "above": 0,
@@ -1477,7 +1877,39 @@
           "count": 6,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 6,
+          "ipc": 1
+        },
+        {
+          "label": "02/26",
+          "count": 6,
+          "ipc": 1
+        },
+        {
+          "label": "03/26",
+          "count": 5,
+          "ipc": 0.8333333333333334
+        },
+        {
+          "label": "04/26",
+          "count": 5,
+          "ipc": 0.8333333333333334
+        },
+        {
+          "label": "05/26",
+          "count": 8,
+          "ipc": 1.3333333333333333
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     },
     {
       "name": "EQUIPE PRÓPRIA 2 | AGL",
@@ -1511,7 +1943,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            1,
+            3,
+            1,
+            1,
+            0
+          ]
         },
         {
           "name": "João Vitor Brito",
@@ -1540,7 +1980,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            0,
+            3,
+            0,
+            0,
+            0
+          ]
         },
         {
           "name": "Wanderson Romero Coelho da Silva",
@@ -1569,7 +2017,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            0,
+            2,
+            1,
+            0,
+            0
+          ]
         },
         {
           "name": "Juliana Maria de Souza",
@@ -1598,7 +2054,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano semanal com o gerente",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            1,
+            2,
+            0,
+            2,
+            0
+          ]
         },
         {
           "name": "Ana Luiza Entreportes da Costa",
@@ -1627,7 +2091,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ]
         },
         {
           "name": "Luis Alves dos Santos da Silva Rocha",
@@ -1656,7 +2128,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Plano de recuperação individual",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            0,
+            0,
+            1,
+            3,
+            0
+          ]
         }
       ],
       "above": 0,
@@ -1688,7 +2168,39 @@
           "count": 6,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 5,
+          "ipc": 0.8333333333333334
+        },
+        {
+          "label": "02/26",
+          "count": 2,
+          "ipc": 0.3333333333333333
+        },
+        {
+          "label": "03/26",
+          "count": 10,
+          "ipc": 1.6666666666666667
+        },
+        {
+          "label": "04/26",
+          "count": 3,
+          "ipc": 0.5
+        },
+        {
+          "label": "05/26",
+          "count": 7,
+          "ipc": 1.1666666666666667
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     },
     {
       "name": "IMOBILIÁRIAS | AGL",
@@ -2022,7 +2534,39 @@
           "count": 5,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "02/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "03/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "04/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "05/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     },
     {
       "name": "CANAL 1",
@@ -2056,7 +2600,15 @@
           "profile": "Corretores em Recuperação",
           "action": "Manter cadência e gerar novas reservas",
           "cpf": "",
-          "role": ""
+          "role": "",
+          "monthlyRepasses": [
+            1,
+            4,
+            2,
+            3,
+            2,
+            0
+          ]
         },
         {
           "name": "Daniel Andrade dos Santos",
@@ -2083,7 +2635,15 @@
           "status": "Analisar",
           "statusClass": "attention",
           "profile": "Corretores em Recuperação",
-          "action": "Plano semanal com o gerente"
+          "action": "Plano semanal com o gerente",
+          "monthlyRepasses": [
+            0,
+            3,
+            0,
+            1,
+            5,
+            0
+          ]
         },
         {
           "name": "Lucas de Souza Rodrigues",
@@ -2110,7 +2670,15 @@
           "status": "OK",
           "statusClass": "ok",
           "profile": "Corretores em Recuperação",
-          "action": "Manter cadência e gerar novas reservas"
+          "action": "Manter cadência e gerar novas reservas",
+          "monthlyRepasses": [
+            0,
+            1,
+            1,
+            1,
+            2,
+            0
+          ]
         },
         {
           "name": "Caio Brendon Lopes Martins",
@@ -2137,7 +2705,15 @@
           "status": "Analisar",
           "statusClass": "attention",
           "profile": "Corretores em Recuperação",
-          "action": "Plano semanal com o gerente"
+          "action": "Plano semanal com o gerente",
+          "monthlyRepasses": [
+            0,
+            1,
+            0,
+            1,
+            2,
+            0
+          ]
         },
         {
           "name": "Lucas Ramos de Victória",
@@ -2164,7 +2740,15 @@
           "status": "OK",
           "statusClass": "ok",
           "profile": "Corretores em Recuperação",
-          "action": "Replicar rotina e usar como referência"
+          "action": "Replicar rotina e usar como referência",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            2,
+            2,
+            0
+          ]
         }
       ],
       "above": 3,
@@ -2196,7 +2780,39 @@
           "count": 5,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 1,
+          "ipc": 0.2
+        },
+        {
+          "label": "02/26",
+          "count": 9,
+          "ipc": 1.8
+        },
+        {
+          "label": "03/26",
+          "count": 3,
+          "ipc": 0.6
+        },
+        {
+          "label": "04/26",
+          "count": 8,
+          "ipc": 1.6
+        },
+        {
+          "label": "05/26",
+          "count": 13,
+          "ipc": 2.6
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     },
     {
       "name": "CANAL 2",
@@ -2228,7 +2844,15 @@
           "status": "OK",
           "statusClass": "ok",
           "profile": "Corretores em Recuperação",
-          "action": "Replicar rotina e usar como referência"
+          "action": "Replicar rotina e usar como referência",
+          "monthlyRepasses": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            0
+          ]
         },
         {
           "name": "Sandra Santana dos Santos",
@@ -2255,7 +2879,15 @@
           "status": "Crítico",
           "statusClass": "danger",
           "profile": "Corretores em Recuperação",
-          "action": "Plano de recuperação individual"
+          "action": "Plano de recuperação individual",
+          "monthlyRepasses": [
+            0,
+            2,
+            0,
+            2,
+            1,
+            0
+          ]
         },
         {
           "name": "Lucas Braga de Souza Oliveira",
@@ -2282,7 +2914,15 @@
           "status": "Analisar",
           "statusClass": "attention",
           "profile": "Corretores em Recuperação",
-          "action": "Plano semanal com o gerente"
+          "action": "Plano semanal com o gerente",
+          "monthlyRepasses": [
+            0,
+            0,
+            1,
+            1,
+            1,
+            0
+          ]
         },
         {
           "name": "Luana Santana dos Santos",
@@ -2309,7 +2949,15 @@
           "status": "OK",
           "statusClass": "ok",
           "profile": "Corretores em Recuperação",
-          "action": "Manter cadência e gerar novas reservas"
+          "action": "Manter cadência e gerar novas reservas",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            1,
+            3,
+            0
+          ]
         }
       ],
       "above": 2,
@@ -2341,7 +2989,39 @@
           "count": 4,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "02/26",
+          "count": 3,
+          "ipc": 0.75
+        },
+        {
+          "label": "03/26",
+          "count": 3,
+          "ipc": 0.75
+        },
+        {
+          "label": "04/26",
+          "count": 7,
+          "ipc": 1.75
+        },
+        {
+          "label": "05/26",
+          "count": 9,
+          "ipc": 2.25
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     },
     {
       "name": "CANAL 3",
@@ -2373,7 +3053,15 @@
           "status": "Sem dados",
           "statusClass": "neutral",
           "profile": "Corretores em Recuperação",
-          "action": "Definir próxima ação"
+          "action": "Definir próxima ação",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
         },
         {
           "name": "José Ribamar",
@@ -2402,7 +3090,15 @@
           "status": "Crítico",
           "statusClass": "danger",
           "profile": "Corretores em Recuperação",
-          "action": "Plano de recuperação individual"
+          "action": "Plano de recuperação individual",
+          "monthlyRepasses": [
+            0,
+            2,
+            1,
+            0,
+            0,
+            0
+          ]
         },
         {
           "name": "Joelma Freire",
@@ -2429,7 +3125,15 @@
           "status": "admissão",
           "statusClass": "neutral",
           "profile": "Corretores em Recuperação",
-          "action": "Acompanhar integração"
+          "action": "Acompanhar integração",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
         }
       ],
       "above": 0,
@@ -2461,7 +3165,39 @@
           "count": 1,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "02/26",
+          "count": 2,
+          "ipc": 2
+        },
+        {
+          "label": "03/26",
+          "count": 1,
+          "ipc": 1
+        },
+        {
+          "label": "04/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "05/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     },
     {
       "name": "EQUIPE PRÓPRIA | CAT",
@@ -2495,7 +3231,15 @@
           "status": "admissão",
           "statusClass": "neutral",
           "profile": "Corretores em Recuperação",
-          "action": "Acompanhar integração"
+          "action": "Acompanhar integração",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
         },
         {
           "name": "Leticia Aparecida de Melo Godinho",
@@ -2524,7 +3268,15 @@
           "status": "Sem dados",
           "statusClass": "neutral",
           "profile": "Corretores em Recuperação",
-          "action": "Definir próxima ação"
+          "action": "Definir próxima ação",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
         },
         {
           "name": "Viviane Machado Gomes de Pereira Araujo",
@@ -2553,7 +3305,15 @@
           "status": "admissão",
           "statusClass": "neutral",
           "profile": "Corretores em Recuperação",
-          "action": "Acompanhar integração"
+          "action": "Acompanhar integração",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
         },
         {
           "name": "Sara Cristina Medeiros da Costa",
@@ -2580,7 +3340,15 @@
           "status": "Sem dados",
           "statusClass": "neutral",
           "profile": "Corretores em Recuperação",
-          "action": "Definir próxima ação"
+          "action": "Definir próxima ação",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
         },
         {
           "name": "Samara de Melo Cruz (em contratação)",
@@ -2607,7 +3375,15 @@
           "status": "Sem base",
           "statusClass": "neutral",
           "profile": "Corretores em Recuperação",
-          "action": "Cadastrar ou vincular na base de metas"
+          "action": "Cadastrar ou vincular na base de metas",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
         },
         {
           "name": "Tamires Paola Murer",
@@ -2634,7 +3410,15 @@
           "status": "admissão",
           "statusClass": "neutral",
           "profile": "Corretores em Recuperação",
-          "action": "Acompanhar integração"
+          "action": "Acompanhar integração",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
         }
       ],
       "above": 0,
@@ -2666,7 +3450,39 @@
           "count": 1,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "02/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "03/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "04/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "05/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     },
     {
       "name": "IMOBILIÁRIAS | CAT",
@@ -3054,7 +3870,39 @@
           "count": 13,
           "percent": 100
         }
-      }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "02/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "03/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "04/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "05/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     }
   ],
   "managers": [

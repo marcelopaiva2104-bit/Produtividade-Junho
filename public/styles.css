@@ -336,6 +336,49 @@ h2 {
   background: #f9fcfa;
 }
 
+.monthly-chart {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(64px, 1fr));
+  align-items: end;
+  gap: 14px;
+  padding: 20px 22px 18px;
+  border-top: 1px dashed var(--line-strong);
+  background: #fbfdfc;
+}
+
+.month-point {
+  display: grid;
+  grid-template-rows: 18px 88px auto;
+  justify-items: center;
+  align-items: end;
+  min-width: 0;
+}
+
+.month-point strong {
+  color: #06140f;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.month-bar {
+  display: block;
+  width: 28px;
+  min-height: 8px;
+  border-radius: 7px;
+  background: #3eb66a;
+}
+
+.month-point small {
+  display: block;
+  margin-top: 5px;
+  color: #42514b;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+}
+
 .broker-table tbody tr:hover td:first-child,
 .broker-table tbody tr:hover td:nth-child(2) {
   background: #f9fcfa;

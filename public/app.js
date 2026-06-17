@@ -22,8 +22,26 @@ function metric(title, value, detail, progress, warning = false) {
 }
 
 function profileCell(row, label) {
-  const item = row.profiles && row.profiles[label] ? row.profiles[label] : { count: 0, percent: 0 };
+  const normalizeLabel = (value) => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+  const key = Object.keys(row.profiles || {}).find((item) => normalizeLabel(item) === normalizeLabel(label));
+  const item = key ? row.profiles[key] : { count: 0, percent: 0 };
   return `${item.count} (${item.percent}%)`;
+}
+
+function teamChart(team) {
+  const points = team.monthlyPerformance || [];
+  if (!points.length) return "";
+  const max = Math.max(1, ...points.map((point) => point.count || 0));
+  return `<div class="monthly-chart" aria-label="Evolução mensal">
+    ${points.map((point) => {
+      const height = Math.max(8, Math.round(((point.count || 0) / max) * 82));
+      return `<div class="month-point">
+        <strong>${point.count || 0}</strong>
+        <span class="month-bar" style="height:${height}px"></span>
+        <small>${point.label}<br>IPC ${num(point.ipc || 0, 2)}</small>
+      </div>`;
+    }).join("")}
+  </div>`;
 }
 
 function personRow(person, index) {
@@ -79,6 +97,7 @@ function teamSection(team) {
         <tbody>${team.people.map(personRow).join("")}</tbody>
       </table>
     </div>
+    ${teamChart(team)}
   </section>`;
 }
 

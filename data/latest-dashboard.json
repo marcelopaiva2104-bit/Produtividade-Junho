@@ -1,6 +1,6 @@
 {
   "periodLabel": "Junho/2026",
-  "updatedAt": "2026-06-17T17:47:49.367Z",
+  "updatedAt": "2026-06-17T17:54:18.165Z",
   "files": [
     {
       "kind": "meta",
@@ -98,7 +98,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": "",
@@ -135,7 +135,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": "",
@@ -172,7 +172,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Plano semanal com o gerente",
           "cpf": "",
           "role": "",
@@ -209,7 +209,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano semanal com o gerente",
           "cpf": "",
           "role": "",
@@ -246,7 +246,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": "",
@@ -278,16 +278,16 @@
           "percent": 0
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 20
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 4,
+          "percent": 80
         },
         "Corretores em Recuperação": {
-          "count": 5,
-          "percent": 100
+          "count": 0,
+          "percent": 0
         }
       },
       "monthlyPerformance": [
@@ -352,7 +352,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Plano semanal com o gerente",
           "cpf": "",
           "role": "",
@@ -389,7 +389,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Plano semanal com o gerente",
           "cpf": "",
           "role": "",
@@ -426,7 +426,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": "",
@@ -463,7 +463,7 @@
           "distratosMonth": 0,
           "status": "OK",
           "statusClass": "ok",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Elite",
           "action": "Manter cadência e gerar novas reservas",
           "cpf": "",
           "role": "",
@@ -526,20 +526,20 @@
       "activePeople": 5,
       "profiles": {
         "Corretores Elite": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 20
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 40
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 20
         },
         "Corretores em Recuperação": {
-          "count": 5,
-          "percent": 100
+          "count": 1,
+          "percent": 20
         }
       },
       "monthlyPerformance": [
@@ -641,7 +641,7 @@
           "distratosMonth": 0,
           "status": "OK",
           "statusClass": "ok",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Manter cadência e gerar novas reservas",
           "cpf": "",
           "role": "",
@@ -678,7 +678,7 @@
           "distratosMonth": 0,
           "status": "OK",
           "statusClass": "ok",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Elite",
           "action": "Manter cadência e gerar novas reservas",
           "cpf": "",
           "role": "",
@@ -715,7 +715,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano semanal com o gerente",
           "cpf": "",
           "role": "",
@@ -752,7 +752,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": "",
@@ -789,7 +789,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": "",
@@ -852,20 +852,20 @@
       "activePeople": 7,
       "profiles": {
         "Corretores Elite": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 14
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 29
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 29
         },
         "Corretores em Recuperação": {
-          "count": 7,
-          "percent": 100
+          "count": 2,
+          "percent": 29
         }
       },
       "monthlyPerformance": [
@@ -930,7 +930,7 @@
           "distratosMonth": 0,
           "status": "OK",
           "statusClass": "ok",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Replicar rotina e usar como referência",
           "cpf": "",
           "role": "",
@@ -967,7 +967,7 @@
           "distratosMonth": 0,
           "status": "OK",
           "statusClass": "ok",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Manter cadência e gerar novas reservas",
           "cpf": "",
           "role": "",
@@ -1004,7 +1004,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Plano semanal com o gerente",
           "cpf": "",
           "role": "",
@@ -1041,7 +1041,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": "",
@@ -1115,7 +1115,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": "",
@@ -1152,7 +1152,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": "",
@@ -1184,16 +1184,16 @@
           "percent": 0
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 4,
+          "percent": 57
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 29
         },
         "Corretores em Recuperação": {
-          "count": 7,
-          "percent": 100
+          "count": 1,
+          "percent": 14
         }
       },
       "monthlyPerformance": [
@@ -1651,7 +1651,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": "",
@@ -1688,7 +1688,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Plano semanal com o gerente",
           "cpf": "",
           "role": "",
@@ -1725,7 +1725,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano semanal com o gerente",
           "cpf": "",
           "role": "",
@@ -1762,7 +1762,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Elite",
           "action": "Plano semanal com o gerente",
           "cpf": "",
           "role": "",
@@ -1799,7 +1799,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano semanal com o gerente",
           "cpf": "",
           "role": "",
@@ -1862,20 +1862,20 @@
       "activePeople": 6,
       "profiles": {
         "Corretores Elite": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 17
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 17
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 3,
+          "percent": 50
         },
         "Corretores em Recuperação": {
-          "count": 6,
-          "percent": 100
+          "count": 1,
+          "percent": 17
         }
       },
       "monthlyPerformance": [
@@ -1940,7 +1940,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano semanal com o gerente",
           "cpf": "",
           "role": "",
@@ -2051,7 +2051,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Plano semanal com o gerente",
           "cpf": "",
           "role": "",
@@ -2088,7 +2088,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": "",
@@ -2125,7 +2125,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Elite",
           "action": "Plano de recuperação individual",
           "cpf": "",
           "role": "",
@@ -2153,20 +2153,20 @@
       "activePeople": 6,
       "profiles": {
         "Corretores Elite": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 17
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 17
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 33
         },
         "Corretores em Recuperação": {
-          "count": 6,
-          "percent": 100
+          "count": 2,
+          "percent": 33
         }
       },
       "monthlyPerformance": [
@@ -2597,7 +2597,7 @@
           "distratosMonth": 0,
           "status": "OK",
           "statusClass": "ok",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Manter cadência e gerar novas reservas",
           "cpf": "",
           "role": "",
@@ -2634,7 +2634,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Elite",
           "action": "Plano semanal com o gerente",
           "monthlyRepasses": [
             0,
@@ -2669,7 +2669,7 @@
           "distratosMonth": 0,
           "status": "OK",
           "statusClass": "ok",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Manter cadência e gerar novas reservas",
           "monthlyRepasses": [
             0,
@@ -2704,7 +2704,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Plano semanal com o gerente",
           "monthlyRepasses": [
             0,
@@ -2739,7 +2739,7 @@
           "distratosMonth": 0,
           "status": "OK",
           "statusClass": "ok",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Produtores",
           "action": "Replicar rotina e usar como referência",
           "monthlyRepasses": [
             0,
@@ -2765,20 +2765,20 @@
       "activePeople": 5,
       "profiles": {
         "Corretores Elite": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 20
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 4,
+          "percent": 80
         },
         "Corretores em Desenvolvimento": {
           "count": 0,
           "percent": 0
         },
         "Corretores em Recuperação": {
-          "count": 5,
-          "percent": 100
+          "count": 0,
+          "percent": 0
         }
       },
       "monthlyPerformance": [
@@ -2843,7 +2843,7 @@
           "distratosMonth": 0,
           "status": "OK",
           "statusClass": "ok",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Elite",
           "action": "Replicar rotina e usar como referência",
           "monthlyRepasses": [
             0,
@@ -2878,7 +2878,7 @@
           "distratosMonth": 0,
           "status": "Crítico",
           "statusClass": "danger",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano de recuperação individual",
           "monthlyRepasses": [
             0,
@@ -2913,7 +2913,7 @@
           "distratosMonth": 0,
           "status": "Analisar",
           "statusClass": "attention",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores em Desenvolvimento",
           "action": "Plano semanal com o gerente",
           "monthlyRepasses": [
             0,
@@ -2948,7 +2948,7 @@
           "distratosMonth": 0,
           "status": "OK",
           "statusClass": "ok",
-          "profile": "Corretores em Recuperação",
+          "profile": "Corretores Elite",
           "action": "Manter cadência e gerar novas reservas",
           "monthlyRepasses": [
             0,
@@ -2974,20 +2974,20 @@
       "activePeople": 4,
       "profiles": {
         "Corretores Elite": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 50
         },
         "Corretores Produtores": {
           "count": 0,
           "percent": 0
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 50
         },
         "Corretores em Recuperação": {
-          "count": 4,
-          "percent": 100
+          "count": 0,
+          "percent": 0
         }
       },
       "monthlyPerformance": [
@@ -3929,16 +3929,16 @@
           "percent": 0
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 20
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 4,
+          "percent": 80
         },
         "Corretores em Recuperação": {
-          "count": 5,
-          "percent": 100
+          "count": 0,
+          "percent": 0
         }
       }
     },
@@ -3961,20 +3961,20 @@
       "distratos": 0,
       "profiles": {
         "Corretores Elite": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 20
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 40
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 20
         },
         "Corretores em Recuperação": {
-          "count": 5,
-          "percent": 100
+          "count": 1,
+          "percent": 20
         }
       }
     },
@@ -3997,20 +3997,20 @@
       "distratos": 0,
       "profiles": {
         "Corretores Elite": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 14
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 29
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 29
         },
         "Corretores em Recuperação": {
-          "count": 7,
-          "percent": 100
+          "count": 2,
+          "percent": 29
         }
       }
     },
@@ -4037,16 +4037,16 @@
           "percent": 0
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 4,
+          "percent": 57
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 29
         },
         "Corretores em Recuperação": {
-          "count": 7,
-          "percent": 100
+          "count": 1,
+          "percent": 14
         }
       }
     },
@@ -4105,20 +4105,20 @@
       "distratos": 0,
       "profiles": {
         "Corretores Elite": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 17
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 17
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 3,
+          "percent": 50
         },
         "Corretores em Recuperação": {
-          "count": 6,
-          "percent": 100
+          "count": 1,
+          "percent": 17
         }
       }
     },
@@ -4141,20 +4141,20 @@
       "distratos": 0,
       "profiles": {
         "Corretores Elite": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 17
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 17
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 33
         },
         "Corretores em Recuperação": {
-          "count": 6,
-          "percent": 100
+          "count": 2,
+          "percent": 33
         }
       }
     },
@@ -4213,20 +4213,20 @@
       "distratos": 0,
       "profiles": {
         "Corretores Elite": {
-          "count": 0,
-          "percent": 0
+          "count": 1,
+          "percent": 20
         },
         "Corretores Produtores": {
-          "count": 0,
-          "percent": 0
+          "count": 4,
+          "percent": 80
         },
         "Corretores em Desenvolvimento": {
           "count": 0,
           "percent": 0
         },
         "Corretores em Recuperação": {
-          "count": 5,
-          "percent": 100
+          "count": 0,
+          "percent": 0
         }
       }
     },
@@ -4249,20 +4249,20 @@
       "distratos": 0,
       "profiles": {
         "Corretores Elite": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 50
         },
         "Corretores Produtores": {
           "count": 0,
           "percent": 0
         },
         "Corretores em Desenvolvimento": {
-          "count": 0,
-          "percent": 0
+          "count": 2,
+          "percent": 50
         },
         "Corretores em Recuperação": {
-          "count": 4,
-          "percent": 100
+          "count": 0,
+          "percent": 0
         }
       }
     },
@@ -4482,7 +4482,7 @@
       "repasses": 0,
       "reservas": 3,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores em Desenvolvimento com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
@@ -4493,7 +4493,7 @@
       "repasses": 0,
       "reservas": 3,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores Elite com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
@@ -4504,7 +4504,7 @@
       "repasses": 0,
       "reservas": 2,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores em Desenvolvimento com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
@@ -4515,7 +4515,7 @@
       "repasses": 0,
       "reservas": 2,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores em Desenvolvimento com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
@@ -4526,7 +4526,7 @@
       "repasses": 0,
       "reservas": 2,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores Produtores com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
@@ -4537,7 +4537,7 @@
       "repasses": 0,
       "reservas": 2,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores Produtores com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
@@ -4548,7 +4548,7 @@
       "repasses": 0,
       "reservas": 2,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores Produtores com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
@@ -4581,7 +4581,7 @@
       "repasses": 0,
       "reservas": 1,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores em Desenvolvimento com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
@@ -4592,7 +4592,7 @@
       "repasses": 0,
       "reservas": 1,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores Elite com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
@@ -4603,7 +4603,7 @@
       "repasses": 0,
       "reservas": 1,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores em Desenvolvimento com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
@@ -4614,7 +4614,7 @@
       "repasses": 0,
       "reservas": 1,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores em Desenvolvimento com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
@@ -4625,7 +4625,7 @@
       "repasses": 0,
       "reservas": 1,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores em Desenvolvimento com carteira",
       "action": "Atacar reservas do mês com gerente"
     },
     {
@@ -4636,7 +4636,7 @@
       "repasses": 0,
       "reservas": 1,
       "pastas": 0,
-      "profile": "Corretores em Recuperação com carteira",
+      "profile": "Corretores Produtores com carteira",
       "action": "Atacar reservas do mês com gerente"
     }
   ],

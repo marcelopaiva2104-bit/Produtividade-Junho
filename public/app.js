@@ -33,6 +33,22 @@ function profileMetric(metrics, label, title) {
   return metric(title, profileCell(row, label), "Conforme repasses de maio");
 }
 
+function teamProfileCards(team) {
+  const cards = [
+    ["Corretores Elite", "Elite"],
+    ["Corretores Produtores", "Produtores"],
+    ["Corretores em Desenvolvimento", "Desenvolvimento"],
+    ["Corretores em Recupera\u00e7\u00e3o", "Recupera\u00e7\u00e3o"]
+  ];
+  return `<div class="team-profile-grid">
+    ${cards.map(([label, title]) => `<article class="team-profile-card">
+      <span>${title}</span>
+      <strong>${profileCell(team, label)}</strong>
+      <small>Conforme repasses de maio</small>
+    </article>`).join("")}
+  </div>`;
+}
+
 function teamChart(team) {
   const points = team.monthlyPerformance || [];
   if (!points.length) return "";
@@ -96,6 +112,7 @@ function teamSection(team) {
         <span><b>IPC do mês</b> ${team.ipcMonth === null ? "-" : num(team.ipcMonth, 2)}</span>
       </div>
     </header>
+    ${teamProfileCards(team)}
     <div class="sheet-table-wrap">
       <table class="sheet-table broker-table">
         <thead><tr><th>#</th><th>Corretor</th><th>Início</th><th>Meses</th><th>2024</th><th>2025</th><th>2026</th><th>IPC 2024</th><th>IPC 2025</th><th>IPC 2026</th><th>Repasses de maio</th><th>Meta atual</th><th>Meta sugerida</th><th>Diferença</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Pastas</th><th>Cancelados do mês</th><th>Distratos do mês</th><th>Situação</th><th>Perfil</th><th>Ação</th></tr></thead>

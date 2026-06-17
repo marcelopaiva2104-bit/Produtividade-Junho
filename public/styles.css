@@ -256,6 +256,47 @@ h2 {
   text-transform: uppercase;
 }
 
+.team-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  gap: 12px;
+  padding: 14px 18px;
+  background: #f6faf8;
+  border-bottom: 1px solid var(--line);
+}
+
+.team-profile-card {
+  min-width: 0;
+  padding: 16px 18px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 10px 26px rgba(28, 47, 39, 0.04);
+}
+
+.team-profile-card span,
+.team-profile-card small {
+  display: block;
+  color: var(--muted);
+}
+
+.team-profile-card span {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.team-profile-card strong {
+  display: block;
+  color: var(--ink);
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.team-profile-card small {
+  margin-top: 8px;
+  font-size: 13px;
+}
+
 .sheet-table-wrap {
   overflow-x: auto;
   background:
@@ -558,6 +599,10 @@ h2 {
   .realty-kpis {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .team-profile-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 760px) {
@@ -581,7 +626,8 @@ h2 {
   .metric-grid,
   .summary-grid,
   .insight-grid,
-  .realty-kpis {
+  .realty-kpis,
+  .team-profile-grid {
     grid-template-columns: 1fr;
   }
 

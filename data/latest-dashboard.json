@@ -1,6 +1,6 @@
 {
   "periodLabel": "Junho/2026",
-  "updatedAt": "2026-06-17T17:57:03.946Z",
+  "updatedAt": "2026-06-17T18:02:08.962Z",
   "files": [
     {
       "kind": "meta",
@@ -36,6 +36,25 @@
     "ipcMonth": 0.1956521739130435,
     "teamRepasses": 9,
     "activePeople": 46,
+    "brokerCount": 46,
+    "profiles": {
+      "Corretores Elite": {
+        "count": 7,
+        "percent": 15
+      },
+      "Corretores Produtores": {
+        "count": 15,
+        "percent": 33
+      },
+      "Corretores em Desenvolvimento": {
+        "count": 16,
+        "percent": 35
+      },
+      "Corretores em Recuperação": {
+        "count": 8,
+        "percent": 17
+      }
+    },
     "realtyCount": 13,
     "toAnalyze": 34
   },

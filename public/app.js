@@ -28,6 +28,11 @@ function profileCell(row, label) {
   return `${item.count} (${item.percent}%)`;
 }
 
+function profileMetric(metrics, label, title) {
+  const row = { profiles: metrics.profiles || {} };
+  return metric(title, profileCell(row, label), "Conforme repasses de maio");
+}
+
 function teamChart(team) {
   const points = team.monthlyPerformance || [];
   if (!points.length) return "";
@@ -168,6 +173,11 @@ function render(data) {
     metric("Atingimento", `${data.metrics.achievement}%`, "", data.metrics.achievement),
     metric("IPC 2026", num(data.metrics.ipcYear, 2), "Média do IPC 2026 dos corretores ativos"),
     metric("IPC do mês", num(data.metrics.ipcMonth, 2), `${data.metrics.teamRepasses || 0} repasses do time / ${data.metrics.activePeople || 0} corretores ativos`),
+    metric("Corretores", data.metrics.brokerCount || data.metrics.activePeople || 0, "Ativos no cálculo de produtividade"),
+    profileMetric(data.metrics, "Corretores Elite", "Elite"),
+    profileMetric(data.metrics, "Corretores Produtores", "Produtores"),
+    profileMetric(data.metrics, "Corretores em Desenvolvimento", "Desenvolvimento"),
+    profileMetric(data.metrics, "Corretores em Recupera\u00e7\u00e3o", "Recupera\u00e7\u00e3o"),
     metric("Imobiliárias", data.metrics.realtyCount, "Times encontrados na planilha"),
     metric("Para analisar", data.metrics.toAnalyze, "Abaixo da meta ou sem tração", undefined, true)
   ].join("");

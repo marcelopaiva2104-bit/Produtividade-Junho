@@ -1,6 +1,6 @@
 {
   "periodLabel": "Junho/2026",
-  "updatedAt": "2026-06-29T03:18:05.092Z",
+  "updatedAt": "2026-06-29T03:38:25.496Z",
   "files": [
     {
       "kind": "meta",
@@ -55,7 +55,7 @@
         "percent": 17
       }
     },
-    "realtyCount": 13,
+    "realtyCount": 17,
     "toAnalyze": 34
   },
   "areas": [
@@ -1674,6 +1674,75 @@
       ]
     },
     {
+      "name": "IMOBILIÁRIAS 2 | FSA",
+      "area": "FSA",
+      "manager": "Imobiliarias",
+      "people": [],
+      "above": 0,
+      "below": 0,
+      "critical": 0,
+      "teamGoal": 0,
+      "suggestedGoalTotal": 0,
+      "repasses": 0,
+      "reservas": 0,
+      "pastas": 0,
+      "cancelados": 0,
+      "distratos": 0,
+      "ipcYear": null,
+      "ipcMonth": null,
+      "activePeople": 0,
+      "profiles": {
+        "Corretores Elite": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores Produtores": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Desenvolvimento": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Recuperação": {
+          "count": 0,
+          "percent": 0
+        }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "02/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "03/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "04/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "05/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
+    },
+    {
       "name": "EQUIPE PRÓPRIA | AGL",
       "area": "AGL",
       "manager": "Ana",
@@ -2650,6 +2719,75 @@
       ]
     },
     {
+      "name": "IMOBILIÁRIAS 2 | AGL",
+      "area": "AGL",
+      "manager": "Imobiliarias",
+      "people": [],
+      "above": 0,
+      "below": 0,
+      "critical": 0,
+      "teamGoal": 0,
+      "suggestedGoalTotal": 0,
+      "repasses": 0,
+      "reservas": 0,
+      "pastas": 0,
+      "cancelados": 0,
+      "distratos": 0,
+      "ipcYear": null,
+      "ipcMonth": null,
+      "activePeople": 0,
+      "profiles": {
+        "Corretores Elite": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores Produtores": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Desenvolvimento": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Recuperação": {
+          "count": 0,
+          "percent": 0
+        }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "02/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "03/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "04/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "05/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
+    },
+    {
       "name": "CANAL 1",
       "area": "AGL",
       "manager": "Micael",
@@ -3570,6 +3708,181 @@
       ]
     },
     {
+      "name": "EQUIPE PRÓPRIA 2 | CAT",
+      "area": "CAT",
+      "manager": "-",
+      "people": [
+        {
+          "name": "X",
+          "key": "X",
+          "team": "EQUIPE PRÓPRIA 2 | CAT",
+          "area": "CAT",
+          "start": "novato",
+          "months": 1,
+          "y2024": 0,
+          "y2025": 0,
+          "y2026": 0,
+          "ipc2024": null,
+          "ipc2025": null,
+          "ipc2026": null,
+          "currentGoal": 0.33,
+          "suggestedGoal": 0.33,
+          "diff": null,
+          "repassesPreviousMonth": 0,
+          "repassesMonth": 0,
+          "reservasMonth": 0,
+          "pastasMonth": 0,
+          "canceladosMonth": 0,
+          "distratosMonth": 0,
+          "status": "admissão",
+          "statusClass": "neutral",
+          "profile": "Corretores em Recuperação",
+          "action": "Acompanhar integração",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Y",
+          "key": "Y",
+          "team": "EQUIPE PRÓPRIA 2 | CAT",
+          "area": "CAT",
+          "start": "novato",
+          "months": 1,
+          "y2024": 0,
+          "y2025": 0,
+          "y2026": 0,
+          "ipc2024": null,
+          "ipc2025": null,
+          "ipc2026": null,
+          "currentGoal": 0.33,
+          "suggestedGoal": 0.33,
+          "diff": null,
+          "repassesPreviousMonth": 0,
+          "repassesMonth": 0,
+          "reservasMonth": 0,
+          "pastasMonth": 0,
+          "canceladosMonth": 0,
+          "distratosMonth": 0,
+          "status": "admissão",
+          "statusClass": "neutral",
+          "profile": "Corretores em Recuperação",
+          "action": "Acompanhar integração",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "Z",
+          "key": "Z",
+          "team": "EQUIPE PRÓPRIA 2 | CAT",
+          "area": "CAT",
+          "start": "novato",
+          "months": 1,
+          "y2024": 0,
+          "y2025": 0,
+          "y2026": 0,
+          "ipc2024": null,
+          "ipc2025": null,
+          "ipc2026": null,
+          "currentGoal": 0.33,
+          "suggestedGoal": 0.33,
+          "diff": null,
+          "repassesPreviousMonth": 0,
+          "repassesMonth": 0,
+          "reservasMonth": 0,
+          "pastasMonth": 0,
+          "canceladosMonth": 0,
+          "distratosMonth": 0,
+          "status": "admissão",
+          "statusClass": "neutral",
+          "profile": "Corretores em Recuperação",
+          "action": "Acompanhar integração",
+          "monthlyRepasses": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "above": 0,
+      "below": 0,
+      "critical": 0,
+      "teamGoal": 0.99,
+      "suggestedGoalTotal": 0.99,
+      "repasses": 0,
+      "reservas": 0,
+      "pastas": 0,
+      "cancelados": 0,
+      "distratos": 0,
+      "ipcYear": null,
+      "ipcMonth": null,
+      "activePeople": 0,
+      "profiles": {
+        "Corretores Elite": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores Produtores": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Desenvolvimento": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Recuperação": {
+          "count": 0,
+          "percent": 0
+        }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "02/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "03/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "04/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "05/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
+    },
+    {
       "name": "IMOBILIÁRIAS | CAT",
       "area": "CAT",
       "manager": "Leonardo",
@@ -3989,6 +4302,75 @@
           "ipc": 1.5
         }
       ]
+    },
+    {
+      "name": "IMOBILIÁRIAS 2 | CAT",
+      "area": "CAT",
+      "manager": "Imobiliarias",
+      "people": [],
+      "above": 0,
+      "below": 0,
+      "critical": 0,
+      "teamGoal": 0,
+      "suggestedGoalTotal": 0,
+      "repasses": 0,
+      "reservas": 0,
+      "pastas": 0,
+      "cancelados": 0,
+      "distratos": 0,
+      "ipcYear": null,
+      "ipcMonth": null,
+      "activePeople": 0,
+      "profiles": {
+        "Corretores Elite": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores Produtores": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Desenvolvimento": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Recuperação": {
+          "count": 0,
+          "percent": 0
+        }
+      },
+      "monthlyPerformance": [
+        {
+          "label": "01/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "02/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "03/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "04/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "05/26",
+          "count": 0,
+          "ipc": 0
+        },
+        {
+          "label": "06/26",
+          "count": 0,
+          "ipc": 1.5
+        }
+      ]
     }
   ],
   "managers": [
@@ -4178,6 +4560,43 @@
       }
     },
     {
+      "manager": "Imobiliarias",
+      "team": "IMOBILIÁRIAS 2 | FSA",
+      "area": "FSA",
+      "type": "Imobiliária",
+      "people": 0,
+      "above": 0,
+      "below": 0,
+      "critical": 0,
+      "goal": "-",
+      "suggestedGoal": 0,
+      "repasses": 0,
+      "reservas": 0,
+      "pastas": 0,
+      "ipcYear": null,
+      "ipcMonth": null,
+      "cancelados": 0,
+      "distratos": 0,
+      "profiles": {
+        "Corretores Elite": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores Produtores": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Desenvolvimento": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Recuperação": {
+          "count": 0,
+          "percent": 0
+        }
+      }
+    },
+    {
       "manager": "Ana",
       "team": "EQUIPE PRÓPRIA | AGL",
       "area": "AGL",
@@ -4285,6 +4704,43 @@
         "Corretores em Recuperação": {
           "count": 4,
           "percent": 100
+        }
+      }
+    },
+    {
+      "manager": "Imobiliarias",
+      "team": "IMOBILIÁRIAS 2 | AGL",
+      "area": "AGL",
+      "type": "Imobiliária",
+      "people": 0,
+      "above": 0,
+      "below": 0,
+      "critical": 0,
+      "goal": "-",
+      "suggestedGoal": 0,
+      "repasses": 0,
+      "reservas": 0,
+      "pastas": 0,
+      "ipcYear": null,
+      "ipcMonth": null,
+      "cancelados": 0,
+      "distratos": 0,
+      "profiles": {
+        "Corretores Elite": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores Produtores": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Desenvolvimento": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Recuperação": {
+          "count": 0,
+          "percent": 0
         }
       }
     },
@@ -4437,6 +4893,43 @@
       }
     },
     {
+      "manager": "-",
+      "team": "EQUIPE PRÓPRIA 2 | CAT",
+      "area": "CAT",
+      "type": "Time",
+      "people": 3,
+      "above": 0,
+      "below": 0,
+      "critical": 0,
+      "goal": 0.99,
+      "suggestedGoal": 0.99,
+      "repasses": 0,
+      "reservas": 0,
+      "pastas": 0,
+      "ipcYear": null,
+      "ipcMonth": null,
+      "cancelados": 0,
+      "distratos": 0,
+      "profiles": {
+        "Corretores Elite": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores Produtores": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Desenvolvimento": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Recuperação": {
+          "count": 0,
+          "percent": 0
+        }
+      }
+    },
+    {
       "manager": "Leonardo",
       "team": "IMOBILIÁRIAS | CAT",
       "area": "CAT",
@@ -4470,6 +4963,43 @@
         "Corretores em Recuperação": {
           "count": 13,
           "percent": 100
+        }
+      }
+    },
+    {
+      "manager": "Imobiliarias",
+      "team": "IMOBILIÁRIAS 2 | CAT",
+      "area": "CAT",
+      "type": "Imobiliária",
+      "people": 0,
+      "above": 0,
+      "below": 0,
+      "critical": 0,
+      "goal": "-",
+      "suggestedGoal": 0,
+      "repasses": 0,
+      "reservas": 0,
+      "pastas": 0,
+      "ipcYear": null,
+      "ipcMonth": null,
+      "cancelados": 0,
+      "distratos": 0,
+      "profiles": {
+        "Corretores Elite": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores Produtores": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Desenvolvimento": {
+          "count": 0,
+          "percent": 0
+        },
+        "Corretores em Recuperação": {
+          "count": 0,
+          "percent": 0
         }
       }
     }

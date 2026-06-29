@@ -478,6 +478,30 @@ h2 {
   background: #f7faf8;
 }
 
+.suggested-goal-input {
+  width: 76px;
+  min-height: 32px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+  background: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  text-align: center;
+}
+
+.suggested-goal-input:focus {
+  border-color: var(--blue);
+  outline: 2px solid rgba(0, 92, 141, 0.14);
+}
+
+.suggested-goal-input.edited {
+  color: var(--blue);
+  background: #eef7fb;
+  border-color: rgba(0, 92, 141, 0.3);
+}
+
 .rule-pill {
   display: inline-flex;
   align-items: center;

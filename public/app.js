@@ -1,4 +1,6 @@
 const br = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+let manualGoalStorageKey = "dashboardManualSuggestedGoals";
+let manualSuggestedGoals = {};
 
 function text(value) {
   return value === null || value === undefined || value === "" ? "-" : String(value);
@@ -7,6 +9,38 @@ function text(value) {
 function num(value, decimals = 0) {
   if (value === null || value === undefined || Number.isNaN(value)) return "-";
   return Number(value).toLocaleString("pt-BR", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+}
+
+function parseGoal(value) {
+  if (value === null || value === undefined || value === "") return null;
+  const parsed = Number(String(value).replace(",", "."));
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function goalId(person) {
+  return encodeURIComponent(`${person.key || person.name}__${person.team || ""}`);
+}
+
+function loadManualSuggestedGoals(periodLabel) {
+  manualGoalStorageKey = `dashboardManualSuggestedGoals:${periodLabel || "base"}`;
+  try {
+    manualSuggestedGoals = JSON.parse(localStorage.getItem(manualGoalStorageKey) || "{}");
+  } catch (error) {
+    manualSuggestedGoals = {};
+  }
+}
+
+function saveManualSuggestedGoals() {
+  localStorage.setItem(manualGoalStorageKey, JSON.stringify(manualSuggestedGoals));
+}
+
+function manualSuggestedGoal(person) {
+  const saved = manualSuggestedGoals[goalId(person)];
+  return Number.isFinite(saved) ? saved : person.suggestedGoal;
+}
+
+function teamSuggestedGoalTotal(team) {
+  return Number((team.people || []).reduce((sum, person) => sum + (manualSuggestedGoal(person) || 0), 0).toFixed(2));
 }
 
 function clsDiff(value) {
@@ -66,6 +100,7 @@ function teamChart(team) {
 }
 
 function personRow(person, index) {
+  const suggested = manualSuggestedGoal(person);
   return `<tr>
     <td>${index + 1}</td>
     <td><strong>${person.name}</strong></td>
@@ -79,7 +114,7 @@ function personRow(person, index) {
     <td>${person.ipc2026 === null ? "-" : num(person.ipc2026, 2)}</td>
     <td class="num-focus ${person.repassesPreviousMonth ? "front-strong" : "muted-num"}">${person.repassesPreviousMonth || 0}</td>
     <td>${person.currentGoal ? num(person.currentGoal, 2) : "-"}</td>
-    <td>${person.suggestedGoal ? num(person.suggestedGoal, 2) : "-"}</td>
+    <td><input class="suggested-goal-input" data-goal-id="${goalId(person)}" data-default-goal="${person.suggestedGoal || ""}" inputmode="decimal" value="${suggested ? num(suggested, 2) : ""}" placeholder="-"></td>
     <td class="${clsDiff(person.diff)}">${person.diff === null ? "sem IPC" : `${person.diff >= 0 ? "+" : ""}${num(person.diff, 2)}`}</td>
     <td class="num-focus ${person.repassesMonth ? "front-strong" : "muted-num"}">${person.repassesMonth}</td>
     <td class="num-focus ${person.reservasMonth ? "front-strong" : "muted-num"}">${person.reservasMonth}</td>
@@ -103,6 +138,7 @@ function teamSection(team) {
         <span><b>Abaixo da meta</b> ${team.below}</span>
         <span><b>Produtividade do time</b> ${team.repasses}</span>
         <span><b>Meta do mês</b> ${team.teamGoal || "-"}</span>
+        <span><b>Meta sugerida</b> <strong data-suggested-total>${num(teamSuggestedGoalTotal(team), 2)}</strong></span>
         <span><b>Repasses do mês atual</b> ${team.repasses}</span>
         <span><b>Reservas do mês atual</b> ${team.reservas}</span>
         <span><b>Pastas</b> ${team.pastas || 0}</span>
@@ -121,6 +157,38 @@ function teamSection(team) {
     </div>
     ${teamChart(team)}
   </section>`;
+}
+
+function updateSuggestedTotal(section) {
+  const total = Array.from(section.querySelectorAll(".suggested-goal-input"))
+    .reduce((sum, input) => {
+      const manual = parseGoal(input.value);
+      const fallback = parseGoal(input.dataset.defaultGoal);
+      return sum + (manual === null ? (fallback || 0) : manual);
+    }, 0);
+  const target = section.querySelector("[data-suggested-total]");
+  if (target) target.textContent = num(total, 2);
+}
+
+function bindManualSuggestedGoals() {
+  document.querySelectorAll(".suggested-goal-input").forEach((input) => {
+    if (manualSuggestedGoals[input.dataset.goalId] !== undefined) {
+      input.classList.add("edited");
+    }
+    input.addEventListener("input", () => {
+      const value = parseGoal(input.value);
+      if (value === null) {
+        delete manualSuggestedGoals[input.dataset.goalId];
+        input.classList.remove("edited");
+      } else {
+        manualSuggestedGoals[input.dataset.goalId] = value;
+        input.classList.add("edited");
+      }
+      saveManualSuggestedGoals();
+      const section = input.closest(".realty-section");
+      if (section) updateSuggestedTotal(section);
+    });
+  });
 }
 
 function managerTable(rows) {
@@ -179,6 +247,7 @@ async function loadDashboard() {
 }
 
 function render(data) {
+  loadManualSuggestedGoals(data.periodLabel);
   document.getElementById("periodLabel").textContent = data.periodLabel || "Sem base";
   document.getElementById("updatedAt").textContent = data.updatedAt
     ? `Atualizado em ${new Date(data.updatedAt).toLocaleString("pt-BR")}`
@@ -206,6 +275,7 @@ function render(data) {
   </article>`).join("");
 
   document.getElementById("teams").innerHTML = data.teams.map(teamSection).join("");
+  bindManualSuggestedGoals();
   document.getElementById("managerSummary").innerHTML = managerTable(data.managers || []) + realtyReservationsTable(data.realtyReservations || []);
   document.getElementById("priorityList").innerHTML = priorityTable(data.priorities || []);
   document.getElementById("insights").innerHTML = (data.insights || []).map((item) => `<article class="insight-card ${item.kind}-border"><span>Insight</span><strong>${item.title}</strong><p>${item.text}</p></article>`).join("");

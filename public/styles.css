@@ -369,6 +369,16 @@ h2 {
   background: #f9fcfa;
 }
 
+.summary-table .area-summary-row td {
+  color: #17211d;
+  background: #edf6f1;
+  font-weight: 800;
+}
+
+.summary-table .area-summary-row:hover td {
+  background: #e6f1eb;
+}
+
 .monthly-chart {
   display: grid;
   grid-template-columns: repeat(6, minmax(64px, 1fr));

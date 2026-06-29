@@ -1,6 +1,7 @@
 const br = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 let manualGoalStorageKey = "dashboardManualSuggestedGoals";
 let manualSuggestedGoals = {};
+let currentDashboardData = null;
 
 function text(value) {
   return value === null || value === undefined || value === "" ? "-" : String(value);
@@ -41,6 +42,16 @@ function manualSuggestedGoal(person) {
 
 function teamSuggestedGoalTotal(team) {
   return Number((team.people || []).reduce((sum, person) => sum + (manualSuggestedGoal(person) || 0), 0).toFixed(2));
+}
+
+function profilesTotal(rows, label) {
+  const totals = rows.reduce((acc, row) => {
+    const item = (row.profiles || {})[label] || { count: 0 };
+    acc.count += item.count || 0;
+    acc.people += row.people || 0;
+    return acc;
+  }, { count: 0, people: 0 });
+  return { count: totals.count, percent: totals.people ? Math.round((totals.count / totals.people) * 100) : 0 };
 }
 
 function clsDiff(value) {
@@ -187,16 +198,60 @@ function bindManualSuggestedGoals() {
       saveManualSuggestedGoals();
       const section = input.closest(".realty-section");
       if (section) updateSuggestedTotal(section);
+      refreshManagerSummary();
     });
+  });
+}
+
+function managerRows(data) {
+  const baseRows = (data.managers || []).map((row) => {
+    const team = (data.teams || []).find((item) => item.name === row.team && item.area === row.area);
+    return {
+      ...row,
+      suggestedGoal: team ? teamSuggestedGoalTotal(team) : (row.suggestedGoal || 0)
+    };
+  });
+  return ["FSA", "AGL", "CAT"].flatMap((area) => {
+    const rows = baseRows.filter((row) => row.area === area);
+    if (!rows.length) return [];
+    const people = rows.reduce((sum, row) => sum + (row.people || 0), 0);
+    const summary = {
+      isAreaSummary: true,
+      manager: `Consolidado ${area}`,
+      team: area,
+      area,
+      type: "Área",
+      people,
+      above: rows.reduce((sum, row) => sum + (row.above || 0), 0),
+      below: rows.reduce((sum, row) => sum + (row.below || 0), 0),
+      critical: rows.reduce((sum, row) => sum + (row.critical || 0), 0),
+      goal: Number(rows.reduce((sum, row) => sum + (Number(row.goal) || 0), 0).toFixed(2)),
+      suggestedGoal: Number(rows.reduce((sum, row) => sum + (row.suggestedGoal || 0), 0).toFixed(2)),
+      repasses: rows.reduce((sum, row) => sum + (row.repasses || 0), 0),
+      reservas: rows.reduce((sum, row) => sum + (row.reservas || 0), 0),
+      pastas: rows.reduce((sum, row) => sum + (row.pastas || 0), 0),
+      ipcYear: null,
+      ipcMonth: null,
+      cancelados: rows.reduce((sum, row) => sum + (row.cancelados || 0), 0),
+      distratos: rows.reduce((sum, row) => sum + (row.distratos || 0), 0),
+      profiles: {
+        "Corretores Elite": profilesTotal(rows, "Corretores Elite"),
+        "Corretores Produtores": profilesTotal(rows, "Corretores Produtores"),
+        "Corretores em Desenvolvimento": profilesTotal(rows, "Corretores em Desenvolvimento"),
+        "Corretores em Recuperação": profilesTotal(rows, "Corretores em Recuperação")
+      }
+    };
+    return [summary, ...rows];
   });
 }
 
 function managerTable(rows) {
   return `<table class="sheet-table summary-table">
-    <thead><tr><th>Gerente</th><th>Time / Imobiliária</th><th>Área</th><th>Tipo</th><th>Corretores</th><th>Acima</th><th>Abaixo</th><th>Críticos</th><th>Meta</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Pastas</th><th>Elite</th><th>Produtores</th><th>Desenvolvimento</th><th>Recuperação</th><th>IPC do ano</th><th>IPC do mês</th><th>Cancelados do mês</th><th>Distratos do mês</th></tr></thead>
-    <tbody>${rows.map((row) => `<tr>
+    <thead><tr><th>Gerente</th><th>Time / Imobiliária</th><th>Área</th><th>Tipo</th><th>Corretores</th><th>Acima</th><th>Abaixo</th><th>Críticos</th><th>Meta</th><th>Meta sugerida</th><th>Repasses do mês atual</th><th>Reservas do mês atual</th><th>Pastas</th><th>Elite</th><th>Produtores</th><th>Desenvolvimento</th><th>Recuperação</th><th>IPC do ano</th><th>IPC do mês</th><th>Cancelados do mês</th><th>Distratos do mês</th></tr></thead>
+    <tbody>${rows.map((row) => `<tr class="${row.isAreaSummary ? "area-summary-row" : ""}">
       <td><strong>${row.manager}</strong></td><td>${row.team}</td><td>${row.area}</td><td>${row.type}</td><td>${row.people}</td>
       <td class="good">${row.above}</td><td class="bad">${row.below}</td><td>${row.critical}</td><td>${row.goal}</td>
+      <td>${num(row.suggestedGoal || 0, 2)}</td>
       <td class="num-focus ${row.repasses ? "front-strong" : "muted-num"}">${row.repasses}</td>
       <td class="num-focus ${row.reservas ? "front-strong" : "muted-num"}">${row.reservas}</td>
       <td class="num-focus ${row.pastas ? "front-strong" : "muted-num"}">${row.pastas || 0}</td>
@@ -210,6 +265,11 @@ function managerTable(rows) {
       <td class="num-focus ${row.distratos ? "front-strong" : "muted-num"}">${row.distratos || 0}</td>
     </tr>`).join("")}</tbody>
   </table>`;
+}
+
+function refreshManagerSummary() {
+  if (!currentDashboardData) return;
+  document.getElementById("managerSummary").innerHTML = managerTable(managerRows(currentDashboardData)) + realtyReservationsTable(currentDashboardData.realtyReservations || []);
 }
 
 function realtyReservationsTable(rows) {
@@ -247,6 +307,7 @@ async function loadDashboard() {
 }
 
 function render(data) {
+  currentDashboardData = data;
   loadManualSuggestedGoals(data.periodLabel);
   document.getElementById("periodLabel").textContent = data.periodLabel || "Sem base";
   document.getElementById("updatedAt").textContent = data.updatedAt
@@ -276,7 +337,7 @@ function render(data) {
 
   document.getElementById("teams").innerHTML = data.teams.map(teamSection).join("");
   bindManualSuggestedGoals();
-  document.getElementById("managerSummary").innerHTML = managerTable(data.managers || []) + realtyReservationsTable(data.realtyReservations || []);
+  refreshManagerSummary();
   document.getElementById("priorityList").innerHTML = priorityTable(data.priorities || []);
   document.getElementById("insights").innerHTML = (data.insights || []).map((item) => `<article class="insight-card ${item.kind}-border"><span>Insight</span><strong>${item.title}</strong><p>${item.text}</p></article>`).join("");
 }
